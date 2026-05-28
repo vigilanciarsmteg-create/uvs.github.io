@@ -1,0 +1,331 @@
+/* common.css - Estilos unificados para todas las salas situacionales */
+/* AGREGAR AL FINAL DEL ARCHIVO */
+
+:root {
+    --primary: #0066cc;
+    --primary-dark: #004b99;
+    --primary-glow: #0099ff;
+    --accent: #ffcc00;
+    --accent-dark: #e6b800;
+    --bg-deep: linear-gradient(145deg, #0a1a2a 0%, #0c2a3b 100%);
+    --glass-white: rgba(255, 255, 255, 0.08);
+    --glass-card: rgba(255, 255, 255, 0.12);
+    --danger: #e34d4d;
+    --success: #2ecc71;
+    --warning: #f39c12;
+    --text-light: #f0f9ff;
+    --border-glow: rgba(0, 153, 255, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+    background: var(--bg-deep);
+    color: var(--text-light);
+    line-height: 1.5;
+    scroll-behavior: smooth;
+    min-height: 100vh;
+}
+
+/* BOTÓN TOGGLE PARA OCULTAR/MOSTRAR MENÚ */
+.toggle-nav-btn {
+    background: rgba(255,255,255,0.1);
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    font-size: 1.3rem;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-right: 1rem;
+}
+
+.toggle-nav-btn:hover {
+    background: var(--accent);
+    color: #0a1f2e;
+    transform: rotate(180deg);
+}
+
+/* NAVEGACIÓN UNIFICADA */
+.navbar {
+    background: rgba(10, 26, 42, 0.95);
+    backdrop-filter: blur(16px);
+    border-bottom: 3px solid var(--accent);
+    padding: 0.8rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1100;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.4s ease;
+}
+
+/* Clase para ocultar la barra de navegación */
+.navbar.nav-hidden .nav-links,
+.navbar.nav-hidden .dropdown {
+    display: none;
+}
+
+.navbar.nav-hidden {
+    justify-content: center;
+}
+
+/* Ajuste para que el logo y el botón se alineen correctamente */
+.navbar .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo h1 {
+    font-size: 1.1rem;
+    background: linear-gradient(135deg, #fff, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 800;
+}
+
+.logo p {
+    font-size: 0.65rem;
+    opacity: 0.8;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 30px;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    background: var(--accent);
+    color: #0a1f2e;
+    transform: translateY(-2px);
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-btn {
+    background: transparent;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    border-radius: 30px;
+    font-family: inherit;
+    text-transform: uppercase;
+}
+
+.dropdown-btn:hover {
+    background: var(--accent);
+    color: #0a1f2e;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background: #0f2c3b;
+    min-width: 180px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    z-index: 1;
+    top: 100%;
+    left: 0;
+    border: 1px solid var(--border-glow);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 0.75rem 1.2rem;
+    color: white;
+    text-decoration: none;
+    font-size: 0.85rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.dropdown-content a:hover {
+    background: var(--primary);
+    color: var(--accent);
+}
+
+/* CONTENEDOR PRINCIPAL */
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+}
+
+/* HERO GENÉRICO */
+.hero {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: radial-gradient(circle at 30% 20%, rgba(0,102,204,0.15), transparent 70%);
+}
+
+.hero h1 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 800;
+    background: linear-gradient(120deg, #fff, #88ddff, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero-badge {
+    background: rgba(0,102,204,0.3);
+    backdrop-filter: blur(10px);
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    margin-top: 0.8rem;
+    border: 1px solid var(--accent);
+}
+
+/* TARJETAS DE ESTADÍSTICAS */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--glass-card);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 1.5rem;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-left: 5px solid var(--accent);
+    transition: all 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255,255,255,0.15);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.stat-card .number {
+    font-size: 2.2rem;
+    font-weight: 800;
+    display: block;
+    color: var(--accent);
+    margin: 0.5rem 0;
+}
+
+/* BOTÓN DE DESCARGA */
+.btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-download:hover {
+    background: var(--primary-dark);
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,102,204,0.4);
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: #05161f;
+    margin-top: 3rem;
+    border-top: 2px solid var(--accent);
+    font-size: 0.8rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 0.8rem 1rem;
+    }
+    .navbar .logo-container {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .nav-links {
+        justify-content: center;
+        width: 100%;
+    }
+    .container {
+        padding: 1rem;
+    }
+}
+
+/* Tooltip para el botón */
+.toggle-nav-btn {
+    position: relative;
+}
+
+.toggle-nav-btn::after {
+    content: "Ocultar menú";
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.8);
+    color: white;
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    border-radius: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.toggle-nav-btn:hover::after {
+    opacity: 1;
+}
+
+/* Cuando el menú está oculto, el tooltip cambia */
+.navbar.nav-hidden .toggle-nav-btn::after {
+    content: "Mostrar menú";
+}

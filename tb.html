@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sala de Situación Mortalidad Infantil | RSM-DC 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #0066cc;
+            --accent: #ffcc00;
+            --bg-deep: linear-gradient(145deg, #0a1a2a 0%, #0c2a3b 100%);
+            --glass-card: rgba(255, 255, 255, 0.12);
+            --text-light: #f0f9ff;
+            --border-glow: rgba(0, 153, 255, 0.4);
+            --danger: #e34d4d;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+        .navbar {
+            background: rgba(10, 26, 42, 0.95);
+            backdrop-filter: blur(16px);
+            border-bottom: 3px solid var(--accent);
+            padding: 0.8rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1100;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.4s ease;
+        }
+        .navbar.nav-hidden .nav-links,
+        .navbar.nav-hidden .dropdown { display: none; }
+        .navbar.nav-hidden { justify-content: center; }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .toggle-nav-btn {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-size: 1.3rem;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .toggle-nav-btn:hover {
+            background: var(--accent);
+            color: #0a1f2e;
+            transform: rotate(180deg);
+        }
+        .logo h1 {
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo p { font-size: 0.65rem; opacity: 0.8; }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--accent);
+            color: #0a1f2e;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-btn {
+            background: transparent;
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            border-radius: 30px;
+            font-family: inherit;
+            text-transform: uppercase;
+        }
+        .dropdown-btn:hover {
+            background: var(--accent);
+            color: #0a1f2e;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #0f2c3b;
+            min-width: 180px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border: 1px solid var(--border-glow);
+        }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content a {
+            display: block;
+            padding: 0.75rem 1.2rem;
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        .dropdown-content a:hover {
+            background: var(--primary);
+            color: var(--accent);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .hero-mortalidad {
+            text-align: center;
+            padding: 2rem;
+            background: radial-gradient(circle at 30% 20%, rgba(21,101,192,0.15), transparent 70%);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+        }
+        .hero-mortalidad h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); color: #64b5f6; }
+        .hero-badge {
+            background: rgba(0,102,204,0.3);
+            backdrop-filter: blur(10px);
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-top: 0.8rem;
+            border: 1px solid var(--accent);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--glass-card);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            border-left: 5px solid #64b5f6;
+            transition: all 0.3s;
+        }
+        .stat-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255,255,255,0.15);
+        }
+        .stat-card .number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            display: block;
+            color: #64b5f6;
+        }
+        .alerta-box {
+            background: #fff3e0;
+            color: #e65100;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .chart-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            color: #333;
+        }
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .detail-card {
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            padding: 1.5rem;
+            border-radius: 20px;
+            border-top: 4px solid #1565c0;
+        }
+        .download-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid #64b5f6;
+            margin: 2rem 0;
+        }
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-download:hover {
+            background: #004b99;
+            transform: scale(1.05);
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #05161f;
+            margin-top: 3rem;
+            border-top: 2px solid var(--accent);
+            font-size: 0.8rem;
+        }
+        .toggle-nav-btn::after {
+            content: "Ocultar menú";
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.85);
+            color: white;
+            font-size: 0.7rem;
+            padding: 5px 10px;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .toggle-nav-btn:hover::after { opacity: 1; }
+        .navbar.nav-hidden .toggle-nav-btn::after { content: "Mostrar menú"; }
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; padding: 0.8rem 1rem; }
+            .logo-container { width: 100%; justify-content: space-between; }
+            .nav-links { justify-content: center; width: 100%; }
+            .container { padding: 1rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .charts-grid { grid-template-columns: 1fr; }
+            .toggle-nav-btn::after { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo-container">
+        <div class="toggle-nav-btn" id="toggleNavBtn">☰</div>
+        <div class="logo">
+            <h1>⚕️ UVS · RSMDC</h1>
+            <p>Unidad de Vigilancia de la Salud</p>
+        </div>
+    </div>
+    <div class="nav-links">
+        <a href="inicio.html">📊 Dashboard</a>
+        <a href="sala-situacional.html">📡 Sala Situacional</a>
+        <div class="dropdown">
+            <button class="dropdown-btn">📅 Boletines ▼</button>
+            <div class="dropdown-content">
+                <a href="#" onclick="alert('Boletín SE-13')">📘 Abril 2026</a>
+                <a href="#" onclick="alert('Boletín SE-11')">📙 Marzo 2026</a>
+                <a href="#" onclick="alert('Boletín SE-8')">📕 Febrero 2026</a>
+                <a href="#" onclick="alert('Boletín SE-4')">📗 Enero 2026</a>
+            </div>
+        </div>
+        <a href="arbovirosis.html">🦟 Arbovirosis</a>
+        <a href="hidricas.html">💧 Hídricas</a>
+        <a href="desatendidas.html">🐛 Desatendidas</a>
+        <a href="vih.html">💊 VIH</a>
+        <a href="tb.html">🫁 TB</a>
+        <a href="mortalidadinfantil.html" class="active">👶 Mortalidad</a>
+        <a href="biblioteca.html">📚 Biblioteca</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="hero-mortalidad">
+        <h1>Sala de Situación: Mortalidad Infantil < 5 Años</h1>
+        <div class="hero-badge">Región Sanitaria Metropolitana | SE-11 2026</div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card"><h3>Defunciones SE 1-11</h3><span class="number">25</span><span>Acumulado 2026</span></div>
+        <div class="stat-card" style="border-left-color: var(--danger);"><h3>Tasa Mortalidad Infantil</h3><span class="number">3.3</span><span>x 1,000 NV</span></div>
+        <div class="stat-card" style="border-left-color: #fbc02d;"><h3>Mortalidad Neonatal</h3><span class="number">76%</span><span>19/25 defunciones</span></div>
+        <div class="stat-card" style="border-left-color: #388e3c;"><h3>Comparativo 2025</h3><span class="number">-13%</span><span>Reducción</span></div>
+    </div>
+
+    <div class="alerta-box">⚠️ ANÁLISIS: Predominio de mortalidad neonatal (menores de 28 días)</div>
+
+    <div class="charts-grid">
+        <div class="chart-box"><h3>Comparativo Semanal (2025 vs 2026)</h3><canvas id="chartComparativo"></canvas></div>
+        <div class="chart-box"><h3>Distribución por Sexo</h3><canvas id="chartSexo"></canvas></div>
+        <div class="chart-box"><h3>Mortalidad por Ciclo de Vida</h3><canvas id="chartCiclo"></canvas></div>
+        <div class="chart-box"><h3>Principales Causas</h3><canvas id="chartCausas"></canvas></div>
+    </div>
+
+    <div class="detail-grid">
+        <div class="detail-card"><h4>🏥 Lugar de Ocurrencia</h4><p><strong>96% (24 casos)</strong> en hospitales públicos</p></div>
+        <div class="detail-card"><h4>👶 Perfil Neonatal</h4><p>Mayoría en <strong>Neonatal Precoz (0-7 días)</strong></p></div>
+        <div class="detail-card"><h4>📍 Procedencia</h4><p><strong>Villa Nueva, El Carrizal y San Miguel</strong></p></div>
+    </div>
+
+    <div class="download-section">
+        <h2 style="color: #64b5f6;">Documentación Epidemiológica</h2>
+        <a href="#" class="btn-download" onclick="alert('Descargando boletín mortalidad')"><span>📥</span> DESCARGAR BOLETÍN SE-11</a>
+        <p style="margin-top: 1rem;">Dr. Pedro Cáceres</p>
+    </div>
+</div>
+
+<footer>
+    Secretaría de Salud - RSMDC | Unidad de Vigilancia<br>
+    MSc. JACKELINE BURGOS · Tegucigalpa, Honduras - 2026
+</footer>
+
+<script>
+    new Chart(document.getElementById('chartComparativo'), {
+        type: 'line',
+        data: { labels: ['SE-01','SE-03','SE-05','SE-07','SE-09','SE-11'], datasets: [
+            { label: '2025', data: [3,2,4,1,3,2], borderColor: '#bdc3c7' },
+            { label: '2026', data: [2,4,3,2,4,3], borderColor: '#1565c0', backgroundColor: 'rgba(21,101,192,0.1)', fill: true }
+        ]}
+    });
+    new Chart(document.getElementById('chartSexo'), {
+        type: 'pie',
+        data: { labels: ['Masculino (52%)', 'Femenino (48%)'], datasets: [{ data: [13,12], backgroundColor: ['#1e88e5', '#f06292'] }] }
+    });
+    new Chart(document.getElementById('chartCiclo'), {
+        type: 'doughnut',
+        data: { labels: ['Neonatal (<28d)', 'Post-Neonatal', '1-4 años'], datasets: [{ data: [19,4,2], backgroundColor: ['#0d47a1', '#1976d2', '#64b5f6'] }] }
+    });
+    new Chart(document.getElementById('chartCausas'), {
+        type: 'bar',
+        data: { labels: ['Perinatales', 'Malformaciones', 'Sepsis', 'Otros'], datasets: [{ label: 'Casos', data: [14,5,4,2], backgroundColor: '#1565c0' }] },
+        options: { indexAxis: 'y' }
+    });
+
+    const navbar = document.querySelector('.navbar');
+    const toggleBtn = document.getElementById('toggleNavBtn');
+    if (navbar && toggleBtn) {
+        if (localStorage.getItem('navHidden') === 'true') {
+            navbar.classList.add('nav-hidden');
+            toggleBtn.style.transform = 'rotate(180deg)';
+        }
+        toggleBtn.addEventListener('click', function() {
+            navbar.classList.toggle('nav-hidden');
+            localStorage.setItem('navHidden', navbar.classList.contains('nav-hidden'));
+            toggleBtn.style.transform = navbar.classList.contains('nav-hidden') ? 'rotate(180deg)' : 'rotate(0deg)';
+        });
+    }
+</script>
+</body>
+</html>

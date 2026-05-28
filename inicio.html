@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>UVS · Dashboard Global 2026 · RSMDC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0066cc;
+            --primary-dark: #004b99;
+            --primary-glow: #0099ff;
+            --accent: #ffcc00;
+            --accent-dark: #e6b800;
+            --bg-deep: linear-gradient(145deg, #0a1a2a 0%, #0c2a3b 100%);
+            --glass-white: rgba(255, 255, 255, 0.08);
+            --glass-card: rgba(255, 255, 255, 0.12);
+            --danger: #e34d4d;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --text-light: #f0f9ff;
+            --border-glow: rgba(0, 153, 255, 0.4);
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-light);
+            line-height: 1.5;
+            scroll-behavior: smooth;
+            min-height: 100vh;
+        }
+
+        /* ========== NAVEGACIÓN UNIFICADA CON TOGGLE ========== */
+        .navbar {
+            background: rgba(10, 26, 42, 0.95);
+            backdrop-filter: blur(16px);
+            border-bottom: 3px solid var(--accent);
+            padding: 0.8rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1100;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.4s ease;
+        }
+
+        /* Clase para ocultar los enlaces del menú */
+        .navbar.nav-hidden .nav-links,
+        .navbar.nav-hidden .dropdown {
+            display: none;
+        }
+
+        .navbar.nav-hidden {
+            justify-content: center;
+        }
+
+        /* Contenedor del logo con el botón toggle */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        /* Botón toggle para ocultar/mostrar menú */
+        .toggle-nav-btn {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-size: 1.3rem;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .toggle-nav-btn:hover {
+            background: var(--accent);
+            color: #0a1f2e;
+            transform: rotate(180deg);
+        }
+
+        .logo h1 {
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        .logo p {
+            font-size: 0.65rem;
+            opacity: 0.8;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--accent);
+            color: #0a1f2e;
+            transform: translateY(-2px);
+        }
+
+        /* Dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-btn {
+            background: transparent;
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            border-radius: 30px;
+            font-family: inherit;
+            text-transform: uppercase;
+        }
+
+        .dropdown-btn:hover {
+            background: var(--accent);
+            color: #0a1f2e;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #0f2c3b;
+            min-width: 180px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border: 1px solid var(--border-glow);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.75rem 1.2rem;
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .dropdown-content a:hover {
+            background: var(--primary);
+            color: var(--accent);
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            background: radial-gradient(circle at 30% 20%, rgba(0,102,204,0.2), transparent 70%);
+        }
+
+        .hero h1 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            font-weight: 800;
+            background: linear-gradient(120deg, #fff, #88ddff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-badge {
+            background: rgba(0,102,204,0.3);
+            backdrop-filter: blur(10px);
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            border: 1px solid var(--accent);
+        }
+
+        /* ========== DASHBOARD GLOBAL ========== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+
+        .dashboard-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0 1.5rem;
+        }
+
+        .dashboard-title h2 {
+            color: var(--accent);
+            font-size: 1.4rem;
+        }
+
+        .dashboard-title hr {
+            flex: 1;
+            border: none;
+            border-top: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--glass-card);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-light);
+            display: block;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 20px rgba(255,204,0,0.15);
+            background: rgba(0,102,204,0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            width: 55px;
+            height: 55px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-header h3 {
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        .card-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            display: block;
+            color: white;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+        }
+
+        .trend-up { color: var(--danger); }
+        .trend-down { color: var(--success); }
+
+        .card-footer {
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* ========== ACCESO RÁPIDO ========== */
+        .quick-access {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .quick-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .quick-card:hover {
+            background: var(--primary);
+            transform: scale(1.02);
+            border-color: var(--accent);
+        }
+
+        .quick-card span {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #05161f;
+            margin-top: 3rem;
+            border-top: 2px solid var(--accent);
+            font-size: 0.8rem;
+        }
+
+        /* Tooltip para el botón toggle */
+        .toggle-nav-btn {
+            position: relative;
+        }
+
+        .toggle-nav-btn::after {
+            content: "Ocultar menú";
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.85);
+            color: white;
+            font-size: 0.7rem;
+            padding: 5px 10px;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 1200;
+        }
+
+        .toggle-nav-btn:hover::after {
+            opacity: 1;
+        }
+
+        .navbar.nav-hidden .toggle-nav-btn::after {
+            content: "Mostrar menú";
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 0.8rem 1rem;
+            }
+            .logo-container {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .nav-links {
+                justify-content: center;
+                width: 100%;
+            }
+            .container {
+                padding: 1rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .toggle-nav-btn::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVEGACIÓN UNIFICADA CON BOTÓN TOGGLE -->
+<nav class="navbar">
+    <div class="logo-container">
+        <div class="toggle-nav-btn" id="toggleNavBtn" title="Ocultar menú">☰</div>
+        <div class="logo">
+            <h1>⚕️ UVS · RSMDC</h1>
+            <p>Unidad de Vigilancia de la Salud</p>
+        </div>
+    </div>
+    <div class="nav-links">
+        <a href="inicio.html" class="active">📊 Dashboard</a>
+        <a href="sala-situacional.html">📡 Sala Situacional</a>
+        <div class="dropdown">
+            <button class="dropdown-btn">📅 Boletines ▼</button>
+            <div class="dropdown-content">
+                <a href="#" onclick="alert('Boletín SE-13 disponible pronto')">📘 Abril 2026</a>
+                <a href="#" onclick="alert('Boletín SE-11 disponible')">📙 Marzo 2026</a>
+                <a href="#" onclick="alert('Boletín SE-8 disponible')">📕 Febrero 2026</a>
+                <a href="#" onclick="alert('Boletín SE-4 disponible')">📗 Enero 2026</a>
+            </div>
+        </div>
+        <a href="arbovirosis.html">🦟 Arbovirosis</a>
+        <a href="hidricas.html">💧 Hídricas</a>
+        <a href="desatendidas.html">🐛 Desatendidas</a>
+        <a href="vih.html">💊 VIH</a>
+        <a href="tb.html">🫁 TB</a>
+        <a href="mortalidadinfantil.html">👶 Mortalidad</a>
+        <a href="biblioteca.html">📚 Biblioteca</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>Dashboard Epidemiológico Global</h1>
+    <div class="hero-badge">
+        📊 Datos oficiales · Semana Epidemiológica 11 · 2026
+    </div>
+    <p style="margin-top: 1rem; opacity: 0.9;">Coordinado por MSc. Jackeline Burgos · Unidad de Vigilancia RSMDC</p>
+</section>
+
+<div class="container">
+    <div class="dashboard-title">
+        <h2>📈 RESUMEN POR SALA SITUACIONAL</h2>
+        <hr>
+    </div>
+
+    <div class="stats-grid">
+        <!-- Arbovirosis -->
+        <a href="arbovirosis.html" class="stat-card">
+            <div class="card-header">
+                <div class="card-icon">🦟</div>
+                <h3>Arbovirosis</h3>
+            </div>
+            <div class="card-stats">
+                <div class="stat-item">
+                    <span class="stat-number">481</span>
+                    <span class="stat-label">Casos Dengue</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">15%</span>
+                    <span class="stat-label">Positividad</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span>✅ Zona de Éxito</span>
+                <span class="trend-down">▼ 36% vs 2025</span>
+            </div>
+        </a>
+
+        <!-- Hídricas -->
+        <a href="hidricas.html" class="stat-card">
+            <div class="card-header">
+                <div class="card-icon">💧</div>
+                <h3>Enfermedades Hídricas</h3>
+            </div>
+            <div class="card-stats">
+                <div class="stat-item">
+                    <span class="stat-number">1,276</span>
+                    <span class="stat-label">Casos SE-11</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">12,855</span>
+                    <span class="stat-label">Acumulado</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span>⚠️ Zona de Alerta</span>
+                <span class="trend-up">▲ 44% hospitalizaciones</span>
+            </div>
+        </a>
+
+        <!-- Desatendidas -->
+        <a href="desatendidas.html" class="stat-card">
+            <div class="card-header">
+                <div class="card-icon">🐛</div>
+                <h3>Enfermedades Desatendidas</h3>
+            </div>
+            <div class="card-stats">
+                <div class="stat-item">
+                    <span class="stat-number">22</span>
+                    <span class="stat-label">Miasis GBG</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Chagas</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span>📈 Vigilancia activa</span>
+                <span>86% masculinos</span>
+            </div>
+        </a>
+
+        <!-- VIH -->
+        <a href="vih.html" class="stat-card">
+            <div class="card-header">
+                <div class="card-icon">💊</div>
+                <h3>VIH / ITS</h3>
+            </div>
+            <div class="card-stats">
+                <div class="stat-item">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Casos Feb 2026</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">6,099</span>
+                    <span class="stat-label">Tamizajes</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span>✅ Zona de Seguridad</span>
+                <span>1% positividad</span>
+            </div>
+        </a>
+
+        <!-- Tuberculosis -->
+        <a href="tb.html" class="stat-card">
+            <div class="card-header">
+                <div class="card-icon">🫁</div>
+                <h3>Tuberculosis</h3>
+            </div>
+            <div class="card-stats">
+                <div class="stat-item">
+                    <span class="stat-number">40</span>
+                    <span class="stat-label">Casos 2026</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">63%</span>
+                    <span class="stat-label">Masculino</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span>📉 Tendencia a la baja</span>
+                <span class="trend-down">▼ 13% vs 2025</span>
+            </div>
+        </a>
+
+        <!-- Mortalidad Infantil -->
+        <a href="mortalidadinfantil.html" class="stat-card">
+            <div class="card-header">
+                <div class="card-icon">👶</div>
+                <h3>Mortalidad Infantil</h3>
+            </div>
+            <div class="card-stats">
+                <div class="stat-item">
+                    <span class="stat-number">25</span>
+                    <span class="stat-label">Defunciones</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">76%</span>
+                    <span class="stat-label">Neonatal</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span>🏥 96% intrahospitalario</span>
+                <span class="trend-down">▼ 13% vs 2025</span>
+            </div>
+        </a>
+    </div>
+
+    <div class="dashboard-title">
+        <h2>🚀 ACCESO RÁPIDO</h2>
+        <hr>
+    </div>
+
+    <div class="quick-access">
+        <a href="sala-situacional.html" class="quick-card">
+            <span>📡</span>
+            Sala Situacional en Vivo
+        </a>
+        <a href="biblioteca.html" class="quick-card">
+            <span>📚</span>
+            Biblioteca Virtual
+        </a>
+        <a href="#" class="quick-card" onclick="alert('Reportes disponibles en la biblioteca')">
+            <span>📥</span>
+            Descargar Boletín SE-11
+        </a>
+        <a href="#" class="quick-card" onclick="alert('Contacto: uvs.rsmdc@salud.gob.hn')">
+            <span>📧</span>
+            Notificar Evento
+        </a>
+    </div>
+</div>
+
+<footer>
+    <strong>Secretaría de Salud | Región Metropolitana de Salud - Distrito Central</strong><br>
+    Unidad de Vigilancia de la Salud (UVS) · MSc. Jackeline Burgos · ESTACIÓN UVS-DC-01<br>
+    Tegucigalpa, Honduras · © 2026
+</footer>
+
+<script>
+    // Funcionalidad para ocultar/mostrar la barra de navegación
+    const navbar = document.querySelector('.navbar');
+    const toggleBtn = document.getElementById('toggleNavBtn');
+    
+    if (navbar && toggleBtn) {
+        // Cargar estado guardado en localStorage
+        if (localStorage.getItem('navHidden') === 'true') {
+            navbar.classList.add('nav-hidden');
+            toggleBtn.style.transform = 'rotate(180deg)';
+        }
+        
+        // Evento click en el botón toggle
+        toggleBtn.addEventListener('click', function() {
+            navbar.classList.toggle('nav-hidden');
+            // Guardar estado en localStorage
+            localStorage.setItem('navHidden', navbar.classList.contains('nav-hidden'));
+            
+            // Animación del botón
+            if (navbar.classList.contains('nav-hidden')) {
+                toggleBtn.style.transform = 'rotate(180deg)';
+                toggleBtn.setAttribute('title', 'Mostrar menú');
+            } else {
+                toggleBtn.style.transform = 'rotate(0deg)';
+                toggleBtn.setAttribute('title', 'Ocultar menú');
+            }
+        });
+        
+        // Actualizar tooltip según el estado
+        function updateTooltip() {
+            if (navbar.classList.contains('nav-hidden')) {
+                toggleBtn.setAttribute('title', 'Mostrar menú');
+            } else {
+                toggleBtn.setAttribute('title', 'Ocultar menú');
+            }
+        }
+        
+        // Observar cambios en la clase del navbar
+        const observer = new MutationObserver(updateTooltip);
+        observer.observe(navbar, { attributes: true, attributeFilter: ['class'] });
+        updateTooltip();
+    }
+</script>
+</body>
+</html>

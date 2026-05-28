@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sala de Situación Hídricas | SE-11 2026</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #0066cc;
+            --accent: #ffcc00;
+            --bg-deep: linear-gradient(145deg, #0a1a2a 0%, #0c2a3b 100%);
+            --glass-card: rgba(255, 255, 255, 0.12);
+            --text-light: #f0f9ff;
+            --border-glow: rgba(0, 153, 255, 0.4);
+            --danger: #e34d4d;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+        .navbar {
+            background: rgba(10, 26, 42, 0.95);
+            backdrop-filter: blur(16px);
+            border-bottom: 3px solid var(--accent);
+            padding: 0.8rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1100;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.4s ease;
+        }
+        .navbar.nav-hidden .nav-links,
+        .navbar.nav-hidden .dropdown { display: none; }
+        .navbar.nav-hidden { justify-content: center; }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .toggle-nav-btn {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-size: 1.3rem;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .toggle-nav-btn:hover {
+            background: var(--accent);
+            color: #0a1f2e;
+            transform: rotate(180deg);
+        }
+        .logo h1 {
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo p { font-size: 0.65rem; opacity: 0.8; }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--accent);
+            color: #0a1f2e;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-btn {
+            background: transparent;
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            border-radius: 30px;
+            font-family: inherit;
+            text-transform: uppercase;
+        }
+        .dropdown-btn:hover {
+            background: var(--accent);
+            color: #0a1f2e;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #0f2c3b;
+            min-width: 180px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border: 1px solid var(--border-glow);
+        }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content a {
+            display: block;
+            padding: 0.75rem 1.2rem;
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        .dropdown-content a:hover {
+            background: var(--primary);
+            color: var(--accent);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .hero-hidricas {
+            text-align: center;
+            padding: 2rem;
+            background: radial-gradient(circle at 30% 20%, rgba(2,119,189,0.15), transparent 70%);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+        }
+        .hero-hidricas h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); color: #4fc3f7; }
+        .hero-badge {
+            background: rgba(0,102,204,0.3);
+            backdrop-filter: blur(10px);
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-top: 0.8rem;
+            border: 1px solid var(--accent);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--glass-card);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            border-left: 5px solid #0277bd;
+            transition: all 0.3s;
+        }
+        .stat-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255,255,255,0.15);
+        }
+        .stat-card .number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            display: block;
+            color: #4fc3f7;
+        }
+        .alerta-box {
+            background: #fff9c4;
+            color: #f57f17;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        .chart-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            color: #333;
+        }
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .detail-card {
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            padding: 1.5rem;
+            border-radius: 20px;
+            border-top: 4px solid #0277bd;
+        }
+        .download-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid #4fc3f7;
+            margin: 2rem 0;
+        }
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-download:hover {
+            background: #004b99;
+            transform: scale(1.05);
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #05161f;
+            margin-top: 3rem;
+            border-top: 2px solid var(--accent);
+            font-size: 0.8rem;
+        }
+        .toggle-nav-btn::after {
+            content: "Ocultar menú";
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.85);
+            color: white;
+            font-size: 0.7rem;
+            padding: 5px 10px;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .toggle-nav-btn:hover::after { opacity: 1; }
+        .navbar.nav-hidden .toggle-nav-btn::after { content: "Mostrar menú"; }
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; padding: 0.8rem 1rem; }
+            .logo-container { width: 100%; justify-content: space-between; }
+            .nav-links { justify-content: center; width: 100%; }
+            .container { padding: 1rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .toggle-nav-btn::after { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo-container">
+        <div class="toggle-nav-btn" id="toggleNavBtn">☰</div>
+        <div class="logo">
+            <h1>⚕️ UVS · RSMDC</h1>
+            <p>Unidad de Vigilancia de la Salud</p>
+        </div>
+    </div>
+    <div class="nav-links">
+        <a href="inicio.html">📊 Dashboard</a>
+        <a href="sala-situacional.html">📡 Sala Situacional</a>
+        <div class="dropdown">
+            <button class="dropdown-btn">📅 Boletines ▼</button>
+            <div class="dropdown-content">
+                <a href="#" onclick="alert('Boletín SE-13')">📘 Abril 2026</a>
+                <a href="#" onclick="alert('Boletín SE-11')">📙 Marzo 2026</a>
+                <a href="#" onclick="alert('Boletín SE-8')">📕 Febrero 2026</a>
+                <a href="#" onclick="alert('Boletín SE-4')">📗 Enero 2026</a>
+            </div>
+        </div>
+        <a href="arbovirosis.html">🦟 Arbovirosis</a>
+        <a href="hidricas.html" class="active">💧 Hídricas</a>
+        <a href="desatendidas.html">🐛 Desatendidas</a>
+        <a href="vih.html">💊 VIH</a>
+        <a href="tb.html">🫁 TB</a>
+        <a href="mortalidadinfantil.html">👶 Mortalidad</a>
+        <a href="biblioteca.html">📚 Biblioteca</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="hero-hidricas">
+        <h1>Sala de Situación: Enfermedades Hídricas</h1>
+        <div class="hero-badge">Región Sanitaria Metropolitana | SE-11 2026</div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card"><h3>Diarreas/SDA SE-11</h3><span class="number">1,276</span><span>Casos notificados</span></div>
+        <div class="stat-card" style="border-left-color: var(--danger);"><h3>Acumulado Diarreas</h3><span class="number">12,855</span><span>Incidencia: 936 x 100 mil hab.</span></div>
+        <div class="stat-card" style="border-left-color: #ffd740;"><h3>Ingresos Hospitalarios</h3><span class="number">149</span><span>Incremento del 44% vs 2025</span></div>
+        <div class="stat-card" style="border-left-color: #69f0ae;"><h3>Mortalidad 2026</h3><span class="number">0</span><span>Sin defunciones</span></div>
+    </div>
+
+    <div class="chart-container">
+        <div class="alerta-box">⚠️ ESTADO ACTUAL: ZONA DE ALERTA - Notificación por encima del umbral</div>
+        <canvas id="mainChart"></canvas>
+    </div>
+
+    <div class="detail-grid">
+        <div class="detail-card"><h4>🏥 Vigilancia Hospitalaria</h4><ul><li><strong>IHSS:</strong> 54% de ingresos</li><li><strong>Hospital Escuela:</strong> 32%</li><li><strong>Grupo de Riesgo:</strong> niños 1-4 años</li></ul></div>
+        <div class="detail-card"><h4>🦠 Brote de Rotavirus</h4><p><strong>64 casos sospechosos</strong>, aumento del 65% vs año anterior</p></div>
+        <div class="detail-card"><h4>📍 Áreas de Intervención</h4><p><strong>El Carrizal, San Miguel, Villa Adela y Villa Nueva</strong></p></div>
+    </div>
+
+    <div class="download-section">
+        <h2 style="color: #4fc3f7;">Repositorio de Documentos</h2>
+        <a href="#" class="btn-download" onclick="alert('Descargando boletín hídricas')"><span>📥</span> Descargar Boletín SE-11</a>
+        <p style="margin-top: 1rem;">DRA. VICTORIA GARCÍA</p>
+    </div>
+</div>
+
+<footer>
+    Secretaría de Salud | Unidad de Vigilancia - RSMDC 2026<br>
+    MSc. JACKELINE BURGOS · ESTACIÓN UVS-DC-01
+</footer>
+
+<script>
+    const ctx = document.getElementById('mainChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['SE-05','SE-06','SE-07','SE-08','SE-09','SE-10','SE-11'],
+            datasets: [{
+                label: 'Casos 2026',
+                data: [1150,1200,1180,1281,1583,1400,1276],
+                borderColor: '#0277bd',
+                backgroundColor: 'rgba(2,119,189,0.1)',
+                fill: true,
+                tension: 0.4,
+                borderWidth: 3
+            }]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+    });
+
+    const navbar = document.querySelector('.navbar');
+    const toggleBtn = document.getElementById('toggleNavBtn');
+    if (navbar && toggleBtn) {
+        if (localStorage.getItem('navHidden') === 'true') {
+            navbar.classList.add('nav-hidden');
+            toggleBtn.style.transform = 'rotate(180deg)';
+        }
+        toggleBtn.addEventListener('click', function() {
+            navbar.classList.toggle('nav-hidden');
+            localStorage.setItem('navHidden', navbar.classList.contains('nav-hidden'));
+            toggleBtn.style.transform = navbar.classList.contains('nav-hidden') ? 'rotate(180deg)' : 'rotate(0deg)';
+        });
+    }
+</script>
+</body>
+</html>

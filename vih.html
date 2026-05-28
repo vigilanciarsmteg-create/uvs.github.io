@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sala de Situación VIH | RSM-DC 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #0066cc;
+            --accent: #ffcc00;
+            --bg-deep: linear-gradient(145deg, #0a1a2a 0%, #0c2a3b 100%);
+            --glass-card: rgba(255, 255, 255, 0.12);
+            --text-light: #f0f9ff;
+            --border-glow: rgba(0, 153, 255, 0.4);
+            --danger: #e34d4d;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+        .navbar {
+            background: rgba(10, 26, 42, 0.95);
+            backdrop-filter: blur(16px);
+            border-bottom: 3px solid var(--accent);
+            padding: 0.8rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1100;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.4s ease;
+        }
+        .navbar.nav-hidden .nav-links,
+        .navbar.nav-hidden .dropdown { display: none; }
+        .navbar.nav-hidden { justify-content: center; }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .toggle-nav-btn {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-size: 1.3rem;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .toggle-nav-btn:hover {
+            background: var(--accent);
+            color: #0a1f2e;
+            transform: rotate(180deg);
+        }
+        .logo h1 {
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo p { font-size: 0.65rem; opacity: 0.8; }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--accent);
+            color: #0a1f2e;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-btn {
+            background: transparent;
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            border-radius: 30px;
+            font-family: inherit;
+            text-transform: uppercase;
+        }
+        .dropdown-btn:hover {
+            background: var(--accent);
+            color: #0a1f2e;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #0f2c3b;
+            min-width: 180px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border: 1px solid var(--border-glow);
+        }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content a {
+            display: block;
+            padding: 0.75rem 1.2rem;
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        .dropdown-content a:hover {
+            background: var(--primary);
+            color: var(--accent);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .hero-vih {
+            text-align: center;
+            padding: 2rem;
+            background: radial-gradient(circle at 30% 20%, rgba(198,40,40,0.15), transparent 70%);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+        }
+        .hero-vih h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); color: #ff5252; }
+        .hero-badge {
+            background: rgba(0,102,204,0.3);
+            backdrop-filter: blur(10px);
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-top: 0.8rem;
+            border: 1px solid var(--accent);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--glass-card);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            border-left: 5px solid #c62828;
+            transition: all 0.3s;
+        }
+        .stat-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255,255,255,0.15);
+        }
+        .stat-card .number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            display: block;
+            color: #ff5252;
+        }
+        .alerta-box {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .chart-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            color: #333;
+        }
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .detail-card {
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            padding: 1.5rem;
+            border-radius: 20px;
+            border-top: 4px solid #c62828;
+        }
+        .download-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid #ff5252;
+            margin: 2rem 0;
+        }
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-download:hover {
+            background: #004b99;
+            transform: scale(1.05);
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #05161f;
+            margin-top: 3rem;
+            border-top: 2px solid var(--accent);
+            font-size: 0.8rem;
+        }
+        .toggle-nav-btn::after {
+            content: "Ocultar menú";
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.85);
+            color: white;
+            font-size: 0.7rem;
+            padding: 5px 10px;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .toggle-nav-btn:hover::after { opacity: 1; }
+        .navbar.nav-hidden .toggle-nav-btn::after { content: "Mostrar menú"; }
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; padding: 0.8rem 1rem; }
+            .logo-container { width: 100%; justify-content: space-between; }
+            .nav-links { justify-content: center; width: 100%; }
+            .container { padding: 1rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .charts-grid { grid-template-columns: 1fr; }
+            .toggle-nav-btn::after { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo-container">
+        <div class="toggle-nav-btn" id="toggleNavBtn">☰</div>
+        <div class="logo">
+            <h1>⚕️ UVS · RSMDC</h1>
+            <p>Unidad de Vigilancia de la Salud</p>
+        </div>
+    </div>
+    <div class="nav-links">
+        <a href="inicio.html">📊 Dashboard</a>
+        <a href="sala-situacional.html">📡 Sala Situacional</a>
+        <div class="dropdown">
+            <button class="dropdown-btn">📅 Boletines ▼</button>
+            <div class="dropdown-content">
+                <a href="#" onclick="alert('Boletín SE-13')">📘 Abril 2026</a>
+                <a href="#" onclick="alert('Boletín SE-11')">📙 Marzo 2026</a>
+                <a href="#" onclick="alert('Boletín SE-8')">📕 Febrero 2026</a>
+                <a href="#" onclick="alert('Boletín SE-4')">📗 Enero 2026</a>
+            </div>
+        </div>
+        <a href="arbovirosis.html">🦟 Arbovirosis</a>
+        <a href="hidricas.html">💧 Hídricas</a>
+        <a href="desatendidas.html">🐛 Desatendidas</a>
+        <a href="vih.html" class="active">💊 VIH</a>
+        <a href="tb.html">🫁 TB</a>
+        <a href="mortalidadinfantil.html">👶 Mortalidad</a>
+        <a href="biblioteca.html">📚 Biblioteca</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="hero-vih">
+        <h1>Sala de Situación VIH: Análisis 2026</h1>
+        <div class="hero-badge">Región Sanitaria Metropolitana | SE 01-08 2026</div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card"><h3>Casos Nuevos (Feb 2026)</h3><span class="number">12</span><span>Disminución vs Enero</span></div>
+        <div class="stat-card" style="border-left-color: var(--danger);"><h3>Incidencia Acumulada</h3><span class="number">2.0</span><span>Casos x 100,000 hab.</span></div>
+        <div class="stat-card" style="border-left-color: #ffea00;"><h3>Población Tamizada</h3><span class="number">6,099</span><span>Positividad: 1%</span></div>
+        <div class="stat-card" style="border-left-color: #00e676;"><h3>Letalidad VIH</h3><span class="number">11.5%</span><span>3 defunciones</span></div>
+    </div>
+
+    <div class="alerta-box">✅ SITUACIÓN EPIDEMIOLÓGICA: ZONA DE SEGURIDAD</div>
+
+    <div class="charts-grid">
+        <div class="chart-box"><h3>Vigilancia Mensual: 2025 vs 2026</h3><canvas id="chartComparativo"></canvas></div>
+        <div class="chart-box"><h3>Estado Clínico al Diagnóstico</h3><canvas id="chartEstadios"></canvas></div>
+        <div class="chart-box"><h3>Distribución por Sexo</h3><canvas id="chartSexo"></canvas></div>
+        <div class="chart-box"><h3>Categoría de Exposición</h3><canvas id="chartOrientacion"></canvas></div>
+    </div>
+
+    <div class="detail-grid">
+        <div class="detail-card"><h4>📍 Focos de Notificación</h4><p><strong>CIS Alonso Suazo (34.6%)</strong> y <strong>San Miguel (15.4%)</strong></p></div>
+        <div class="detail-card"><h4>👥 Grupos Clave</h4><p><strong>50%</strong> hombres HSH · Grupo etario: <strong>20-29 años</strong></p></div>
+        <div class="detail-card"><h4>🧪 Tamizaje Laboratorial</h4><p><strong>4,142 embarazadas</strong> tamizadas, 100% negativas</p></div>
+    </div>
+
+    <div class="download-section">
+        <h2 style="color: #ff5252;">Acceso a Datos Técnicos</h2>
+        <a href="#" class="btn-download" onclick="alert('Descargando boletín VIH')"><span>📥</span> DESCARGAR BOLETÍN</a>
+        <p style="margin-top: 1rem;">DRA. SINDY VALLADARES</p>
+    </div>
+</div>
+
+<footer>
+    Secretaría de Salud - RSMDC | Unidad de Vigilancia<br>
+    MSc. JACKELINE BURGOS · ESTACIÓN UVS-DC-01
+</footer>
+
+<script>
+    new Chart(document.getElementById('chartComparativo'), {
+        type: 'bar',
+        data: { labels: ['Enero', 'Febrero'], datasets: [{ label: '2025', data: [11,17], backgroundColor: '#bdc3c7' }, { label: '2026', data: [14,12], backgroundColor: '#c62828' }] }
+    });
+    new Chart(document.getElementById('chartEstadios'), {
+        type: 'doughnut',
+        data: { labels: ['VIH (Asintomático)', 'SIDA'], datasets: [{ data: [88,12], backgroundColor: ['#c62828', '#2c3e50'] }] }
+    });
+    new Chart(document.getElementById('chartSexo'), {
+        type: 'pie',
+        data: { labels: ['Masculino (88%)', 'Femenino (12%)'], datasets: [{ data: [23,3], backgroundColor: ['#1976d2', '#ec407a'] }] }
+    });
+    new Chart(document.getElementById('chartOrientacion'), {
+        type: 'polarArea',
+        data: { labels: ['Homosexual', 'Heterosexual', 'Bisexual'], datasets: [{ data: [50,42,8], backgroundColor: ['rgba(126,87,194,0.7)', 'rgba(38,166,154,0.7)', 'rgba(255,167,38,0.7)'] }] }
+    });
+
+    const navbar = document.querySelector('.navbar');
+    const toggleBtn = document.getElementById('toggleNavBtn');
+    if (navbar && toggleBtn) {
+        if (localStorage.getItem('navHidden') === 'true') {
+            navbar.classList.add('nav-hidden');
+            toggleBtn.style.transform = 'rotate(180deg)';
+        }
+        toggleBtn.addEventListener('click', function() {
+            navbar.classList.toggle('nav-hidden');
+            localStorage.setItem('navHidden', navbar.classList.contains('nav-hidden'));
+            toggleBtn.style.transform = navbar.classList.contains('nav-hidden') ? 'rotate(180deg)' : 'rotate(0deg)';
+        });
+    }
+</script>
+</body>
+</html>

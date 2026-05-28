@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sala de Situación Mortalidad Infantil | RSM-DC 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #1565c0; 
+            --primary-dark: #0d47a1;
+            --accent: #64b5f6;
+            --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            --glass: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --danger: #d32f2f;
+            --warning: #fbc02d;
+            --success: #388e3c;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-gradient);
+            color: white;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        nav {
+            background: rgba(0,0,0,0.8);
+            padding: 15px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--glass);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(21, 101, 192, 0.2), rgba(0,0,0,0.6));
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--primary);
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border-left: 5px solid var(--accent);
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 20px rgba(100, 181, 246, 0.3);
+            border-left-width: 10px;
+        }
+
+        .stat-card .number { 
+            font-size: 2.5rem; 
+            font-weight: 800; 
+            display: block; 
+            color: var(--accent); 
+            margin: 5px 0;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover .number {
+            transform: scale(1.1);
+            text-shadow: 0 0 15px var(--accent);
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .chart-box {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: #333;
+            transition: var(--transition);
+        }
+
+        .chart-box:hover {
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            transform: translateY(-5px);
+        }
+
+        .alerta-box {
+            background: #fff3e0;
+            color: #e65100;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ffe0b2;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .alerta-box:hover {
+            background: #ffe0b2;
+            transform: scale(1.01);
+        }
+
+        .grid-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .detail-item {
+            background: var(--card-bg);
+            color: #333;
+            padding: 20px;
+            border-radius: 15px;
+            border-top: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .detail-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .download-section {
+            padding: 40px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 18px 35px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(21, 101, 192, 0.4);
+        }
+
+        .btn-download:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(21, 101, 192, 0.6);
+        }
+
+        footer { text-align: center; padding: 40px; opacity: 0.7; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="inicio.html">🏠 Inicio</a>
+    <a href="#graficos">📊 Tendencias SE-11</a>
+    <a href="#detalles">📝 Análisis de Causas</a>
+    <a href="#descarga">📥 Reporte PDF</a>
+</nav>
+
+<div class="container" id="inicio">
+    <section class="hero-section">
+        <h1>Sala de Situación: Mortalidad Infantil < 5 Años</h1>
+        <p>Región Sanitaria Metropolitana del Distrito Central | <strong>Semana Epidemiológica 11 - 2026</strong></p>
+    </section>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Defunciones SE 1-11</h3>
+            <span class="number">25</span>
+            <span class="subtitle">Acumulado año 2026</span>
+        </div>
+        <div class="stat-card" style="border-left-color: var(--danger);">
+            <h3>Tasa Mortalidad Infantil</h3>
+            <span class="number">3.3</span>
+            <span class="subtitle">Defunciones x 1,000 N.V.</span>
+        </div>
+        <div class="stat-card" style="border-left-color: var(--warning);">
+            <h3>Mortalidad Neonatal</h3>
+            <span class="number">76%</span>
+            <span class="subtitle">19 de las 25 defunciones</span>
+        </div>
+        <div class="stat-card" style="border-left-color: var(--success);">
+            <h3>Comparativo 2025</h3>
+            <span class="number">-13%</span>
+            <span class="subtitle">Reducción vs mismo periodo</span>
+        </div>
+    </div>
+
+    <div id="graficos">
+        <div class="alerta-box">
+            ⚠️ ANÁLISIS DE TENDENCIA <br>
+            <span style="font-weight: normal; font-size: 0.9rem;">Se observa un predominio de mortalidad en el componente neonatal (menores de 28 días).</span>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-box">
+                <h3>Comparativo Semanal de Muertes (2025 vs 2026)</h3>
+                <canvas id="chartComparativo"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3>Distribución por Sexo (SE 1-11)</h3>
+                <canvas id="chartSexo"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3>Mortalidad por Ciclo de Vida</h3>
+                <canvas id="chartCiclo"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3>Principales Causas de Muerte</h3>
+                <canvas id="chartCausas"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div id="detalles" class="grid-details">
+        <div class="detail-item">
+            <h4>🏥 Lugar de Ocurrencia</h4>
+            <p style="font-size: 0.9rem;">El <strong>96% (24 casos)</strong> de las defunciones ocurrieron en establecimientos de salud públicos, siendo el <strong>Hospital Materno Infantil</strong> el de mayor registro.</p>
+        </div>
+        <div class="detail-item">
+            <h4>👶 Perfil Neonatal</h4>
+            <p style="font-size: 0.9rem;">La mayor parte de las muertes ocurren en el periodo <strong>Neonatal Precoz (0-7 días)</strong>, vinculadas a afecciones originadas en el periodo perinatal.</p>
+        </div>
+        <div class="detail-item">
+            <h4>📍 Procedencia Geográfica</h4>
+            <p style="font-size: 0.9rem;">Las colonias con mayor reporte de casos acumulados incluyen <strong>Villa Nueva, El Carrizal y San Miguel</strong> dentro del Distrito Central.</p>
+        </div>
+    </div>
+
+    <div id="descarga" class="download-section">
+        <h2 style="color: var(--accent);">Documentación Epidemiológica</h2>
+        <p>Haga clic abajo para descargar el Boletín de Mortalidad Infantil completo de la SE-11.</p>
+        <a href="MORTALIDADINFANTILSE11.pdf" class="btn-download">
+            <span>📥</span> DESCARGAR BOLETÍN SE-11 PDF
+        </a>
+        <p style="font-size: 0.8rem; margin-top: 15px; opacity: 0.7;">
+            Dr. Pedro Cáceres
+        </p>
+    </div>
+</div>
+
+<footer>
+    Secretaría de Salud - RSMDC | Unidad de Vigilancia de la Salud<br>
+    MSc. JACKELINE BURGOS<br>
+    <strong>Tegucigalpa, Honduras - 25 de marzo de 2026</strong>
+</footer>
+
+<script>
+    Chart.defaults.font.family = "'Segoe UI', sans-serif";
+
+    // Gráfico 1: Comparativo 2025 vs 2026 (Basado en Gráfico 1 del PDF)
+    new Chart(document.getElementById('chartComparativo'), {
+        type: 'line',
+        data: {
+            labels: ['SE-01', 'SE-03', 'SE-05', 'SE-07', 'SE-09', 'SE-11'],
+            datasets: [
+                { label: '2025', data: [3, 2, 4, 1, 3, 2], borderColor: '#bdc3c7', tension: 0.3 },
+                { label: '2026', data: [2, 4, 3, 2, 4, 3], borderColor: '#1565c0', backgroundColor: 'rgba(21, 101, 192, 0.1)', fill: true, tension: 0.3 }
+            ]
+        },
+        options: { responsive: true, hover: { mode: 'index', intersect: false } }
+    });
+
+    // Gráfico 2: Sexo (Basado en Gráfico 3 del PDF)
+    new Chart(document.getElementById('chartSexo'), {
+        type: 'pie',
+        data: {
+            labels: ['Masculino (52%)', 'Femenino (48%)'],
+            datasets: [{
+                data: [13, 12],
+                backgroundColor: ['#1e88e5', '#f06292'],
+                hoverOffset: 20
+            }]
+        }
+    });
+
+    // Gráfico 3: Ciclo de Vida (Neonatal vs Infantil)
+    new Chart(document.getElementById('chartCiclo'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Neonatal (<28 días)', 'Post-Neonatal', '1 a 4 años'],
+            datasets: [{
+                data: [19, 4, 2],
+                backgroundColor: ['#0d47a1', '#1976d2', '#64b5f6'],
+                hoverOffset: 15
+            }]
+        }
+    });
+
+    // Gráfico 4: Causas (Afecciones Perinatales, Malformaciones, etc.)
+    new Chart(document.getElementById('chartCausas'), {
+        type: 'bar',
+        data: {
+            labels: ['Perinatales', 'Malformaciones', 'Sepsis', 'Otros'],
+            datasets: [{
+                label: 'Número de Casos',
+                data: [14, 5, 4, 2],
+                backgroundColor: '#1565c0',
+                hoverBackgroundColor: '#0d47a1'
+            }]
+        },
+        options: { indexAxis: 'y' }
+    });
+</script>
+
+</body>
+</html>
