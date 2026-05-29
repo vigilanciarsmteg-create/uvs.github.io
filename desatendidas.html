@@ -2,30 +2,35 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Sala de Situación: Enfermedades Desatendidas | SE-11 2026</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>ETD · Sala Situacional SE20-2026 | Enfermedades Desatendidas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         :root {
-            --primary: #0066cc;
-            --accent: #ffcc00;
-            --bg-deep: linear-gradient(145deg, #0a1a2a 0%, #0c2a3b 100%);
-            --glass-card: rgba(255, 255, 255, 0.12);
-            --text-light: #f0f9ff;
-            --border-glow: rgba(0, 153, 255, 0.4);
+            --primary: #0e6b4e;
+            --accent: #f9b81b;
+            --bg-deep: linear-gradient(135deg, #02111f 0%, #06222e 100%);
+            --glass-card: rgba(255, 255, 255, 0.1);
+            --text-light: #eef5ff;
+            --border-glow: rgba(249, 184, 27, 0.5);
+            --card-hover: rgba(255, 255, 255, 0.18);
         }
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: var(--bg-deep);
             color: var(--text-light);
-            line-height: 1.5;
+            line-height: 1.45;
         }
         .navbar {
-            background: rgba(10, 26, 42, 0.95);
-            backdrop-filter: blur(16px);
+            background: rgba(2, 17, 31, 0.92);
+            backdrop-filter: blur(14px);
             border-bottom: 3px solid var(--accent);
-            padding: 0.8rem 2rem;
+            padding: 0.7rem 2rem;
             position: sticky;
             top: 0;
             z-index: 1100;
@@ -34,7 +39,7 @@
             justify-content: space-between;
             align-items: center;
             gap: 1rem;
-            transition: all 0.4s ease;
+            transition: 0.2s;
         }
         .navbar.nav-hidden .nav-links,
         .navbar.nav-hidden .dropdown { display: none; }
@@ -49,28 +54,28 @@
             border: 2px solid var(--accent);
             color: var(--accent);
             font-size: 1.3rem;
-            width: 45px;
-            height: 45px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: 0.25s;
         }
         .toggle-nav-btn:hover {
             background: var(--accent);
-            color: #0a1f2e;
+            color: #02111f;
             transform: rotate(180deg);
         }
         .logo h1 {
-            font-size: 1.1rem;
-            background: linear-gradient(135deg, #fff, var(--accent));
+            font-size: 1.15rem;
+            background: linear-gradient(130deg, #fff, var(--accent));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        .logo p { font-size: 0.65rem; opacity: 0.8; }
+        .logo p { font-size: 0.65rem; opacity: 0.8; letter-spacing: 0.3px; }
         .nav-links {
             display: flex;
             flex-wrap: wrap;
@@ -80,16 +85,16 @@
         .nav-links a {
             color: white;
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
+            padding: 0.45rem 1rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            border-radius: 30px;
-            transition: all 0.3s;
+            border-radius: 40px;
+            transition: all 0.2s;
             text-transform: uppercase;
         }
         .nav-links a:hover, .nav-links a.active {
             background: var(--accent);
-            color: #0a1f2e;
+            color: #02111f;
         }
         .dropdown {
             position: relative;
@@ -98,27 +103,27 @@
         .dropdown-btn {
             background: transparent;
             color: white;
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
+            padding: 0.45rem 1rem;
+            font-size: 0.8rem;
             font-weight: 600;
             border: none;
             cursor: pointer;
-            border-radius: 30px;
+            border-radius: 40px;
             font-family: inherit;
             text-transform: uppercase;
         }
         .dropdown-btn:hover {
             background: var(--accent);
-            color: #0a1f2e;
+            color: #02111f;
         }
         .dropdown-content {
             display: none;
             position: absolute;
-            background: #0f2c3b;
-            min-width: 180px;
-            border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            z-index: 1;
+            background: #0a2a2f;
+            min-width: 190px;
+            border-radius: 20px;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.5);
+            z-index: 1000;
             top: 100%;
             left: 0;
             border: 1px solid var(--border-glow);
@@ -126,90 +131,124 @@
         .dropdown:hover .dropdown-content { display: block; }
         .dropdown-content a {
             display: block;
-            padding: 0.75rem 1.2rem;
-            color: white;
+            padding: 0.6rem 1.2rem;
+            color: #f0f9ff;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
         .dropdown-content a:hover {
             background: var(--primary);
             color: var(--accent);
         }
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1.8rem 2rem;
         }
         .hero-desatendidas {
             text-align: center;
-            padding: 2rem;
-            background: radial-gradient(circle at 30% 20%, rgba(46,125,50,0.15), transparent 70%);
-            border-radius: 20px;
-            margin-bottom: 2rem;
+            padding: 1.8rem;
+            background: radial-gradient(ellipse at 30% 40%, rgba(14,107,78,0.25), transparent 70%);
+            border-radius: 38px;
+            margin-bottom: 2.2rem;
+            border: 1px solid rgba(249,184,27,0.3);
         }
-        .hero-desatendidas h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); color: #aed581; }
+        .hero-desatendidas h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 700; letter-spacing: -0.3px; }
         .hero-badge {
-            background: rgba(0,102,204,0.3);
+            background: rgba(0,0,0,0.45);
             backdrop-filter: blur(10px);
             display: inline-block;
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
+            padding: 0.45rem 1.5rem;
+            border-radius: 60px;
             font-size: 0.85rem;
             margin-top: 0.8rem;
-            border: 1px solid var(--accent);
+            font-weight: 500;
+            border-left: 3px solid var(--accent);
         }
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 1.3rem;
             margin-bottom: 2rem;
         }
         .stat-card {
             background: var(--glass-card);
             backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 1.5rem;
+            border-radius: 28px;
+            padding: 1.2rem 0.8rem;
             text-align: center;
-            transition: all 0.3s;
+            transition: 0.25s ease;
+            border: 1px solid rgba(255,255,240,0.15);
         }
         .stat-card:hover {
-            transform: translateY(-8px);
-            background: rgba(255,255,255,0.15);
+            transform: translateY(-6px);
+            background: var(--card-hover);
+            border-color: var(--accent);
         }
         .stat-card .number {
             font-size: 2.2rem;
             font-weight: 800;
             display: block;
+            line-height: 1.2;
         }
-        .chart-container {
+        .stat-card small { font-size: 0.7rem; opacity: 0.8; display: block; margin-top: 6px; }
+        .chart-twin {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .chart-box {
+            flex: 1;
             background: white;
             padding: 1.5rem;
-            border-radius: 20px;
-            margin: 2rem 0;
-            color: #333;
+            border-radius: 28px;
+            color: #1e2a32;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+        }
+        .chart-box h3 {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            border-left: 5px solid var(--primary);
+            padding-left: 12px;
         }
         .info-panel {
-            background: rgba(255,255,255,0.95);
-            border-radius: 20px;
-            padding: 1.5rem;
-            color: #333;
+            background: rgba(255,255,248,0.96);
+            border-radius: 28px;
+            padding: 1.6rem;
+            color: #1f2f38;
+            margin: 2rem 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
         .alert-item {
-            border-left: 4px solid #2e7d32;
-            padding: 0.8rem;
+            border-left: 6px solid #d97706;
+            background: #fef9e6;
+            padding: 0.9rem;
             margin-bottom: 1rem;
-            transition: all 0.3s;
+            border-radius: 18px;
+            transition: 0.2s;
         }
         .alert-item:hover {
-            background: #f0f4f0;
-            transform: translateX(8px);
+            transform: translateX(6px);
+            background: #fff4e0;
+        }
+        .badge-etd {
+            background: #0e6b4e;
+            color: white;
+            border-radius: 40px;
+            padding: 2px 12px;
+            font-size: 0.7rem;
+            display: inline-block;
+            margin-bottom: 6px;
         }
         .download-section {
-            background: rgba(255,255,255,0.05);
-            border-radius: 20px;
+            background: rgba(249,184,27,0.12);
+            backdrop-filter: blur(6px);
+            border-radius: 32px;
             padding: 2rem;
             text-align: center;
-            border: 2px solid #aed581;
+            border: 2px solid var(--accent);
             margin: 2rem 0;
         }
         .btn-download {
@@ -219,145 +258,217 @@
             background: var(--primary);
             color: white;
             text-decoration: none;
-            padding: 12px 28px;
-            border-radius: 50px;
+            padding: 12px 32px;
+            border-radius: 60px;
             font-weight: bold;
-            transition: all 0.3s;
+            transition: all 0.25s;
         }
         .btn-download:hover {
-            background: #004b99;
-            transform: scale(1.05);
+            background: #09593f;
+            transform: scale(1.02);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.3);
         }
         footer {
             text-align: center;
-            padding: 2rem;
-            background: #05161f;
-            margin-top: 3rem;
-            border-top: 2px solid var(--accent);
-            font-size: 0.8rem;
+            padding: 1.8rem;
+            background: #02131e;
+            margin-top: 2rem;
+            border-top: 1px solid var(--accent);
+            font-size: 0.75rem;
         }
-        .toggle-nav-btn::after {
-            content: "Ocultar menú";
-            position: absolute;
-            bottom: -35px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.85);
-            color: white;
-            font-size: 0.7rem;
-            padding: 5px 10px;
-            border-radius: 8px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-        .toggle-nav-btn:hover::after { opacity: 1; }
-        .navbar.nav-hidden .toggle-nav-btn::after { content: "Mostrar menú"; }
-        @media (max-width: 768px) {
-            .navbar { flex-direction: column; padding: 0.8rem 1rem; }
-            .logo-container { width: 100%; justify-content: space-between; }
-            .nav-links { justify-content: center; width: 100%; }
+        @media (max-width: 780px) {
             .container { padding: 1rem; }
-            .stats-grid { grid-template-columns: 1fr; }
-            .toggle-nav-btn::after { display: none; }
+            .stats-grid { gap: 0.8rem; }
+            .chart-box { padding: 1rem; }
+        }
+        .footnote {
+            font-size: 0.7rem;
+            text-align: center;
+            margin-top: 1rem;
+            opacity: 0.75;
         }
     </style>
 </head>
 <body>
-
 <nav class="navbar">
     <div class="logo-container">
         <div class="toggle-nav-btn" id="toggleNavBtn">☰</div>
         <div class="logo">
             <h1>⚕️ UVS · RSMDC</h1>
-            <p>Unidad de Vigilancia de la Salud</p>
+            <p>Vigilancia Epidemiológica ETD</p>
         </div>
     </div>
     <div class="nav-links">
-        <a href="inicio.html">📊 Dashboard</a>
-        <a href="sala-situacional.html">📡 Sala Situacional</a>
+        <a href="#">📊 Dashboard</a>
+        <a href="#">📡 Sala Situacional</a>
         <div class="dropdown">
             <button class="dropdown-btn">📅 Boletines ▼</button>
             <div class="dropdown-content">
-                <a href="#" onclick="alert('Boletín SE-13')">📘 Abril 2026</a>
-                <a href="#" onclick="alert('Boletín SE-11')">📙 Marzo 2026</a>
-                <a href="#" onclick="alert('Boletín SE-8')">📕 Febrero 2026</a>
-                <a href="#" onclick="alert('Boletín SE-4')">📗 Enero 2026</a>
+                <a href="#" onclick="alert('Boletín SE20-2026 (enfermedades desatendidas)');">📘 SE20 · 2026</a>
+                <a href="#" onclick="alert('Boletín SE11 2026');">📙 SE11 Marzo 2026</a>
+                <a href="#" onclick="alert('Boletín SE53 2025');">📕 Cierre 2025</a>
             </div>
         </div>
-        <a href="arbovirosis.html">🦟 Arbovirosis</a>
-        <a href="hidricas.html">💧 Hídricas</a>
-        <a href="desatendidas.html" class="active">🐛 Desatendidas</a>
-        <a href="vih.html">💊 VIH</a>
-        <a href="tb.html">🫁 TB</a>
-        <a href="mortalidadinfantil.html">👶 Mortalidad</a>
-        <a href="biblioteca.html">📚 Biblioteca</a>
+        <a href="#">🦟 Arbovirosis</a>
+        <a href="#">💧 Hídricas</a>
+        <a href="#" class="active">🐛 Desatendidas (ETD)</a>
+        <a href="#">📚 Biblioteca</a>
     </div>
 </nav>
 
 <div class="container">
     <div class="hero-desatendidas">
-        <h1>Sala de Vigilancia: Enfermedades Desatendidas</h1>
-        <div class="hero-badge">Región Sanitaria Metropolitana | SE-11 2026</div>
+        <h1>Vigilancia de Enfermedades Desatendidas (ETD)</h1>
+        <div class="hero-badge">Región Sanitaria Metropolitana del DC · Semana Epidemiológica 20 (SE20) · Año 2026 · Datos acumulados al 20/2026</div>
+        <div class="hero-badge" style="margin-top: 8px;">Población 2026: 1.372.705 hab. · Fuente: Fichas Notificación UVS-RSM</div>
     </div>
 
+    <!-- Cards con indicadores principales ETD SE20-2026 -->
     <div class="stats-grid">
-        <div class="stat-card" style="border-left: 5px solid #f57c00;"><h3>Miasis (GBG)</h3><span class="number" style="color:#f57c00;">22</span><span>86% Masculinos</span></div>
-        <div class="stat-card" style="border-left: 5px solid #c2185b;"><h3>Chagas (Crónico)</h3><span class="number" style="color:#c2185b;">12</span><span>+50% vs SE11-2025</span></div>
-        <div class="stat-card" style="border-left: 5px solid #1976d2;"><h3>Malaria (P. vivax)</h3><span class="number" style="color:#1976d2;">01</span><span>Caso Importado</span></div>
-        <div class="stat-card" style="border-left: 5px solid #d32f2f;"><h3>Defunciones GBG</h3><span class="number" style="color:#d32f2f;">02</span><span>Investigación Clínica</span></div>
+        <div class="stat-card"><h3>🪰 Miasis GBG</h3><span class="number" style="color:#f9b81b;">32</span><span>casos confirmados</span><small>+300% vs SE20-2025 (8 casos) · 2 defunciones</small></div>
+        <div class="stat-card"><h3>🩸 Enfermedad de Chagas</h3><span class="number" style="color:#ff8c42;">16</span><span>fase crónica</span><small>2 casos en gestantes · acumulado SE20</small></div>
+        <div class="stat-card"><h3>🦟 Malaria</h3><span class="number" style="color:#48cae4;">1</span><span>P. vivax</span><small>Importado · 0 P. falciparum · Tasa región 0.072</small></div>
+        <div class="stat-card"><h3>🪰 Leishmaniasis</h3><span class="number" style="color:#a2d6f9;">0</span><span>casos (SE20-2026)</span><small>2 casos en SE20-2025 · vigilancia activa</small></div>
+        <div class="stat-card"><h3>💧 Leptospirosis</h3><span class="number" style="color:#80cbc4;">0</span><span>notificados</span><small>mismo período 2025: 0 · tendencia descendente</small></div>
+        <div class="stat-card"><h3>🧫 Brucelosis</h3><span class="number" style="color:#f4a261;">0</span><span>casos SE20-2026</span><small>2025: 1 caso (SE41) · actual sin reportes</small></div>
     </div>
 
-    <div class="chart-container">
-        <h3 style="text-align: center;">Vigilancia Histórica de Casos</h3>
-        <canvas id="mainTrendChart"></canvas>
+    <!-- GRÁFICOS DOBLES: principales y otras ETD -->
+    <div class="chart-twin">
+        <div class="chart-box">
+            <h3>📈 Tendencia histórica (2022–2026*) · Malaria, Chagas, Miasis GBG</h3>
+            <canvas id="mainEtdChart" width="400" height="250" style="max-height: 280px; width:100%"></canvas>
+            <div class="footnote">*2026 datos parciales hasta SE20. Fuente: UVS-RSMDC, boletín SE20/2026.</div>
+        </div>
+        <div class="chart-box">
+            <h3>📉 Vigilancia: Leishmaniasis, Leptospirosis, Brucelosis</h3>
+            <canvas id="otherEtdChart" width="400" height="250" style="max-height: 280px; width:100%"></canvas>
+            <div class="footnote">Leishmania: descenso sostenido; Leptospira: brote 2024; Brucelosis: casos esporádicos.</div>
+        </div>
     </div>
 
+    <!-- PANEL INFORMATIVO CON DETALLES POR ENFERMEDAD (PDF completo) -->
     <div class="info-panel">
-        <h3>Detalles Técnicos</h3>
-        <div class="alert-item" style="border-color: #d32f2f;"><strong>Perfil de Miasis GBG:</strong><p>Concentración en adultos mayores: <strong>64% tienen ≥60 años</strong>.</p></div>
-        <div class="alert-item" style="border-color: #f57c00;"><strong>Estrategia Chagas:</strong><p>Detección mediante tamizaje obligatorio en el primer control prenatal.</p></div>
-        <div class="alert-item" style="border-color: #1976d2;"><strong>Control de Malaria:</strong><p>Paciente masculino infectado en zona fuera de la RSMDC.</p></div>
+        <h3>🔍 Análisis Epidemiológico Integrado · SE20, 2026</h3>
+        
+        <div class="alert-item" style="border-color:#f9b81b;">
+            <span class="badge-etd">Gusano Barrenador del Ganado (GBG) / Miasis</span>
+            <p><strong>🔹 32 casos confirmados</strong> (35 sospechas) · Incremento del 300% frente a SE20-2025 (8 casos). Dos defunciones notificadas en 2026. Distribución: <strong>75% masculino (24/32)</strong>, grupo etario más afectado ≥60 años (20 casos, 63%). Colonias dispersas en el Distrito Central – patrón esporádico sin conglomerados. La enfermedad emergió en SE11/2025; persiste transmisión activa. Coordinación con SENASA y vigilancia focalizada.</p>
+        </div>
+        
+        <div class="alert-item" style="border-color:#ff8c42;">
+            <span class="badge-etd">Enfermedad de Chagas (Fase crónica)</span>
+            <p><strong>🔸 16 casos acumulados SE20-2026</strong> (vs 18 casos misma semana 2025). Se han notificado <strong>2 casos en gestantes</strong> (tamizaje prioritario). Tasa de morbilidad región 2026: 1,16% vs 3,38% en 2025 (pico histórico 46 casos en 2025). Tendencia ascendente desde 2022 (5 casos) hasta 2025, actual estabilización con detección temprana ampliada. Sin hospitalizaciones ni defunciones en SE20. Vigilancia activa en población general y control prenatal.</p>
+        </div>
+        
+        <div class="alert-item" style="border-color:#48cae4;">
+            <span class="badge-etd">Malaria (Plasmodium vivax)</span>
+            <p><strong>🔹 1 caso importado</strong> en el Distrito Central, procedente de zona endémica (Mosquitia/otros). Sin casos de P. falciparum. Reducción del 66% en la tasa regional (0,072 vs 0,22 en 2025). Índice parasitario anual 2026: 0,072. Láminas examinadas: 252, positivas:1. No defunciones. Fortalecimiento de búsqueda activa y control vectorial focalizado.</p>
+        </div>
+        
+        <div class="alert-item" style="border-color:#a2d6f9;">
+            <span class="badge-etd">Leishmaniasis (todas formas)</span>
+            <p><strong>🔸 Cero casos en SE20-2026</strong> (2 casos reportados en SE20-2025). Tasa región 0% vs 0,59% año anterior. Serie histórica: 14 casos (2022), 10 (2023), 4 (2024), 8 (2025) y 0 hasta SE20 2026. El descenso refleja vigilancia pero también corto periodo de observación. Todos los casos previos con antecedente de desplazamiento a zonas endémicas. Notificación oportuna y pesquisa activa continúan.</p>
+        </div>
+        
+        <div class="alert-item" style="border-color:#80cbc4;">
+            <span class="badge-etd">Leptospirosis</span>
+            <p><strong>🔹 Sin casos confirmados SE20-2026</strong> (mismo comportamiento que SE20-2025: 0). Histórico: 3 casos (2022), 3 (2023), 7 (2024), 0 (2025). La ausencia de casos no indica eliminación, se mantiene vigilancia en temporada lluviosa. Sin defunciones, sin hospitalizaciones por leptospirosis en el Distrito Central.</p>
+        </div>
+        
+        <div class="alert-item" style="border-color:#f4a261;">
+            <span class="badge-etd">Brucelosis</span>
+            <p><strong>🔸 Cero casos en SE20-2026</strong>. En 2025 se notificó 1 caso importado desde Tamara (SE41), años 2023-2024 sin reportes. Vigilancia pasiva y activa en grupos ocupacionales. Se mantiene alerta por posible exposición zoonótica.</p>
+        </div>
+        
+        <div class="alert-item" style="border-color: #9c88ff;">
+            <span class="badge-etd">📊 Resumen de tasas de morbilidad (x100mil hab)</span>
+            <p>✅ Malaria RSMDC 2026: 0,072 | ✅ Chagas 2026: 1,16% | ✅ Leishmaniasis 2026: 0% | ✅ Leptospirosis: 0% | ✅ Brucelosis: 0% | ✅ Miasis GBG: tasa 2,33 (2026) vs 3,75 (2025).</p>
+            <p>📌 <strong>Actividades UVS:</strong> Notificación inmediata, coordinación con Hospital Escuela/IHSS, búsqueda de nexo epidemiológico, articulación con SENASA, fumigación focalizada y tamizaje obstétrico para Chagas.</p>
+        </div>
     </div>
 
+    <!-- REPOSITORIO Y DOCUMENTO OFICIAL -->
     <div class="download-section">
-        <h2 style="color: #aed581;">Repositorio de Documentos</h2>
-        <a href="#" class="btn-download" onclick="alert('Descargando boletín enfermedades desatendidas')"><span>📥</span> Descargar Boletín SE-11</a>
-        <p style="margin-top: 1rem;">DRA. KARLA MONCADA · UVS-RSMDC</p>
+        <h2 style="color: #f9b81b;">📄 Boletín Epidemiológico SE20 - Año 2026</h2>
+        <p style="margin-bottom: 1rem;">Enfermedades Desatendidas: Malaria, Chagas, Leishmaniasis, Leptospirosis, Brucelosis, Miasis por GBG.<br>Información oficial de la Región Sanitaria Metropolitana del Distrito Central.</p>
+        <a href="#" class="btn-download" onclick="alert('Descargar boletín completo SE20/2026 (PDF oficial UVS-RSMDC)')"><span>📥</span> DESCARGAR BOLETÍN ETD SE20-2026</a>
+        <p style="margin-top: 1rem; font-size: 0.8rem;">Responsable: Dra. Karla Moncada · Unidad de Vigilancia de la Salud RSMDC | Fuente: Fichas de notificación, SENASA, laboratorio clínico.</p>
     </div>
 </div>
 
-<footer>© 2026 Sala de Situación Epidemiológica - Región Metropolitana D.C.</footer>
+<footer>
+    <p>© 2026 Secretaría de Salud - Región Sanitaria Metropolitana del DC | Sala Situacional ETD | Datos actualizados SE20 (corte hasta semana 20, año 2026)</p>
+    <p style="margin-top: 6px;">Casos importados / alóctonos considerados según clasificación oficial. La información es dinámica y sujeta a actualización epidemiológica semanal.</p>
+</footer>
 
 <script>
-    const ctx = document.getElementById('mainTrendChart').getContext('2d');
-    new Chart(ctx, {
+    // ----- GRÁFICO PRINCIPAL: Chagas, Malaria, Miasis GBG (datos SE20 2026) -----
+    const ctxMain = document.getElementById('mainEtdChart').getContext('2d');
+    new Chart(ctxMain, {
         type: 'bar',
+        data: {
+            labels: ['2022', '2023', '2024', '2025', '2026 (SE20)'],
+            datasets: [
+                { label: 'Chagas (casos)', data: [5, 15, 27, 46, 16], backgroundColor: '#ffb347', borderColor: '#f39c12', borderWidth: 1, borderRadius: 8 },
+                { label: 'Miasis GBG', data: [0, 0, 0, 51, 32], backgroundColor: '#e67e22', borderColor: '#d35400', borderWidth: 1, borderRadius: 8 },
+                { label: 'Malaria (P. vivax)', data: [9, 23, 14, 3, 1], backgroundColor: '#3498db', borderColor: '#2980b9', borderWidth: 1, borderRadius: 8 }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: { position: 'top', labels: { font: { size: 12 }, boxWidth: 12 } },
+                tooltip: { mode: 'index', intersect: false }
+            },
+            scales: { y: { beginAtZero: true, grid: { color: '#ddd' }, title: { display: true, text: 'Número de casos', color: '#2c3e50' } } }
+        }
+    });
+
+    // ----- GRÁFICO SECUNDARIO: Leishmaniasis, Leptospirosis, Brucelosis (historico 2022-2026) -----
+    const ctxOther = document.getElementById('otherEtdChart').getContext('2d');
+    new Chart(ctxOther, {
+        type: 'line',
         data: {
             labels: ['2022', '2023', '2024', '2025', '2026*'],
             datasets: [
-                { label: 'Chagas', data: [5,15,27,46,12], backgroundColor: '#fce4ec', borderColor: '#c2185b' },
-                { label: 'Miasis', data: [0,0,0,51,22], backgroundColor: '#fff3e0', borderColor: '#f57c00' },
-                { label: 'Malaria', data: [9,23,14,3,1], backgroundColor: '#e3f2fd', borderColor: '#1976d2' }
+                { label: 'Leishmaniasis', data: [14, 10, 4, 8, 0], borderColor: '#2e86c1', backgroundColor: 'rgba(46,134,193,0.05)', borderWidth: 3, tension: 0.2, fill: false, pointBackgroundColor: '#1f618d', pointRadius: 4 },
+                { label: 'Leptospirosis', data: [3, 3, 7, 0, 0], borderColor: '#17a589', backgroundColor: 'rgba(23,165,137,0.05)', borderWidth: 3, tension: 0.2, fill: false, pointBackgroundColor: '#0e6655', pointRadius: 4 },
+                { label: 'Brucelosis', data: [1, 0, 0, 1, 0], borderColor: '#e67e22', backgroundColor: 'rgba(230,126,34,0.05)', borderWidth: 3, tension: 0.2, fill: false, pointBackgroundColor: '#b45f06', pointRadius: 4 }
             ]
         },
-        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true } } }
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: { position: 'top', labels: { font: { size: 11 } } },
+                tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ctx.raw} casos` } }
+            },
+            scales: {
+                y: { beginAtZero: true, title: { display: true, text: 'Número de casos notificados', color: '#2c3e50' }, grid: { color: '#ccc' } }
+            }
+        }
     });
-
+    
+    // ----- TOGGLE NAVBAR (guardar estado) -----
     const navbar = document.querySelector('.navbar');
     const toggleBtn = document.getElementById('toggleNavBtn');
     if (navbar && toggleBtn) {
-        if (localStorage.getItem('navHidden') === 'true') {
+        if (localStorage.getItem('navHiddenETD') === 'true') {
             navbar.classList.add('nav-hidden');
             toggleBtn.style.transform = 'rotate(180deg)';
         }
-        toggleBtn.addEventListener('click', function() {
+        toggleBtn.addEventListener('click', () => {
             navbar.classList.toggle('nav-hidden');
-            localStorage.setItem('navHidden', navbar.classList.contains('nav-hidden'));
-            toggleBtn.style.transform = navbar.classList.contains('nav-hidden') ? 'rotate(180deg)' : 'rotate(0deg)';
+            const isHidden = navbar.classList.contains('nav-hidden');
+            localStorage.setItem('navHiddenETD', isHidden);
+            toggleBtn.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
         });
     }
+    
+    // Complemento detalle adicional para mostrar ajuste a datos exactos del pdf.
+    console.log("Dashboard ETD actualizado SE20/2026 | Malaria 1 caso importado, Chagas 16, Miasis 32, Leish/Lepto/Bruc 0");
 </script>
 </body>
 </html>
