@@ -349,27 +349,34 @@
             color: #ccc;
         }
 
-        /* VIDEO LOCAL - REPRODUCCIÓN AUTOMÁTICA */
+        /* VIDEO LOCAL - REPRODUCCIÓN AUTOMÁTICA (tamaño reducido y compacto) */
         .video-card {
             background: linear-gradient(135deg, rgba(0,102,204,0.2), rgba(0,0,0,0.5));
-            border-radius: 28px;
-            padding: 1.5rem;
-            margin: 1.5rem 0 2rem;
+            border-radius: 24px;
+            padding: 1rem 1rem 1rem 1rem;
+            margin: 1rem 0 1.5rem;
             border: 1px solid var(--accent);
             backdrop-filter: blur(12px);
+            max-width: 850px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .video-container {
             position: relative;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 12px 28px black;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
             background-color: #000;
+            max-width: 100%;
+            margin: 0 auto;
         }
         
         .video-container video {
             width: 100%;
             height: auto;
+            max-height: 380px;
+            object-fit: contain;
             display: block;
             border-radius: 20px;
         }
@@ -377,8 +384,14 @@
         .video-title {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
+            gap: 0.6rem;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .video-title h3 {
+            font-size: 1.1rem;
         }
         
         .auto-play-badge {
@@ -386,20 +399,20 @@
             color: #0a1a2a;
             padding: 0.2rem 0.6rem;
             border-radius: 20px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: bold;
-            margin-left: 0.5rem;
+            margin-left: 0.3rem;
         }
         
         .video-controls {
             text-align: center;
-            margin-top: 1rem;
-            padding: 0.5rem;
+            margin-top: 0.8rem;
+            padding: 0.4rem;
             background: rgba(0,0,0,0.5);
             border-radius: 50px;
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 0.6rem;
             flex-wrap: wrap;
         }
         
@@ -407,11 +420,11 @@
             background: rgba(255,255,255,0.1);
             border: 1px solid var(--accent);
             color: white;
-            padding: 0.3rem 1rem;
+            padding: 0.25rem 0.9rem;
             border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
         
         .video-btn:hover {
@@ -422,21 +435,21 @@
         .volume-control {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
             background: rgba(0,0,0,0.3);
-            padding: 0.3rem 1rem;
+            padding: 0.2rem 0.8rem;
             border-radius: 30px;
         }
         
         .volume-control input {
-            width: 80px;
+            width: 70px;
             cursor: pointer;
         }
         
         .auto-play-info {
             text-align: center;
-            margin-top: 0.8rem;
-            font-size: 0.75rem;
+            margin-top: 0.6rem;
+            font-size: 0.7rem;
             color: #ffcc00;
         }
 
@@ -477,8 +490,10 @@
             .navbar { flex-direction: column; padding: 0.8rem 1rem; }
             .logo-container { width: 100%; justify-content: space-between; }
             .container { padding: 1rem; }
-            .video-controls { gap: 0.5rem; }
-            .video-btn { font-size: 0.7rem; padding: 0.2rem 0.8rem; }
+            .video-controls { gap: 0.4rem; }
+            .video-btn { font-size: 0.7rem; padding: 0.2rem 0.7rem; }
+            .video-card { padding: 0.8rem; margin: 0.8rem 0; }
+            .video-title h3 { font-size: 0.9rem; }
         }
         
         .btn-group {
@@ -539,9 +554,9 @@
     </div>
 </section>
 
-<div class="image-container" style="margin: 0 auto; max-width: 850px;">
+<div class="image-container" style="margin: 0 auto; max-width: 750px;">
     <div class="img-card-single">
-        <img src="sarampion.png" alt="Descripción de la imagen" style="max-width: 200%; height: auto;">
+        <img src="sarampion.png" alt="Descripción de la imagen" style="max-width: 100%; height: auto;">
         <div class="img-caption">Manifestaciones clínicas: exantema maculopapular, fiebre y conjuntivitis.</div>
     </div>
 </div>
@@ -554,7 +569,7 @@
     <div class="stats-grid">
         <div class="stat-card">
             <div class="card-header"><div class="card-icon">📊</div><h3>Total de casos</h3></div>
-            <div class="stat-item"><span class="stat-number" id="totalCasosKPI">21</span><span class="stat-label">Confirmados 2026</span></div>
+            <div class="stat-item"><span class="stat-number" id="totalCasosKPI">21</span><span class="stat-label">sospechosos 2026</span></div>
             <div class="card-footer"><span>📆 Acumulado SE1-SE21</span><span class="alert-status">⚠️ Alerta sanitaria</span></div>
         </div>
         <div class="stat-card">
@@ -574,10 +589,10 @@
         </div>
     </div>
 
-    <!-- VIDEO LOCAL CON REPRODUCCIÓN AUTOMÁTICA -->
+    <!-- VIDEO LOCAL CON REPRODUCCIÓN AUTOMÁTICA (TAMAÑO MÁS COMPACTO Y CENTRADO) -->
     <div class="video-card">
         <div class="video-title">
-            <span style="font-size: 2rem;">🎥🦠</span>
+            <span style="font-size: 1.6rem;">🎥🦠</span>
             <h3 style="color: var(--accent); margin:0;">
                 Información sobre el Sarampión 
                 <span class="auto-play-badge">▶️ Reproducción automática</span>
@@ -585,7 +600,7 @@
         </div>
         
         <div class="video-container">
-            <video id="miVideo" autoplay muted loop controls>
+            <video id="miVideo" autoplay muted loop playsinline controls>
                 <source src="sarampion.mp4" type="video/mp4">
                 Tu navegador no soporta la reproducción de videos.
             </video>
@@ -594,7 +609,7 @@
         <div class="video-controls">
             <button class="video-btn" onclick="playVideo()">▶️ Reproducir</button>
             <button class="video-btn" onclick="pauseVideo()">⏸️ Pausar</button>
-            <button class="video-btn" onclick="toggleMute()">🔊 Silenciar/Activar sonido</button>
+            <button class="video-btn" onclick="toggleMute()">🔊 Silenciar/Activar</button>
             <div class="volume-control">
                 <span>🔊</span>
                 <input type="range" id="volumenControl" min="0" max="1" step="0.1" value="0">
@@ -603,7 +618,7 @@
         
         <div class="auto-play-info">
             💡 <strong>Video local:</strong> Se reproduce automáticamente (silenciado por política del navegador). 
-            Haz clic en "Silenciar/Activar sonido" o ajusta el volumen para escuchar el audio.
+            Haz clic en "Silenciar/Activar sonido" o ajusta el volumen.
         </div>
     </div>
 
@@ -632,7 +647,7 @@
                 <tr><th>Semana</th><th>Casos</th><th>Acumulado</th><th>Incidencia*</th></tr>
             </thead>
             <tbody id="tablaBody"></tbody>
-        相连
+        </table>
     </div>
 
     <div class="quick-access">
@@ -688,13 +703,13 @@
         });
     }
     
-    // Intentar reproducción automática con sonido después de interacción del usuario
+    // Pequeño helper: si el navegador bloquea autoplay, al menos dar feedback silencioso
     document.body.addEventListener('click', function() {
         if (video.muted) {
-            // No forzamos, solo damos la opción
-            console.log('Haz clic en el botón de sonido para activar audio');
+            // no forzamos, solo log
+            console.log('Para activar sonido usa el botón correspondiente');
         }
-    }, { once: true });
+    });
     
     // DATOS DE CASOS
     const semanas = Array.from({length: 21}, (_, i) => i+1);
@@ -774,11 +789,14 @@
     // Verificar si el video existe
     video.addEventListener('error', function() {
         console.error('Error: No se pudo cargar el archivo sarampion.mp4');
-        const container = document.querySelector('.video-container');
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'error-message';
-        errorDiv.innerHTML = '⚠️ <strong>Error:</strong> No se encontró el archivo de video "sarampion.mp4". Por favor, asegúrate de que el archivo esté en la misma carpeta que este archivo HTML.';
-        container.parentNode.insertBefore(errorDiv, container.nextSibling);
+        // Evitar duplicar mensajes de error
+        if (!document.querySelector('.video-error-alert')) {
+            const container = document.querySelector('.video-container');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message video-error-alert';
+            errorDiv.innerHTML = '⚠️ <strong>Error:</strong> No se encontró el archivo de video "sarampion.mp4". Por favor, asegúrate de que el archivo esté en la misma carpeta que este archivo HTML.';
+            container.parentNode.insertBefore(errorDiv, container.nextSibling);
+        }
     });
 </script>
 </body>
