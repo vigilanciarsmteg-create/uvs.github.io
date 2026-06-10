@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>UVS · Boletín Epidemiológico SE-21 2026 · RSMDC</title>
+    <title>UVS · Boletín Epidemiológico SE-22 2026 · RSMDC</title>
     <style>
         * {
             margin: 0;
@@ -37,6 +37,7 @@
             min-height: 100vh;
         }
 
+        /* ============ NAVBAR ============ */
         .navbar {
             background: rgba(10, 26, 42, 0.95);
             backdrop-filter: blur(16px);
@@ -69,7 +70,7 @@
         }
 
         .toggle-nav-btn {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             border: 2px solid var(--accent);
             color: var(--accent);
             font-size: 1.3rem;
@@ -81,6 +82,7 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s;
+            user-select: none;
         }
 
         .toggle-nav-btn:hover {
@@ -122,7 +124,8 @@
             letter-spacing: 0.5px;
         }
 
-        .nav-links a:hover, .nav-links a.active {
+        .nav-links a:hover,
+        .nav-links a.active {
             background: var(--accent);
             color: #0a1f2e;
             transform: translateY(-2px);
@@ -157,7 +160,7 @@
             background: #0f2c3b;
             min-width: 180px;
             border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             z-index: 1;
             top: 100%;
             left: 0;
@@ -174,7 +177,7 @@
             color: white;
             text-decoration: none;
             font-size: 0.85rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .dropdown-content a:hover {
@@ -182,10 +185,11 @@
             color: var(--accent);
         }
 
+        /* ============ HERO ============ */
         .hero {
             text-align: center;
             padding: 2rem 1rem;
-            background: radial-gradient(circle at 30% 20%, rgba(0,102,204,0.2), transparent 70%);
+            background: radial-gradient(circle at 30% 20%, rgba(0, 102, 204, 0.2), transparent 70%);
         }
 
         .hero h1 {
@@ -198,7 +202,7 @@
         }
 
         .hero-badge {
-            background: rgba(0,102,204,0.3);
+            background: rgba(0, 102, 204, 0.3);
             backdrop-filter: blur(10px);
             display: inline-block;
             padding: 0.5rem 1.5rem;
@@ -208,6 +212,7 @@
             border: 1px solid var(--accent);
         }
 
+        /* ============ CONTENEDOR PRINCIPAL ============ */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -229,9 +234,10 @@
         .dashboard-title hr {
             flex: 1;
             border: none;
-            border-top: 2px solid rgba(255,255,255,0.2);
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
         }
 
+        /* ============ TARJETAS DE ESTADÍSTICAS ============ */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -244,7 +250,7 @@
             backdrop-filter: blur(12px);
             border-radius: 20px;
             padding: 1.5rem;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             text-decoration: none;
@@ -255,8 +261,8 @@
         .stat-card:hover {
             transform: translateY(-8px);
             border-color: var(--accent);
-            box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 20px rgba(255,204,0,0.15);
-            background: rgba(0,102,204,0.2);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 204, 0, 0.15);
+            background: rgba(0, 102, 204, 0.2);
         }
 
         .card-header {
@@ -270,7 +276,7 @@
             font-size: 2.2rem;
             width: 50px;
             height: 50px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -308,19 +314,26 @@
             text-transform: uppercase;
         }
 
-        .trend-up { color: var(--danger); }
-        .trend-down { color: var(--success); }
-        .alert-status { color: var(--warning); }
+        .trend-up {
+            color: var(--danger);
+        }
+        .trend-down {
+            color: var(--success);
+        }
+        .alert-status {
+            color: var(--warning);
+        }
 
         .card-footer {
             margin-top: 0.8rem;
             padding-top: 0.8rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.75rem;
             display: flex;
             justify-content: space-between;
         }
 
+        /* ============ ACCESO RÁPIDO ============ */
         .quick-access {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -329,14 +342,14 @@
         }
 
         .quick-card {
-            background: rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 16px;
             padding: 1rem;
             text-align: center;
             text-decoration: none;
             color: white;
             transition: all 0.3s;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             cursor: pointer;
         }
 
@@ -352,13 +365,13 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Estilos de la Nueva Sección de la Tabla del Boletín oficial */
+        /* ============ TABLA ============ */
         .boletin-table-wrapper {
             background: rgba(10, 26, 42, 0.6);
             backdrop-filter: blur(12px);
             border-radius: 20px;
             padding: 1.5rem;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             overflow-x: auto;
             margin-top: 2rem;
         }
@@ -370,7 +383,8 @@
             font-size: 0.9rem;
         }
 
-        .boletin-table th, .boletin-table td {
+        .boletin-table th,
+        .boletin-table td {
             padding: 0.75rem 1rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
@@ -404,6 +418,97 @@
             text-align: center;
         }
 
+        /* ============ MODAL ============ */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #0f2c3b, #0a1a2a);
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 520px;
+            width: 90%;
+            box-shadow: 0 0 50px rgba(0, 153, 255, 0.35);
+            animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .modal-header h2 {
+            color: var(--accent);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            line-height: 1;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.2);
+            color: var(--danger);
+        }
+
+        #modal-body {
+            line-height: 1.7;
+            color: #ddd;
+            font-size: 0.95rem;
+        }
+
+        /* ============ FOOTER ============ */
         footer {
             text-align: center;
             padding: 2rem;
@@ -413,429 +518,505 @@
             font-size: 0.8rem;
         }
 
+        /* ============ RESPONSIVE ============ */
         @media (max-width: 768px) {
-            .navbar { flex-direction: column; padding: 0.8rem 1rem; }
-            .logo-container { width: 100%; justify-content: space-between; }
-            .nav-links { justify-content: center; width: 100%; }
-            .container { padding: 1rem; }
-            .stats-grid { grid-template-columns: 1fr; }
+            .navbar {
+                flex-direction: column;
+                padding: 0.8rem 1rem;
+            }
+            .logo-container {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .nav-links {
+                justify-content: center;
+                width: 100%;
+            }
+            .container {
+                padding: 1rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-content {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
 
-<nav class="navbar" id="mainNavbar">
-    <div class="logo-container">
-        <div class="toggle-nav-btn" id="toggleNavBtn">☰</div>
-        <div class="logo">
-            <h1>⚕️ UVS · RSMDC</h1>
-            <p>Unidad de Vigilancia de la Salud</p>
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar" id="mainNavbar">
+        <div class="logo-container">
+            <div class="toggle-nav-btn" id="toggleNavBtn" aria-label="Colapsar menú de navegación">✕</div>
+            <div class="logo">
+                <h1>⚕️ UVS · RSMDC</h1>
+                <p>Unidad de Vigilancia de la Salud</p>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="active">📊 Dashboard</a>
+            <a href="sala-situacional.html">📡 Sala Situacional</a>
+            <div class="dropdown">
+                <button class="dropdown-btn">📅 Boletines ▼</button>
+                <div class="dropdown-content">
+                    <a href="#">📘 SE-22 (Junio 2026)</a>
+                    <a href="#">📙 SE-21 (Mayo 2026)</a>
+                    <a href="#">📕 SE-20 (Mayo 2026)</a>
+                </div>
+            </div>
+            <a href="epv.html">💉 Epv</a>
+            <a href="sarampion.html">💉 Sarampión</a>
+            <a href="arbovirosis.html">🦟 Arbovirosis</a>
+            <a href="hidricas.html">💧 Hídricas</a>
+            <a href="vih.html">💊 VIH</a>
+            <a href="mortalidad.html">👶 Mortalidad</a>
+            <a href="desatendidas.html">😔 Desatendidas</a>
+            <a href="biblioteca.html">📚 Biblioteca</a>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero">
+        <h1>Boletín Epidemiológico SE-22 2026</h1>
+        <div class="hero-badge">
+            📊 Datos oficiales · Semana Epidemiológica 22 · 31 de mayo al 06 de junio de 2026 · Región Metropolitana
+        </div>
+        <p style="margin-top: 1rem; opacity: 0.9;">Región Sanitaria Metropolitana del Distrito Central · MSc. Jackeline Burgos</p>
+    </section>
+
+    <!-- ==================== CONTENEDOR PRINCIPAL ==================== -->
+    <div class="container">
+
+        <!-- RESUMEN POR SALA SITUACIONAL -->
+        <div class="dashboard-title">
+            <h2>📈 RESUMEN POR SALA SITUACIONAL (Boletín SE-22 / 31 MAYO - 06 JUNIO 2026)</h2>
+            <hr>
+        </div>
+
+        <div class="stats-grid">
+            <!-- Enfermedades Hídricas -->
+            <div class="stat-card">
+                <div class="card-header">
+                    <div class="card-icon">💧</div>
+                    <h3>Enfermedades Hídricas</h3>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">577</span>
+                        <span class="stat-label">Diarrea sin sangre (semana)</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">4</span>
+                        <span class="stat-label">Disentería</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span>⚠️ Acumulado 2026: 22,392 diarrea / 114 disentería</span>
+                    <span class="trend-up">▲ +30.6% vs 2025 acum.</span>
+                </div>
+            </div>
+
+            <!-- Arbovirosis -->
+            <div class="stat-card">
+                <div class="card-header">
+                    <div class="card-icon">🦟</div>
+                    <h3>Arbovirosis</h3>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">56</span>
+                        <span class="stat-label">Dengue SE-22</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Dengue Hemorrágico</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="alert-status">🚨 Alerta: acumulado 2026 = 903 casos dengue</span>
+                    <span>Dengue grave: 1 acum. 2026</span>
+                </div>
+            </div>
+
+            <!-- Mortalidad Infantil -->
+            <div class="stat-card">
+                <div class="card-header">
+                    <div class="card-icon">👶</div>
+                    <h3>Mortalidad Infantil</h3>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Mortalidad Infantil (semana)</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Mortalidad Materna</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span>🏥 Acumulado infantil 2026: 68 defunciones</span>
+                    <span class="trend-up">Materna acumulada: 2</span>
+                </div>
+            </div>
+
+            <!-- Prevenibles por Vacunación -->
+            <div class="stat-card">
+                <div class="card-header">
+                    <div class="card-icon">💉</div>
+                    <h3>Prevenibles por Vacunación</h3>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Sospecha Sarampión</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Tosferina (semana)</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Parotiditis</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span>⚠️ Sarampión acum. 2026: 23 casos sospechosos</span>
+                    <span>Tosferina acum: 72 casos</span>
+                </div>
+            </div>
+
+            <!-- Zoonosis y Accidentes -->
+            <div class="stat-card">
+                <div class="card-header">
+                    <div class="card-icon">🐕</div>
+                    <h3>Zoonosis y Accidentes</h3>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">59</span>
+                        <span class="stat-label">Mordeduras rabia (semana)</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Leptospirosis</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">1</span>
+                        <span class="stat-label">Mordedura Serpiente</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span>🐾 Acumulado 2026 mordeduras: 1,306</span>
+                    <span>Leptospirosis acum: 6 casos</span>
+                </div>
+            </div>
+
+            <!-- Infecciones Respiratorias -->
+            <div class="stat-card">
+                <div class="card-header">
+                    <div class="card-icon">🫁</div>
+                    <h3>Infecciones Respiratorias</h3>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">41</span>
+                        <span class="stat-label">Neumonías SE-22</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">13</span>
+                        <span class="stat-label">Varicela (semana)</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span>📉 Acumulado neumonías 2026: 1,360 casos</span>
+                    <span>Varicela acum: 445</span>
+                </div>
+            </div>
+
+            <!-- Síndromes Neurológicos -->
+            <div class="stat-card">
+                <div class="card-header">
+                    <div class="card-icon">🧠</div>
+                    <h3>Síndromes Neurológicos</h3>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Guillain-Barré (semana)</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">2</span>
+                        <span class="stat-label">Meningitis</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span>⚠️ Parálisis flácida aguda: 4 acumulados 2026</span>
+                    <span>Guillain Barré acum: 5 casos (>15 años)</span>
+                </div>
+            </div>
+
+            <!-- Otras patologías -->
+            <div class="stat-card">
+                <div class="card-header">
+                    <div class="card-icon">📋</div>
+                    <h3>Otras patologías</h3>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">2</span>
+                        <span class="stat-label">Hepatitis (semana)</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">2</span>
+                        <span class="stat-label">Intox. Plaguicidas</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span>Hepatitis acumulada 2026: 49 casos</span>
+                    <span>Intoxicaciones acum: 12</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- INDICADORES DE ALERTA Y TENDENCIAS -->
+        <div class="dashboard-title">
+            <h2>⚠️ INDICADORES DE ALERTA Y TENDENCIAS (Comparativo 2024-2025-2026) · Datos acumulados SE-22</h2>
+            <hr>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="card-header">
+                    <div class="card-icon">📈</div>
+                    <h3>Dengue (Comparativo acumulado)</h3>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item"><span class="stat-number">903</span><span class="stat-label">2026</span></div>
+                    <div class="stat-item"><span class="stat-number">1,789</span><span class="stat-label">2025</span></div>
+                    <div class="stat-item"><span class="stat-number">7,344</span><span class="stat-label">2024</span></div>
+                </div>
+                <div class="card-footer"><span class="trend-down">▼ Disminución frente a años anteriores</span><span>Vigilancia activa en brotes</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="card-header">
+                    <div class="card-icon">📉</div>
+                    <h3>Diarrea sin sangre (EDA)</h3>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item"><span class="stat-number">22,392</span><span class="stat-label">2026</span></div>
+                    <div class="stat-item"><span class="stat-number">17,151</span><span class="stat-label">2025</span></div>
+                    <div class="stat-item"><span class="stat-number">25,052</span><span class="stat-label">2024</span></div>
+                </div>
+                <div class="card-footer"><span>Incremento del 30.6% vs 2025</span><span>Vigilancia hídrica reforzada</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="card-header">
+                    <div class="card-icon">👶</div>
+                    <h3>Mortalidad Infantil (Acumulado)</h3>
+                </div>
+                <div class="card-stats">
+                    <div class="stat-item"><span class="stat-number">68</span><span class="stat-label">2026</span></div>
+                    <div class="stat-item"><span class="stat-number">63</span><span class="stat-label">2025</span></div>
+                    <div class="stat-item"><span class="stat-number">66</span><span class="stat-label">2024</span></div>
+                </div>
+                <div class="card-footer"><span class="trend-up">▲ Ligero incremento vs históricos</span><span>Monitoreo continuo en red hospitalaria</span></div>
+            </div>
+        </div>
+
+        <!-- ACCESO RÁPIDO A INTERVENCIONES -->
+        <div class="dashboard-title">
+            <h2>🚀 ACCESO RÁPIDO A INTERVENCIONES (SE-22)</h2>
+            <hr>
+        </div>
+
+        <div class="quick-access">
+            <div class="quick-card" data-modal-content="📋 Protocolo de atención para Dengue y Dengue Grave actualizado. Incluye clasificación de gravedad, manejo de líquidos y criterios de hospitalización. Casos acumulados: 903 en 2026. Descargar documento completo en PDF.">
+                <span>🦟</span>
+                Protocolo Dengue 2026
+            </div>
+            <div class="quick-card" data-modal-content="📊 Sala situacional interactiva en tiempo real. Datos SE-22: 577 casos de diarrea, 56 dengue, 41 neumonías, 3 defunciones infantiles. Acceda al panel completo con filtros por municipio y establecimiento de salud.">
+                <span>📡</span>
+                Sala Situacional en Vivo
+            </div>
+            <div class="quick-card" data-modal-content="📄 Boletín Epidemiológico SE-22 completo en formato PDF (31 mayo - 06 junio 2026). Incluye análisis detallado, gráficos de tendencia y recomendaciones. Disponible en el repositorio oficial de la RSMDC.">
+                <span>📥</span>
+                Descargar Boletín Oficial
+            </div>
+            <div class="quick-card" data-modal-content="📧 Correo: vigilancia@rsmdc.hn · Teléfono: 2242-8900 · Disponible 24/7. Notificación inmediata de brotes y eventos de salud pública de notificación obligatoria (ENO).">
+                <span>📧</span>
+                Notificar Evento ENO
+            </div>
+        </div>
+
+        <!-- TABLA DETALLADA DE NOTIFICACIÓN -->
+        <div class="dashboard-title">
+            <h2>📋 TABLA DETALLADA DE NOTIFICACIÓN DE ALERTA (SE-22)</h2>
+            <hr>
+        </div>
+
+        <div class="boletin-table-wrapper">
+            <table class="boletin-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2">Enfermedades / Eventos</th>
+                        <th colspan="3" class="header-main">Casos Semana 22</th>
+                        <th colspan="3" class="header-main">Acumulado Semana 1 a la Fecha Actual</th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">2024</th>
+                        <th class="text-center">2025</th>
+                        <th class="text-center">2026</th>
+                        <th class="text-center">2024</th>
+                        <th class="text-center">2025</th>
+                        <th class="text-center">2026</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>DIARREA SIN SANGRE</td><td class="text-center">1085</td><td class="text-center">923</td><td class="text-center">577</td><td class="text-center">25,052</td><td class="text-center">17,151</td><td class="text-center">22,392</td></tr>
+                    <tr><td>DISENTERIA</td><td class="text-center">5</td><td class="text-center">2</td><td class="text-center">4</td><td class="text-center">154</td><td class="text-center">119</td><td class="text-center">114</td></tr>
+                    <tr><td>COLERA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td></tr>
+                    <tr><td>PARALISIS FLACIDA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">4</td><td class="text-center">4</td></tr>
+                    <tr><td>SOSPECHOSO DE SARAMPION</td><td class="text-center">1</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">43</td><td class="text-center">6</td><td class="text-center">23</td></tr>
+                    <tr><td>SOSPECHOSO DE TOSFERINA</td><td class="text-center">1</td><td class="text-center">0</td><td class="text-center">5</td><td class="text-center">12</td><td class="text-center">37</td><td class="text-center">72</td></tr>
+                    <tr><td>DIFTERIA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td></tr>
+                    <tr><td>TETANO NEONATAL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td></tr>
+                    <tr><td>PAROTIDITIS</td><td class="text-center">1</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">33</td><td class="text-center">18</td><td class="text-center">13</td></tr>
+                    <tr><td>SOSPECHOSO RUBEOLA</td><td class="text-center">1</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">43</td><td class="text-center">6</td><td class="text-center">23</td></tr>
+                    <tr><td>SINDROME CONGENITO DE RUBEOLA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">1</td><td class="text-center">1</td><td class="text-center">0</td></tr>
+                    <tr><td>VARICELA</td><td class="text-center">55</td><td class="text-center">51</td><td class="text-center">13</td><td class="text-center">1,110</td><td class="text-center">901</td><td class="text-center">445</td></tr>
+                    <tr><td>MENINGITIS</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">2</td><td class="text-center">16</td><td class="text-center">4</td><td class="text-center">11</td></tr>
+                    <tr><td>DENGUE</td><td class="text-center">1093</td><td class="text-center">79</td><td class="text-center">56</td><td class="text-center">7,344</td><td class="text-center">1,789</td><td class="text-center">903</td></tr>
+                    <tr><td>SOSPECHOSO DENGUE HEMORRAGICO</td><td class="text-center">17</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">68</td><td class="text-center">5</td><td class="text-center">1</td></tr>
+                    <tr><td>RABIA HUMANA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td></tr>
+                    <tr><td>HEPATITIS</td><td class="text-center">3</td><td class="text-center">4</td><td class="text-center">2</td><td class="text-center">51</td><td class="text-center">58</td><td class="text-center">49</td></tr>
+                    <tr><td>NEUMONIA/BRONCONEUMONIA</td><td class="text-center">80</td><td class="text-center">84</td><td class="text-center">41</td><td class="text-center">1,766</td><td class="text-center">2,009</td><td class="text-center">1,360</td></tr>
+                    <tr><td>PESTE</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td></tr>
+                    <tr><td>FIEBRE AMARILLA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td></tr>
+                    <tr><td>INTOX. POR PLAGUICIDAS</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">2</td><td class="text-center">8</td><td class="text-center">0</td><td class="text-center">12</td></tr>
+                    <tr><td>MORDEDURAS DE ANIM. TRANS. RAB.</td><td class="text-center">51</td><td class="text-center">61</td><td class="text-center">59</td><td class="text-center">1,227</td><td class="text-center">1,309</td><td class="text-center">1,306</td></tr>
+                    <tr><td>MORDEDURAS SERPIENTE</td><td class="text-center">0</td><td class="text-center">1</td><td class="text-center">1</td><td class="text-center">15</td><td class="text-center">9</td><td class="text-center">8</td></tr>
+                    <tr><td>MORTALIDAD INFANTIL</td><td class="text-center">3</td><td class="text-center">2</td><td class="text-center">3</td><td class="text-center">66</td><td class="text-center">63</td><td class="text-center">68</td></tr>
+                    <tr><td>MUERTE DE NIÑOS DE 1-4 AÑOS</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">9</td><td class="text-center">5</td><td class="text-center">5</td></tr>
+                    <tr><td>MORTALIDAD MATERNA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">1</td><td class="text-center">1</td><td class="text-center">2</td></tr>
+                    <tr><td>LEPTOSPIROSIS</td><td class="text-center">1</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">17</td><td class="text-center">9</td><td class="text-center">6</td></tr>
+                    <tr><td>SOSPECHOSO CHIKUNGUNYA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">1</td></tr>
+                    <tr><td>SOSP. ZIKA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">3</td><td class="text-center">0</td><td class="text-center">1</td></tr>
+                    <tr><td>EMBARAZADAS SOSP. ZIKA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">1</td><td class="text-center">0</td><td class="text-center">0</td></tr>
+                    <tr><td>SOSP. > 15 AÑOS GUILLIAN BARRE</td><td class="text-center">1</td><td class="text-center">2</td><td class="text-center">0</td><td class="text-center">9</td><td class="text-center">11</td><td class="text-center">5</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ==================== MODAL ==================== -->
+        <div id="info-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-title">Título</h2>
+                    <button class="modal-close" aria-label="Cerrar modal">&times;</button>
+                </div>
+                <p id="modal-body">Contenido del mensaje aquí.</p>
+            </div>
         </div>
     </div>
-    <div class="nav-links">
-        <a href="#" class="active">📊 Dashboard</a>
-        <a href="sala-situacional.html">📡 Sala Situacional</a>
-        <div class="dropdown">
-            <button class="dropdown-btn">📅 Boletines ▼</button>
-            <div class="dropdown-content">
-                <a href="#">📘 SE-21 (Mayo 2026)</a>
-                <a href="#">📙 SE-20 (Mayo 2026)</a>
-                <a href="#">📕 SE-8 (Febrero 2026)</a>
-            </div>
-        </div>
-        <a href="epv.html">💉Epv</a>
-        <a href="sarampion.html">💉Sarampion</a>
-        <a href="arbovirosis.html">🦟 Arbovirosis</a>
-        <a href="hidricas.html">💧 Hídricas</a>
-        <a href="vih.html">💊 VIH</a>
-        <a href="mortalidad.html">👶 Mortalidad</a>
-        <a href="desatendidas.html">😔  Desatendidas</a>
-        <a href="biblioteca.html">📚 Biblioteca</a>
-    </div>
-</nav>
 
-<section class="hero">
-    <h1>Boletín Epidemiológico SE-21 2026</h1>
-    <div class="hero-badge">
-        📊 Datos oficiales · Semana Epidemiológica 21 · 24 al 30 de mayo de 2026 · Región Metropolitana
-    </div>
-    <p style="margin-top: 1rem; opacity: 0.9;">Región Sanitaria Metropolitana del Distrito Central · MSc. Jackeline Burgos</p>
-</section>
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <p>©Crafted by David Godoy</p>
+    </footer>
 
-<div class="container">
-    <div class="dashboard-title">
-        <h2>📈 RESUMEN POR SALA SITUACIONAL (Boletín SE-21 / 24-30 MAYO 2026)</h2>
-        <hr>
-    </div>
+    <!-- ==================== SCRIPTS ==================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
 
-    <div class="stats-grid">
-        <!-- ENFERMEDADES HÍDRICAS Y DIARREICAS - actualizado con PDF Semana 21 -->
-        <div class="stat-card">
-            <div class="card-header">
-                <div class="card-icon">💧</div>
-                <h3>Enfermedades Hídricas</h3>
-            </div>
-            <div class="card-stats">
-                <div class="stat-item">
-                    <span class="stat-number">864</span>
-                    <span class="stat-label">Diarrea sin sangre (semana)</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">6</span>
-                    <span class="stat-label">Disentería</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span>⚠️ Acumulado 2026: 23,967 diarrea / 149 disentería</span>
-                <span class="trend-up">▲ +46% vs 2025 acum.</span>
-            </div>
-        </div>
+            // ========== 1. NAVBAR TOGGLE FUNCIONAL ==========
+            const toggleBtn = document.getElementById('toggleNavBtn');
+            const mainNavbar = document.getElementById('mainNavbar');
 
-        <!-- ARBOVIROSIS (DENGUE) con datos semana 21 -->
-        <div class="stat-card">
-            <div class="card-header">
-                <div class="card-icon">🦟</div>
-                <h3>Arbovirosis</h3>
-            </div>
-            <div class="card-stats">
-                <div class="stat-item">
-                    <span class="stat-number">456</span>
-                    <span class="stat-label">Dengue SE-21</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">0</span>
-                    <span class="stat-label">Dengue Hemorrágico</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span class="alert-status">🚨 Alerta: acumulado 2026 = 2,511 casos dengue</span>
-                <span>Dengue grave: 5 acum. 2026</span>
-            </div>
-        </div>
+            if (toggleBtn && mainNavbar) {
+                toggleBtn.addEventListener('click', function() {
+                    mainNavbar.classList.toggle('nav-hidden');
 
-        <!-- MORTALIDAD INFANTIL Y MATERNA (datos exactos PDF) -->
-        <div class="stat-card">
-            <div class="card-header">
-                <div class="card-icon">👶</div>
-                <h3>Mortalidad Materno Infantil</h3>
-            </div>
-            <div class="card-stats">
-                <div class="stat-item">
-                    <span class="stat-number">3</span>
-                    <span class="stat-label">Mortalidad Infantil (semana)</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">0</span>
-                    <span class="stat-label">Mortalidad Materna</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span>🏥 Acumulado infantil 2026: 6 defunciones</span>
-                <span class="trend-down">Materna acumulada: 1</span>
-            </div>
-        </div>
+                    if (mainNavbar.classList.contains('nav-hidden')) {
+                        toggleBtn.innerHTML = '☰';
+                        toggleBtn.setAttribute('aria-label', 'Expandir menú de navegación');
+                    } else {
+                        toggleBtn.innerHTML = '✕';
+                        toggleBtn.setAttribute('aria-label', 'Colapsar menú de navegación');
+                    }
+                });
+            }
 
-        <!-- PREVENIBLES POR VACUNACIÓN -->
-        <div class="stat-card">
-            <div class="card-header">
-                <div class="card-icon">💉</div>
-                <h3>Prevenibles por Vacunación</h3>
-            </div>
-            <div class="card-stats">
-                <div class="stat-item">
-                    <span class="stat-number">3</span>
-                    <span class="stat-label">Sospecha Sarampión</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">4</span>
-                    <span class="stat-label">Tosferina (semana)</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">2</span>
-                    <span class="stat-label">Parotiditis</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span>⚠️ Sarampión acum. 2026: 4 casos sospechosos</span>
-                <span>Cobertura de vacunación: 89% (meta 95%)</span>
-            </div>
-        </div>
+            // ========== 2. MODAL PARA TARJETAS DE ACCESO RÁPIDO ==========
+            const quickCards = document.querySelectorAll('.quick-card');
+            const modal = document.getElementById('info-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const closeModalBtn = document.querySelector('.modal-close');
 
-        <!-- ZOONOSIS Y MORDEDURAS -->
-        <div class="stat-card">
-            <div class="card-header">
-                <div class="card-icon">🐕</div>
-                <h3>Zoonosis y Accidentes</h3>
-            </div>
-            <div class="card-stats">
-                <div class="stat-item">
-                    <span class="stat-number">6</span>
-                    <span class="stat-label">Mordeduras rabia (semana)</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">1</span>
-                    <span class="stat-label">Leptospirosis</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">0</span>
-                    <span class="stat-label">Mordedura Serpiente</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span>🐾 Acumulado 2026 mordeduras: 1,176</span>
-                <span>Leptospirosis acum: 6 casos</span>
-            </div>
-        </div>
+            quickCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const content = card.getAttribute('data-modal-content');
+                    if (content && modal) {
+                        // Extraer el texto del card (después del span del icono)
+                        const titleText = card.textContent.trim();
+                        modalTitle.textContent = titleText;
+                        modalBody.textContent = content;
+                        modal.style.display = 'flex';
+                        // Prevenir scroll del body cuando el modal está abierto
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
 
-        <!-- INFECCIONES RESPIRATORIAS -->
-        <div class="stat-card">
-            <div class="card-header">
-                <div class="card-icon">🫁</div>
-                <h3>Infecciones Respiratorias</h3>
-            </div>
-            <div class="card-stats">
-                <div class="stat-item">
-                    <span class="stat-number">821</span>
-                    <span class="stat-label">Neumonías SE-21</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">3</span>
-                    <span class="stat-label">Varicela (semana)</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span>📉 Acumulado neumonías 2026: 6,861 casos</span>
-                <span class="trend-down">Varicela acum. 1,055</span>
-            </div>
-        </div>
+            // Función para cerrar el modal
+            function closeModal() {
+                if (modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = ''; // Restaurar scroll
+                }
+            }
 
-        <!-- EVENTOS NEUROLÓGICOS -->
-        <div class="stat-card">
-            <div class="card-header">
-                <div class="card-icon">🧠</div>
-                <h3>Síndromes Neurológicos</h3>
-            </div>
-            <div class="card-stats">
-                <div class="stat-item">
-                    <span class="stat-number">0</span>
-                    <span class="stat-label">Guillain-Barré (semana)</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">1</span>
-                    <span class="stat-label">Meningitis</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span>⚠️ Parálisis flácida aguda: 4 acumulados 2026</span>
-                <span>Guillain Barré acum: 8 casos (>15 años)</span>
-            </div>
-        </div>
-        
-        <!-- OTRAS PATOLOGÍAS (hepatitis, intoxicaciones) -->
-        <div class="stat-card">
-            <div class="card-header">
-                <div class="card-icon">📋</div>
-                <h3>Otras patologías</h3>
-            </div>
-            <div class="card-stats">
-                <div class="stat-item">
-                    <span class="stat-number">2</span>
-                    <span class="stat-label">Hepatitis (semana)</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">0</span>
-                    <span class="stat-label">Intox. Plaguicidas</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span>Hepatitis acumulada 2026: 48 casos</span>
-                <span>Intoxicaciones acum: 8</span>
-            </div>
-        </div>
-    </div>
+            // Cerrar con el botón X
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', closeModal);
+            }
 
-    <div class="dashboard-title">
-        <h2>⚠️ INDICADORES DE ALERTA Y TENDENCIAS (Comparativo 2024-2025-2026) · Datos acumulados SE-21</h2>
-        <hr>
-    </div>
-    
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="card-header">
-                <div class="card-icon">📈</div>
-                <h3>Dengue (Comparativo acumulado)</h3>
-            </div>
-            <div class="card-stats">
-                <div class="stat-item"><span class="stat-number">2,511</span><span class="stat-label">2026</span></div>
-                <div class="stat-item"><span class="stat-number">7,108</span><span class="stat-label">2025</span></div>
-                <div class="stat-item"><span class="stat-number">4,058</span><span class="stat-label">2024</span></div>
-            </div>
-            <div class="card-footer"><span class="trend-up">▲ Disminución frente a 2025, pero vigilancia activa</span><span>Alerta por brotes locales</span></div>
-        </div>
-        <div class="stat-card">
-            <div class="card-header">
-                <div class="card-icon">📉</div>
-                <h3>Diarrea sin sangre (EDA)</h3>
-            </div>
-            <div class="card-stats">
-                <div class="stat-item"><span class="stat-number">23,967</span><span class="stat-label">2026</span></div>
-                <div class="stat-item"><span class="stat-number">16,228</span><span class="stat-label">2025</span></div>
-                <div class="stat-item"><span class="stat-number">21,815</span><span class="stat-label">2024</span></div>
-            </div>
-            <div class="card-footer"><span>Incremento del 47.6% vs 2025</span><span>Vigilancia hídrica reforzada</span></div>
-        </div>
-        <div class="stat-card">
-            <div class="card-header">
-                <div class="card-icon">👶</div>
-                <h3>Mortalidad Infantil (Acumulado)</h3>
-            </div>
-            <div class="card-stats">
-                <div class="stat-item"><span class="stat-number">6</span><span class="stat-label">2026</span></div>
-                <div class="stat-item"><span class="stat-number">36</span><span class="stat-label">2025</span></div>
-                <div class="stat-item"><span class="stat-number">16</span><span class="stat-label">2024</span></div>
-            </div>
-            <div class="card-footer"><span class="trend-down">▼ Reducción drástica vs años anteriores, monitoreo continuo</span><span>Logro en salud infantil</span></div>
-        </div>
-    </div>
+            // Cerrar haciendo clic fuera del contenido del modal
+            if (modal) {
+                modal.addEventListener('click', function(event) {
+                    if (event.target === modal) {
+                        closeModal();
+                    }
+                });
+            }
 
-    <div class="dashboard-title">
-        <h2>🚀 ACCESO RÁPIDO A INTERVENCIONES (SE-21)</h2>
-        <hr>
-    </div>
+            // Cerrar con la tecla Escape
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && modal && modal.style.display === 'flex') {
+                    closeModal();
+                }
+            });
 
-    <div class="quick-access">
-        <div class="quick-card" onclick="alert('📋 Protocolo de atención para Dengue y Dengue Grave actualizado. Casos acumulados: 2,511 en 2026.')">
-            <span>🦟</span>
-            Protocolo Dengue 2026
-        </div>
-        <div class="quick-card" onclick="alert('📊 Sala situacional interactiva: 864 casos de diarrea en SE-21, 456 dengue, 821 neumonías.')">
-            <span>📡</span>
-            Sala Situacional en Vivo
-        </div>
-        <div class="quick-card" onclick="alert('📄 Boletín SE-21 completo en PDF (24-30 mayo 2026). Disponible en repositorio.')">
-            <span>📥</span>
-            Descargar Boletín Oficial
-        </div>
-        <div class="quick-card" onclick="alert('Correo: vigilancia@rsmdc.hn · Teléfono: 2242-8900. Notificación inmediata de brotes.')">
-            <span>📧</span>
-            Notificar Evento ENO
-        </div>
-    </div>
+            // ========== 3. RESALTAR FILA DE TABLA AL HACER CLIC ==========
+            const tableRows = document.querySelectorAll('.boletin-table tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function() {
+                    // Remover resaltado previo
+                    tableRows.forEach(r => r.style.backgroundColor = '');
+                    // Aplicar resaltado a la fila clickeada
+                    this.style.backgroundColor = 'rgba(255, 204, 0, 0.15)';
+                    this.style.transition = 'background-color 0.3s ease';
+                });
+            });
 
-    <!-- NUEVA SECCIÓN AGREGADA: TABLA COMPLETA DEL BOLETÍN OFICIAL (SEMANA 21) -->
-    <div class="dashboard-title">
-        <h2>📋 TABLA DETALLADA DE NOTIFICACIÓN DE ALERTA (SE-21)</h2>
-        <hr>
-    </div>
-
-    <div class="boletin-table-wrapper">
-        <table class="boletin-table">
-            <thead>
-                <tr>
-                    <th rowspan="2">Enfermedades / Eventos</th>
-                    <th colspan="3" class="header-main">Casos Semana 21</th>
-                    <th colspan="3" class="header-main">Acumulado Semana 1 a la Fecha Actual</th>
-                </tr>
-                <tr>
-                    <th class="text-center">2024</th>
-                    <th class="text-center">2025</th>
-                    <th class="text-center">2026</th>
-                    <th class="text-center">2024</th>
-                    <th class="text-center">2025</th>
-                    <th class="text-center">2026</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>DIARREA SIN SANGRE</td><td class="text-center">1170</td><td class="text-center">855</td><td class="text-center">864</td><td class="text-center">23.967</td><td class="text-center">16.228</td><td class="text-center">21.815</td></tr>
-                <tr><td>DISENTERIA</td><td class="text-center">11</td><td class="text-center">4</td><td class="text-center">6</td><td class="text-center">149</td><td class="text-center">117</td><td class="text-center">110</td></tr>
-                <tr><td>COLERA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td></tr>
-                <tr><td>PARALISIS FLACIDA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">4</td><td class="text-center">4</td></tr>
-                <tr><td>SOSPECHOSO DE SARAMPION</td><td class="text-center">2</td><td class="text-center">0</td><td class="text-center">3</td><td class="text-center">42</td><td class="text-center">6</td><td class="text-center">23</td></tr>
-                <tr><td>SOSPECHOSO DE TOSFERINA</td><td class="text-center">0</td><td class="text-center">19</td><td class="text-center">4</td><td class="text-center">11</td><td class="text-center">37</td><td class="text-center">67</td></tr>
-                <tr><td>DIFTERIA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td></tr>
-                <tr><td>TETANO NEONATAL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td></tr>
-                <tr><td>PAROTIDITIS</td><td class="text-center">4</td><td class="text-center">1</td><td class="text-center">2</td><td class="text-center">32</td><td class="text-center">18</td><td class="text-center">13</td></tr>
-                <tr><td>SOSPECHOSO RUBEOLA</td><td class="text-center">2</td><td class="text-center">0</td><td class="text-center">3</td><td class="text-center">42</td><td class="text-center">6</td><td class="text-center">23</td></tr>
-                <tr><td>SINDROME CONGENITO DE RUBEOLA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">1</td><td class="text-center">1</td><td class="text-center">0</td></tr>
-                <tr><td>VARICELA</td><td class="text-center">74</td><td class="text-center">57</td><td class="text-center">31</td><td class="text-center">1.055</td><td class="text-center">850</td><td class="text-center">432</td></tr>
-                <tr><td>MENINGITIS</td><td class="text-center">0</td><td class="text-center">2</td><td class="text-center">1</td><td class="text-center">16</td><td class="text-center">4</td><td class="text-center">9</td></tr>
-                <tr><td>DENGUE</td><td class="text-center">848</td><td class="text-center">86</td><td class="text-center">45</td><td class="text-center">6.251</td><td class="text-center">1.710</td><td class="text-center">847</td></tr>
-                <tr><td>SOSPECHOSO DENGUE HEMORRAGICO</td><td class="text-center">7</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">51</td><td class="text-center">5</td><td class="text-center">1</td></tr>
-                <tr><td>RABIA HUMANA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td></tr>
-                <tr><td>HEPATITIS</td><td class="text-center">1</td><td class="text-center">2</td><td class="text-center">2</td><td class="text-center">48</td><td class="text-center">54</td><td class="text-center">47</td></tr>
-                <tr><td>NEUMONIA/BRONCONEUMONIA</td><td class="text-center">81</td><td class="text-center">64</td><td class="text-center">82</td><td class="text-center">1.686</td><td class="text-center">1.925</td><td class="text-center">1.319</td></tr>
-                <tr><td>PESTE</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td></tr>
-                <tr><td>FIEBRE AMARILLA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td></tr>
-                <tr><td>INTOX. POR PLAGUICIDAS</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">8</td><td class="text-center">0</td><td class="text-center">10</td></tr>
-                <tr><td>MORDEDURAS DE ANIM. TRANS. RAB.</td><td class="text-center">69</td><td class="text-center">61</td><td class="text-center">61</td><td class="text-center">1.176</td><td class="text-center">1.248</td><td class="text-center">1.247</td></tr>
-                <tr><td>MORDEDURAS SERPIENTE</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">15</td><td class="text-center">8</td><td class="text-center">7</td></tr>
-                <tr><td>MORTALIDAD INFANTIL</td><td class="text-center">4</td><td class="text-center">4</td><td class="text-center">3</td><td class="text-center">63</td><td class="text-center">61</td><td class="text-center">65</td></tr>
-                <tr><td>MUERTE DE NIÑOS DE 1 - 4 AÑOS</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">9</td><td class="text-center">5</td><td class="text-center">5</td></tr>
-                <tr><td>MORTALIDAD MATERNA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">1</td><td class="text-center">1</td><td class="text-center">2</td></tr>
-                <tr><td>LEPTOSPIROSIS</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">1</td><td class="text-center">16</td><td class="text-center">9</td><td class="text-center">6</td></tr>
-                <tr><td>SOSPECHOSO CHIKUNGUNYA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">1</td></tr>
-                <tr><td>SOSP. ZIKA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">3</td><td class="text-center">0</td><td class="text-center">1</td></tr>
-                <tr><td>EMBARAZADAS SOSP. ZIKA</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">1</td><td class="text-center">0</td><td class="text-center">0</td></tr>
-                <tr><td>SOSP. > 15 AÑOS GUILLIAN BARRE</td><td class="text-center">0</td><td class="text-center">2</td><td class="text-center">0</td><td class="text-center">8</td><td class="text-center">9</td><td class="text-center">5</td></tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<footer>
-    <strong>Región Metropolitana de Salud - Distrito Central</strong><br>
-    Unidad de Vigilancia de la Salud (UVS) · MSc. Jackeline Burgos · Datos basados en BOLETÍN OFICIAL SE-21 (24 al 30 de mayo de 2026)<br>
-    Fuente: CIS / UAPS, CLIPER Y HOSP. · Tegucigalpa, Honduras · © 2026 · Actualización epidemiológica semana 21.
-</footer>
-
-<script>
-    // Funcionalidad TOGGLE NAVBAR
-    const navbar = document.getElementById('mainNavbar');
-    const toggleBtn = document.getElementById('toggleNavBtn');
-    if (navbar && toggleBtn) {
-        if (localStorage.getItem('navHidden') === 'true') {
-            navbar.classList.add('nav-hidden');
-            toggleBtn.style.transform = 'rotate(180deg)';
-        }
-        toggleBtn.addEventListener('click', () => {
-            navbar.classList.toggle('nav-hidden');
-            const hidden = navbar.classList.contains('nav-hidden');
-            localStorage.setItem('navHidden', hidden);
-            toggleBtn.style.transform = hidden ? 'rotate(180deg)' : 'rotate(0deg)';
+            console.log('✅ Dashboard UVS · RSMDC cargado correctamente');
+            console.log('📊 Datos correspondientes a la Semana Epidemiológica 22 (31 mayo - 06 junio 2026)');
         });
-    }
+    </script>
 
-    // Datos fieles al PDF semana 21 (24-30 mayo 2026) - detalles interactivos
-    const detallesActualizados = {
-        'Enfermedades Hídricas': '✅ Semana 21: 864 casos diarrea sin sangre, 6 disentería. Acumulado 2026: 23,967 diarrea y 149 disentería. Sin cólera. Refuerzo de cloración y lavado de manos.',
-        'Arbovirosis': '🦟 Dengue: 456 casos solo en SE-21, acumulado 2,511 en 2026. 0 casos de dengue hemorrágico en la semana, acumulado 5. Alerta por circulación viral.',
-        'Mortalidad Materno Infantil': '📉 Mortalidad infantil: 3 defunciones en SE-21, acumulado 6 en 2026. Mortalidad materna: 0 en semana, 1 acumulada. Reducción del 83% vs 2025.',
-        'Prevenibles por Vacunación': '💉 Sarampión: 3 casos sospechosos en semana, 4 acumulados. Tosferina 4 semanales (11 acum). Parotiditis 2 en semana, 3 acum. Sin rubeola ni difteria. Vacunación casa por casa.',
-        'Zoonosis y Accidentes': '🐕 6 mordeduras por animales (acum 1,176 en 2026). 1 caso leptospirosis semana (6 acum). Sin mordedura de serpiente esta semana. Vacunación antirrábica en curso.',
-        'Infecciones Respiratorias': '🫁 Neumonías: 821 casos en SE-21, acumulado 6,861. Varicela: 3 casos semanales (acum 1,055). Tendencia estacional a la baja.',
-        'Síndromes Neurológicos': '🧠 Sin Guillain-Barré en SE-21, acumulado 8 casos >15 años. Meningitis: 1 caso en semana. Parálisis flácida: 4 acumulados in 2026. Vigilancia estrecha.',
-        'Otras patologías': '📋 Hepatitis: 2 casos en semana, 48 acumulados. Intoxicación por plaguicidas: 0 en semana, total 8. Monitoreo ambiental activo.'
-    };
-    
-    // Asignar eventos a todas las tarjetas según su título
-    const cards = document.querySelectorAll('.stat-card');
-    cards.forEach(card => {
-        const titleElem = card.querySelector('h3');
-        if (titleElem && detallesActualizados[titleElem.innerText]) {
-            const detailMsg = detallesActualizados[titleElem.innerText];
-            card.addEventListener('click', () => {
-                alert(`📋 DETALLE EPIDEMIOLÓGICO - ${titleElem.innerText}\n\n${detailMsg}\n\nFuente: Boletín SE-21, semana 24-30 mayo 2026, Región Metropolitana.`);
-            });
-        } else {
-            card.addEventListener('click', () => {
-                alert('📊 Información extraída del boletín epidemiológico oficial (SE-21). Consulte la sala situacional para datos desagregados por UPSS.');
-            });
-        }
-    });
-    
-    // Mensaje de consola verificando actualización completa
-    console.log('✅ Dashboard actualizado con datos fidedignos del Boletín SE-21 (24-30 mayo 2026): diarrea 864, dengue 456, neumonía 821, mortalidad infantil acum 6, mordeduras acum 1,176.');
-</script>
 </body>
 </html>
 
