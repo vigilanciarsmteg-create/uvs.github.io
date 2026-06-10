@@ -3,439 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>UVS · Sala Situacional · Tosferina · SE-19 2026 · RSMDC</title>
-    <!-- Chart.js CDN -->
+    <title>UVS · Sala Situacional Consolidada · Tosferina · SE-1-21 2026 · RSMDC</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <!-- Leaflet.js para mapa interactivo -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #0066cc;
-            --primary-dark: #004b99;
-            --primary-glow: #0099ff;
-            --accent: #ffcc00;
-            --accent-dark: #e6b800;
+            --primary: #0066cc; --primary-dark: #004b99; --primary-glow: #0099ff;
+            --accent: #ffcc00; --accent-dark: #e6b800;
             --bg-deep: linear-gradient(145deg, #0a1a2a 0%, #0c2a3b 100%);
             --glass-white: rgba(255, 255, 255, 0.08);
             --glass-card: rgba(255, 255, 255, 0.12);
-            --danger: #e34d4d;
-            --success: #2ecc71;
-            --warning: #f39c12;
-            --info: #3498db;
-            --text-light: #f0f9ff;
-            --border-glow: rgba(0, 153, 255, 0.4);
+            --danger: #e34d4d; --success: #2ecc71; --warning: #f39c12; --info: #3498db;
+            --text-light: #f0f9ff; --border-glow: rgba(0, 153, 255, 0.4);
         }
-
         body {
             font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
-            background: var(--bg-deep);
-            color: var(--text-light);
-            line-height: 1.5;
-            scroll-behavior: smooth;
-            min-height: 100vh;
+            background: var(--bg-deep); color: var(--text-light); line-height: 1.5;
+            scroll-behavior: smooth; min-height: 100vh;
         }
-
-        /* ========== NAVEGACIÓN UNIFICADA CON TOGGLE ========== */
         .navbar {
-            background: rgba(10, 26, 42, 0.95);
-            backdrop-filter: blur(16px);
-            border-bottom: 3px solid var(--accent);
-            padding: 0.8rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 1100;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
+            background: rgba(10, 26, 42, 0.95); backdrop-filter: blur(16px);
+            border-bottom: 3px solid var(--accent); padding: 0.8rem 2rem;
+            position: sticky; top: 0; z-index: 1100;
+            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;
             transition: all 0.4s ease;
         }
-
-        .navbar.nav-hidden .nav-links,
-        .navbar.nav-hidden .dropdown {
-            display: none;
-        }
-
-        .navbar.nav-hidden {
-            justify-content: center;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
+        .navbar.nav-hidden .nav-links { display: none; }
+        .navbar.nav-hidden { justify-content: center; }
+        .logo-container { display: flex; align-items: center; gap: 0.8rem; }
         .toggle-nav-btn {
-            background: rgba(255,255,255,0.1);
-            border: 2px solid var(--accent);
-            color: var(--accent);
-            font-size: 1.3rem;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+            background: rgba(255,255,255,0.1); border: 2px solid var(--accent); color: var(--accent);
+            font-size: 1.3rem; width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
             transition: all 0.3s;
         }
+        .toggle-nav-btn:hover { background: var(--accent); color: #0a1f2e; transform: rotate(180deg); }
+        .logo h1 { font-size: 1.1rem; background: linear-gradient(135deg, #fff, var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
+        .logo p { font-size: 0.65rem; opacity: 0.8; }
+        .nav-links { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+        .nav-links a { color: white; text-decoration: none; padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 600; border-radius: 30px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-links a:hover, .nav-links a.active { background: var(--accent); color: #0a1f2e; transform: translateY(-2px); }
 
-        .toggle-nav-btn:hover {
-            background: var(--accent);
-            color: #0a1f2e;
-            transform: rotate(180deg);
-        }
+        .hero { text-align: center; padding: 2.5rem 1rem; background: radial-gradient(circle at 30% 20%, rgba(0,102,204,0.2), transparent 70%); }
+        .hero h1 { font-size: clamp(1.5rem, 5vw, 2.5rem); font-weight: 800; background: linear-gradient(120deg, #fff, #88ddff, var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .hero-badge { background: rgba(0,102,204,0.3); backdrop-filter: blur(10px); display: inline-block; padding: 0.5rem 1.5rem; border-radius: 40px; font-size: 0.9rem; margin-top: 1rem; border: 1px solid var(--accent); }
 
-        .logo h1 {
-            font-size: 1.1rem;
-            background: linear-gradient(135deg, #fff, var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 800;
-        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; }
+        .dashboard-title { display: flex; align-items: center; gap: 1rem; margin: 2rem 0 1.5rem; }
+        .dashboard-title h2 { color: var(--accent); font-size: 1.4rem; }
+        .dashboard-title hr { flex: 1; border: none; border-top: 2px solid rgba(255,255,255,0.2); }
 
-        .logo p {
-            font-size: 0.65rem;
-            opacity: 0.8;
-        }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--glass-card); backdrop-filter: blur(12px); border-radius: 20px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; }
+        .stat-card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 20px rgba(255,204,0,0.15); background: rgba(0,102,204,0.2); }
+        .card-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .card-icon { font-size: 2rem; width: 50px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .card-header h3 { font-size: 1.1rem; color: var(--accent); }
+        .stat-item { text-align: center; flex: 1; }
+        .stat-number { font-size: 1.8rem; font-weight: 800; display: block; color: white; }
+        .stat-label { font-size: 0.7rem; opacity: 0.7; text-transform: uppercase; }
+        .trend-up { color: var(--danger); } .trend-down { color: var(--success); } .alert-status { color: var(--warning); } .critical { color: var(--danger); font-weight: bold; }
+        .card-footer { margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; display: flex; justify-content: space-between; gap: 4px; }
 
-        .nav-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            align-items: center;
-        }
+        .chart-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 1.8rem; margin-bottom: 2rem; }
+        .chart-card { background: var(--glass-card); backdrop-filter: blur(12px); border-radius: 24px; padding: 1.2rem; border: 1px solid rgba(255,255,255,0.1); }
+        .chart-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; border-left: 4px solid var(--accent); padding-left: 12px; }
+        canvas { max-height: 260px; width: 100%; }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border-radius: 30px;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        .row-mapa-tabla { display: grid; grid-template-columns: 1fr 1.2fr; gap: 1.8rem; margin-bottom: 2rem; }
+        #map { height: 350px; border-radius: 20px; z-index: 0; }
+        .leaflet-popup-content { color: #0a1f2e; font-size: 0.8rem; }
 
-        .nav-links a:hover, .nav-links a.active {
-            background: var(--accent);
-            color: #0a1f2e;
-            transform: translateY(-2px);
-        }
+        .data-table-wrapper { width: 100%; overflow-x: auto; }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+        .data-table th { text-align: left; padding: 10px 6px; color: var(--accent); border-bottom: 1px solid rgba(255,255,255,0.2); text-transform: uppercase; }
+        .data-table td { padding: 8px 6px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .status-badge { background: var(--danger); padding: 2px 10px; border-radius: 40px; font-weight: bold; font-size: 0.65rem; display: inline-block; }
 
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
+        .quick-access { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; }
+        .quick-card { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 1rem; text-align: center; text-decoration: none; color: white; transition: all 0.3s; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
+        .quick-card:hover { background: var(--primary); transform: scale(1.02); border-color: var(--accent); }
+        .quick-card span { font-size: 1.5rem; display: block; margin-bottom: 0.5rem; }
 
-        .dropdown-btn {
-            background: transparent;
-            color: white;
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            border-radius: 30px;
-            font-family: inherit;
-            text-transform: uppercase;
-        }
-
-        .dropdown-btn:hover {
-            background: var(--accent);
-            color: #0a1f2e;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background: #0f2c3b;
-            min-width: 180px;
-            border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            z-index: 1;
-            top: 100%;
-            left: 0;
-            border: 1px solid var(--border-glow);
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown-content a {
-            display: block;
-            padding: 0.75rem 1.2rem;
-            color: white;
-            text-decoration: none;
-            font-size: 0.85rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .dropdown-content a:hover {
-            background: var(--primary);
-            color: var(--accent);
-        }
-
-        .hero {
-            text-align: center;
-            padding: 2rem 1rem;
-            background: radial-gradient(circle at 30% 20%, rgba(0,102,204,0.2), transparent 70%);
-        }
-
-        .hero h1 {
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
-            font-weight: 800;
-            background: linear-gradient(120deg, #fff, #88ddff, var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .hero-badge {
-            background: rgba(0,102,204,0.3);
-            backdrop-filter: blur(10px);
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            margin-top: 1rem;
-            border: 1px solid var(--accent);
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-        }
-
-        .dashboard-title {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin: 2rem 0 1.5rem;
-        }
-
-        .dashboard-title h2 {
-            color: var(--accent);
-            font-size: 1.4rem;
-        }
-
-        .dashboard-title hr {
-            flex: 1;
-            border: none;
-            border-top: 2px solid rgba(255,255,255,0.2);
-        }
-
-        /* KPIs CRÍTICOS */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: var(--glass-card);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 1.5rem;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent);
-            box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 20px rgba(255,204,0,0.15);
-            background: rgba(0,102,204,0.2);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .card-icon {
-            font-size: 2rem;
-            width: 50px;
-            height: 50px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .card-header h3 {
-            font-size: 1.1rem;
-            color: var(--accent);
-        }
-
-        .card-stats {
-            display: flex;
-            justify-content: space-between;
-            margin: 1rem 0;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            flex: 1;
-        }
-
-        .stat-number {
-            font-size: 1.8rem;
-            font-weight: 800;
-            display: block;
-            color: white;
-        }
-
-        .stat-label {
-            font-size: 0.7rem;
-            opacity: 0.7;
-            text-transform: uppercase;
-        }
-
-        .trend-up { color: var(--danger); }
-        .trend-down { color: var(--success); }
-        .alert-status { color: var(--warning); }
-
-        .card-footer {
-            margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.75rem;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        /* GRÁFICOS + MAPA */
-        .chart-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 1.8rem;
-            margin-bottom: 2rem;
-        }
-
-        .chart-card {
-            background: var(--glass-card);
-            backdrop-filter: blur(12px);
-            border-radius: 24px;
-            padding: 1.2rem;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .chart-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            border-left: 4px solid var(--accent);
-            padding-left: 12px;
-        }
-
-        canvas {
-            max-height: 260px;
-            width: 100%;
-        }
-
-        .row-mapa-tabla {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 1.8rem;
-            margin-bottom: 2rem;
-        }
-
-        #map {
-            height: 320px;
-            border-radius: 20px;
-            z-index: 0;
-        }
-
-        .leaflet-popup-content { color: #0a1f2e; }
-
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.75rem;
-        }
-
-        .data-table th {
-            text-align: left;
-            padding: 10px 6px;
-            color: var(--accent);
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .data-table td {
-            padding: 8px 6px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .status-badge {
-            background: var(--danger);
-            padding: 2px 10px;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 0.65rem;
-            display: inline-block;
-        }
-
-        .quick-access {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .quick-card {
-            background: rgba(0,0,0,0.3);
-            border-radius: 16px;
-            padding: 1rem;
-            text-align: center;
-            text-decoration: none;
-            color: white;
-            transition: all 0.3s;
-            border: 1px solid rgba(255,255,255,0.1);
-            cursor: pointer;
-        }
-
-        .quick-card:hover {
-            background: var(--primary);
-            transform: scale(1.02);
-            border-color: var(--accent);
-        }
-
-        .quick-card span {
-            font-size: 1.5rem;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: #05161f;
-            margin-top: 3rem;
-            border-top: 2px solid var(--accent);
-            font-size: 0.8rem;
-        }
-
+        footer { text-align: center; padding: 2rem; background: #05161f; margin-top: 3rem; border-top: 2px solid var(--accent); font-size: 0.8rem; }
         @media (max-width: 768px) {
             .navbar { flex-direction: column; padding: 0.8rem 1rem; }
             .logo-container { width: 100%; justify-content: space-between; }
@@ -450,221 +102,307 @@
 
 <nav class="navbar" id="mainNavbar">
     <div class="logo-container">
-        <div class="toggle-nav-btn" id="toggleNavBtn">☰</div>
-        <div class="logo">
-            <h1>⚕️ UVS · RSMDC</h1>
-            <p>Unidad de Vigilancia de la Salud</p>
-        </div>
+        <div class="toggle-nav-btn" id="toggleNavBtn" title="Contraer/Expandir Barra">☰</div>
+        <div class="logo"><h1>⚕️ UVS · RSMDC</h1><p>Unidad de Vigilancia de la Salud</p></div>
     </div>
     <div class="nav-links">
-        <a href="index.html" class="active">📊 Inicio</a>
-        <a href="#">📡 Dashboard Sarampión</a>
-
+        <a href="inicio.html" class="active">📊 Inicio</a>
+        <a href="sarampion.html" onclick="alert('Acceso restringido al Dashboard de Inmunizaciones del PAI')">📡 Sarampión</a>
     </div>
 </nav>
 
 <section class="hero">
-    <h1>🚨 SALA SITUACIONAL · TOSFERINA</h1>
-    <div class="hero-badge">
-        📊 Brote activo · SE-19 · Corte 24 mayo 2026 · R.S.M. Distrito Central
-    </div>
-    <p style="margin-top: 1rem; opacity: 0.9;">Alertas epidemiológicas | Vacunación | Respuesta territorial</p>
+    <h1>🚨 SALA SITUACIONAL CONSOLIDADA · BROTE DE TOSFERINA</h1>
+    <div class="hero-badge">📊 Datos Integrados de Base Epidémica: 61 Casos Sospechosos · Corte Epidemiológico SE-21</div>
+    <p style="margin-top: 1rem; opacity: 0.9;">Región Sanitaria Metropolitana del Distrito Central</p>
 </section>
 
 <div class="container">
-    <!-- KPIs específicos del brote -->
-    <div class="dashboard-title">
-        <h2>📈 INDICADORES CRÍTICOS · BROTE TOSFERINA</h2>
-        <hr>
-    </div>
+
+    <div class="dashboard-title"><h2>📈 INDICADORES CRÍTICOS Y ESTADÍSTICAS VITALES</h2><hr></div>
     <div class="stats-grid">
         <div class="stat-card">
-            <div class="card-header"><div class="card-icon">🦠</div><h3>Casos Sospechosos</h3></div>
-            <div class="stat-item"><span class="stat-number">62</span><span class="stat-label">SE 1-19</span></div>
-            <div class="card-footer"><span class="trend-up">▲ +79% vs 2025</span><span>Incremento alarmante</span></div>
+            <div class="card-header"><div class="card-icon">🦠</div><h3>Casos en Base</h3></div>
+            <div class="stat-item"><span class="stat-number">61</span><span class="stat-label">Sospechosos Notificados</span></div>
+            <div class="card-footer"><span class="trend-up">▲ Brote Familiar Activo</span><span>Corte SE-21</span></div>
         </div>
         <div class="stat-card">
-            <div class="card-header"><div class="card-icon">🔬</div><h3>Positividad</h3></div>
-            <div class="stat-item"><span class="stat-number">41%</span><span class="stat-label">26/62 confirmados</span></div>
-            <div class="card-footer"><span class="alert-status">Alta circulación</span><span>B. pertussis activa</span></div>
+            <div class="card-header"><div class="card-icon">🔬</div><h3>Tasa de Positividad</h3></div>
+            <div class="stat-item"><span class="stat-number">34.4%</span><span class="stat-label">21 Confirmados por Lab</span></div>
+            <div class="card-footer"><span class="alert-status">Bordetella pertussis</span><span>Muestras procesadas</span></div>
         </div>
         <div class="stat-card">
-            <div class="card-header"><div class="card-icon">⚰️</div><h3>Fallecidos</h3></div>
-            <div class="stat-item"><span class="stat-number">4 +2*</span><span class="stat-label">Confirmados + pendientes</span></div>
-            <div class="card-footer"><span class="trend-up">100% madres no vacunadas TDAP</span><span>Letalidad 30.7% en <2 meses</span></div>
+            <div class="card-header"><div class="card-icon">⚰️</div><h3>Fallecidos Auditados</h3></div>
+            <div class="stat-item"><span class="stat-number">4 + 2*</span><span class="stat-label">Casos en Comité</span></div>
+            <div class="card-footer"><span class="critical">100% Sin Antecedente Tdap</span><span>*2 Pendientes</span></div>
         </div>
         <div class="stat-card">
-            <div class="card-header"><div class="card-icon">💉</div><h3>TDAP Gestantes 2026</h3></div>
-            <div class="stat-item"><span class="stat-number critical">27%</span><span class="stat-label">Cobertura pésima</span></div>
-            <div class="card-footer"><span class="trend-down">▼ 78% en 2025 → colapso inmunidad neonatal</span><span>Riesgo extremo</span></div>
+            <div class="card-header"><div class="card-icon">🤰</div><h3>Inmunización Materna</h3></div>
+            <div class="stat-item"><span class="critical">27%</span><span class="stat-label">Cobertura Tdap 2026</span></div>
+            <div class="card-footer"><span class="trend-down">▼ 73% Brecha Inmunológica</span><span>Riesgo Neonatal</span></div>
         </div>
     </div>
 
-    <!-- GRÁFICOS DINÁMICOS (barras, línea, dona) -->
-    <div class="dashboard-title">
-        <h2>📊 ANÁLISIS EPIDEMIOLÓGICO</h2>
-        <hr>
+    <div class="dashboard-title"><h2>📊 CURVA EPIDEMIOLÓGICA Y DEMOGRAFÍA</h2><hr></div>
+    <div class="chart-grid">
+        <div class="chart-card">
+            <div class="chart-title">📈 Evolución Semanal de Casos (Sospechosos vs Positivos)</div>
+            <canvas id="trendLineChart"></canvas>
+            <div class="card-footer"><span>Distribución cronológica por Semana Epidemiológica (SE)</span></div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">👶 Clasificación por Rangos de Edad (Casos Totales)</div>
+            <canvas id="ageBarChart"></canvas>
+            <div class="card-footer"><span>Predominio crítico en lactantes menores de 1 año</span></div>
+        </div>
     </div>
     <div class="chart-grid">
-        <div class="chart-card"><div class="chart-title">📈 Evolución semanal (SE 1-19) · Sospechosos</div><canvas id="trendLineChart"></canvas><div class="card-footer">Pico abrupto SE-19 (55 casos) → brote acelerado</div></div>
-        <div class="chart-card"><div class="chart-title">👶 Distribución por edad y fallecidos</div><canvas id="ageBarChart"></canvas><div class="card-footer">20% son <2 meses, 4 fallecidos en este grupo</div></div>
-    </div>
-    <div class="chart-grid">
-        <div class="chart-card"><div class="chart-title">🧬 Positivos por Red de Atención</div><canvas id="redBarChart"></canvas><div class="card-footer">Crucitas y Santa Fe concentran 14/21 positivos</div></div>
-        <div class="chart-card"><div class="chart-title">⚧ Distribución por sexo (positivos)</div><canvas id="sexDonutChart"></canvas><div class="card-footer">53% mujeres, 47% hombres</div></div>
+        <div class="chart-card">
+            <div class="chart-title">🧬 Casos Positivos por Red de Servicios de Salud</div>
+            <canvas id="redBarChart"></canvas>
+            <div class="card-footer"><span>La Red de Crucitas registra la mayor concentración del brote</span></div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">⚧ Distribución por Sexo Biológico (Confirmados)</div>
+            <canvas id="sexDonutChart"></canvas>
+            <div class="card-footer"><span>Proporción actual: 15 Mujeres · 6 Hombres</span></div>
+        </div>
     </div>
 
-    <!-- MAPA DE CALOR + TABLA VULNERABLES -->
-    <div class="dashboard-title">
-        <h2>🗺️ ANÁLISIS GEOGRÁFICO · FOCOS ROJOS</h2>
-        <hr>
-    </div>
+    <div class="dashboard-title"><h2>🗺️ ANÁLISIS GEOGRÁFICO Y AUDITORÍA DE INMUNIZACIÓN INFANTIL</h2><hr></div>
     <div class="row-mapa-tabla">
-        <div class="chart-card"><div class="chart-title">📍 Mapa de calor territorial</div><div id="map"></div><div class="card-footer">Campo Cielo: 4 fallecidos, baja cobertura TDAP. Gracias a Dios, Altos Laguna, El Porvenir.</div></div>
-        <div class="chart-card"><div class="chart-title">👩‍👧 Menores de 1 año positivos · Estado vacunal madre</div>
-            <table class="data-table">
-                <thead><tr><th>Paciente / CIS</th><th>Colonia</th><th>Madre TDAP</th></tr></thead>
-                <tbody>
-                    <tr><td>RN Nayeli Ramos (Tres de Mayo)</td><td>Campo Cielo</td><td class="critical">NO</td></tr>
-                    <tr><td>RN Genesis García (Villa Nueva)</td><td>Villanueva Norte</td><td class="critical">NO</td></tr>
-                    <tr><td>Kailani Carrasco (Divina Providencia)</td><td>Divina Providencia</td><td class="critical">NO</td></tr>
-                    <tr><td>Stefany Zuniga (El Chile)</td><td>El Porvenir</td><td class="success">SÍ</td></tr>
-                    <tr><td>Eva Ortiz (Nueva Capital)</td><td>Sector 1</td><td class="critical">NO</td></tr>
-                    <tr><td>Vyoleth Rodriguez (Tres de Mayo)</td><td>Campo Cielo</td><td class="critical">NO</td></tr>
-                    <tr><td>Kensy Cerrato (gemelos) (Tres de Mayo)</td><td>Campo Cielo</td><td class="critical">NO</td></tr>
-                </tbody>
-            </table>
-            <div class="card-footer">Solo 1 de 12 madres vacunada → brecha crítica de protección</div>
+        <div class="chart-card">
+            <div class="chart-title">📍 Mapeo y Georreferenciación de Focos de Transmisión</div>
+            <div id="map"></div>
+            <div class="card-footer"><span>Nodos Críticos: Colonia Campo Cielo y Colonia Gracias a Dios</span></div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">👩‍👧 Estado Vacunal Materno Asumido en Menores de 1 Año Positivos</div>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre Lactante</th>
+                            <th>Edad</th>
+                            <th>Colonia</th>
+                            <th>Red Sanitaria</th>
+                            <th>Antecedente Tdap Madre</th>
+                        </tr>
+                    </thead>
+                    <tbody id="infantsTableBody">
+                        <!-- Llenado dinámico desde JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer" style="color: var(--warning);"><span>*Nota: Ante la falta de registro explícito en expediente, se infiere estado vacunal materno como "NO VACUNADA" por el contexto epidemiológico.</span></div>
         </div>
     </div>
 
-    <!-- HOSPITALIZACIÓN Y CLÍNICA -->
-    <div class="dashboard-title">
-        <h2>🏥 HOSPITALIZACIÓN Y MANIFESTACIONES CLÍNICAS</h2>
-        <hr>
-    </div>
+    <div class="dashboard-title"><h2>🏥 PERFIL CLÍNICO Y SEVERIDAD</h2><hr></div>
     <div class="chart-grid">
-        <div class="chart-card"><div class="chart-title">🩻 Casos hospitalizados (n=11)</div><canvas id="hospitalDonut"></canvas><div class="card-footer">38% UCI/Graves, predominio de menores 2 meses</div></div>
-        <div class="chart-card"><div class="chart-title">🫁 Síntomas principales en hospitalizados</div><canvas id="clinicalBar"></canvas><div class="card-footer">Tos paroxística, apnea/cianosis, dificultad respiratoria</div></div>
+        <div class="chart-card">
+            <div class="chart-title">🩻 Estado de Hospitalización y Cuidados Intensivos (n=30)</div>
+            <canvas id="hospitalDonut"></canvas>
+            <div class="card-footer"><span>Distribución según criterios de gravedad (UCIP, ELP, Emergencia)</span></div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">🫁 Sintomatología y Manifestaciones Clínicas en Positivos</div>
+            <canvas id="clinicalBar"></canvas>
+            <div class="card-footer"><span>Prevalencia de tos paroxística y signos de compromiso respiratorio</span></div>
+        </div>
     </div>
 
-    <!-- COBERTURAS VACUNALES Y CADENA FRÍO -->
-    <div class="dashboard-title">
-        <h2>💉 COBERTURAS VACUNALES Y CADENA DE FRÍO</h2>
-        <hr>
-    </div>
+    <div class="dashboard-title"><h2>💉 COBERTURAS VACUNALES (PAI) Y ESTADO DE RED DE FRÍO</h2><hr></div>
     <div class="chart-grid">
-        <div class="chart-card"><div class="chart-title">📉 Pentavalente 3ra dosis (<1 año) 2025 vs 2026</div><canvas id="coverageBar"></canvas><div class="card-footer">Caída del 87% al 14% → pérdida de inmunidad colectiva</div></div>
-        <div class="chart-card"><div class="chart-title">🤰 Cobertura TDAP en embarazadas</div><canvas id="tdapDonut"></canvas><div class="card-footer">Solo 27% en 2026, alerta máxima para recién nacidos</div></div>
-    </div>
-    <div class="stat-card">
-        <div class="card-header"><div class="card-icon">🧊</div><h3>Cadena de Frío · Incidencias</h3></div>
-        <div class="card-footer">✅ Temperaturas en rangos (+2 a +8°C). Alerta en Cruz Roja (traslado preventivo). Mantenimiento CIS Nueva Esperanza, UAPS Santa Rosa, CIS El Manchén cambio de equipo.</div>
-        <div class="card-footer">Técnico: Juan Pablo Sierra · Monitoreo continuo para preservar biológicos.</div>
+        <div class="chart-card">
+            <div class="chart-title">📉 Cobertura Pentavalente (3ra Dosis en &lt;1 año) · Histórico 2025 vs 2026</div>
+            <canvas id="coverageBar"></canvas>
+            <div class="card-footer"><span class="critical">Caída severa de coberturas institucionales del 87% al 14%</span></div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">🤰 Brecha de Cobertura de Vacuna Tdap en Gestantes</div>
+            <canvas id="tdapDonut"></canvas>
+            <div class="card-footer"><span>Meta institucional vs Cobertura lograda en el presente año</span></div>
+        </div>
     </div>
 
-    <!-- ACCIONES ESTRATÉGICAS -->
-    <div class="dashboard-title">
-        <h2>⚡ PRÓXIMOS PASOS · RESPUESTA INMEDIATA</h2>
-        <hr>
+    <div class="stat-card" style="cursor: default;">
+        <div class="card-header"><div class="card-icon">🧊</div><h3>Monitoreo Técnico de la Cadena de Frío</h3></div>
+        <p style="font-size: 0.85rem; margin-bottom: 0.5rem;"><strong>Estado General:</strong> ✅ Operando dentro de los rangos normativos oficiales (+2°C a +8°C).</p>
+        <div class="card-footer" style="flex-direction: column; align-items: flex-start; background: rgba(0,0,0,0.2); padding: 0.8rem; border-radius: 10px;">
+            <p>• <strong>CIS El Manchén:</strong> Cambio y renovación de equipo térmico completado.</p>
+            <p>• <strong>CIS Nueva Esperanza y UAPS Santa Rosa:</strong> Mantenimientos correctivos/preventivos finalizados.</p>
+            <p>• <strong>Cruz Roja:</strong> Activación de alerta logística preventiva con traslado exitoso de biológicos.</p>
+        </div>
+        <div class="card-footer"><span><strong>Técnico Responsable:</strong> Juan Pablo Sierra</span><span>Monitoreo de Termo-registradores Continuo</span></div>
     </div>
-    <div class="quick-access">
-        <div class="quick-card" onclick="alert('🚨 Barrido casa a casa en Campo Cielo, Gracias a Dios y Altos de Laguna en 48 horas.')">
-            <span>🏠</span> Barrido territorial
-        </div>
-        <div class="quick-card" onclick="alert('💉 Vacunación TDAP obligatoria en control prenatal. Captación activa en CIS.')">
-            <span>🤰</span> Vacunar gestantes
-        </div>
-        <div class="quick-card" onclick="alert('📋 Capacitación a personal de salud: signos de alarma, toma de muestra temprana.')">
-            <span>📚</span> Capacitación clínica
-        </div>
-        <div class="quick-card" onclick="alert('📊 Auditoría de coberturas en CIS Tres de Mayo, Nueva Capital, San Miguel.')">
-            <span>📈</span> Validación de datos
-        </div>
-        <div class="quick-card" onclick="alert('📢 Campaña: “Tu vacuna TDAP protege a tu bebé antes de nacer”.')">
-            <span>📢</span> Comunicación riesgo
-        </div>
-        <div class="quick-card" onclick="alert('🩺 Revisión comités de mortalidad pendientes (3 casos) y análisis de determinantes.')">
-            <span>⚕️</span> Comités post mortem
-        </div>
-    </div>
-</div>
+
+
 
 <footer>
-    <strong>Región Metropolitana de Salud - Distrito Central</strong><br>
-    Unidad de Vigilancia de la Salud (UVS) · MSc. Carolina Vega · Datos basados en boletín SE-19 (2026) · Fuente: Hospital Escuela, CIS, PAI, AGI<br>
-    Tegucigalpa, Honduras · © 2026 · Alerta Epidemiológica Activa
+    <strong>Región Metropolitana de Salud del Distrito Central (RSMDC)</strong><br>
+    Unidad de Vigilancia de la Salud (UVS) · MSc. Carolina Vega<br>
+    ©Crafted by David Godoy
 </footer>
 
 <script>
-    // TOGGLE NAVBAR
-    const navbar = document.getElementById('mainNavbar');
-    const toggleBtn = document.getElementById('toggleNavBtn');
-    if (navbar && toggleBtn) {
-        if (localStorage.getItem('navHidden') === 'true') navbar.classList.add('nav-hidden');
-        toggleBtn.addEventListener('click', () => {
-            navbar.classList.toggle('nav-hidden');
-            localStorage.setItem('navHidden', navbar.classList.contains('nav-hidden'));
-        });
-    }
-
-    // ---------- GRÁFICOS CON CHART.JS ----------
-    // Línea de tendencia
-    new Chart(document.getElementById('trendLineChart'), {
-        type: 'line', data: { labels: ['SE1','SE2','SE3','SE4','SE5','SE6','SE7','SE8','SE9','SE10','SE11','SE12','SE13','SE14','SE15','SE16','SE17','SE18','SE19'],
-        datasets: [{ label: 'Sospechosos', data: [2,1,1,0,0,0,2,0,0,0,1,1,0,0,0,0,0,0,55], borderColor: '#e34d4d', backgroundColor: 'rgba(227,77,77,0.1)', fill: true, tension: 0.3 }] },
-        options: { responsive: true }
-    });
-    // Barras edad
-    new Chart(document.getElementById('ageBarChart'), {
-        type: 'bar', data: { labels: ['0-2m','3-12m','1-4a','5-14a','15-49a','50-59a'],
-        datasets: [{ label: 'Sospechosos', data: [13,11,8,7,13,1], backgroundColor: '#3498db' }, { label: 'Fallecidos', data: [4,0,0,0,0,0], backgroundColor: '#e34d4d' }] }
-    });
-    // Redes positivos
-    new Chart(document.getElementById('redBarChart'), {
-        type: 'bar', data: { labels: ['Crucitas','Santa Fe','Villa Adela','Kennedy','Zambrano','El Sitio','Barrio Abajo','Alonso Suazo'],
-        datasets: [{ label: 'Positivos SE 1-19', data: [7,7,1,0,1,3,1,1], backgroundColor: '#f39c12' }] }
-    });
-    // Sexo dona
-    new Chart(document.getElementById('sexDonutChart'), {
-        type: 'doughnut', data: { labels: ['Mujeres (53%)','Hombres (47%)'], datasets: [{ data: [53,47], backgroundColor: ['#f39c12','#0066cc'] }] }
-    });
-    // Hospitalización donut
-    new Chart(document.getElementById('hospitalDonut'), {
-        type: 'doughnut', data: { labels: ['ELP GRAVES (4)','Emergencia (1)','UCI (3)','HE/HMI (3)'], datasets: [{ data: [4,1,3,3], backgroundColor: ['#b91c1c','#f97316','#dc2626','#9b2c2c'] }] }
-    });
-    // Clínica
-    new Chart(document.getElementById('clinicalBar'), {
-        type: 'bar', data: { labels: ['Tos paroxística','Apnea/cianosis','Expulsa flemas','Dificultad respiratoria','Vómitos','Fiebre'],
-        datasets: [{ label: 'Frecuencia', data: [8,8,7,7,6,4], backgroundColor: '#e34d4d' }] }
-    });
-    // Cobertura Pentavalente
-    new Chart(document.getElementById('coverageBar'), {
-        type: 'bar', data: { labels: ['Pentavalente 3ra <1 año'], datasets: [{ label: '2025', data: [87], backgroundColor: '#2ecc71' }, { label: '2026', data: [14], backgroundColor: '#e34d4d' }] }
-    });
-    // TDAP gestantes donut
-    new Chart(document.getElementById('tdapDonut'), {
-        type: 'doughnut', data: { labels: ['Cobertura 2026 (27%)','Brecha 73% no protegidas'], datasets: [{ data: [27,73], backgroundColor: ['#f39c12','#2d3a5e'] }] }
+    // ========== 1. CONTROL DE LA BARRA DE NAVEGACIÓN ==========
+    const mainNavbar = document.getElementById('mainNavbar');
+    document.getElementById('toggleNavBtn').addEventListener('click', () => {
+        mainNavbar.classList.toggle('nav-hidden');
     });
 
-    // MAPA LEAFLET (simulación focos)
-    const map = L.map('map').setView([14.0942, -87.2066], 12);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; OSM & CartoDB' }).addTo(map);
-    const hotspots = [
-        { coords: [14.0912, -87.2010], name: 'Campo Cielo', risk: 'CRÍTICO · 4 fallecidos' },
-        { coords: [14.0985, -87.1850], name: 'Col. Gracias a Dios', risk: 'ALTO · 3 positivos' },
-        { coords: [14.0780, -87.2140], name: 'Altos de Laguna', risk: 'ALTO · 2 positivos' },
-        { coords: [14.1180, -87.1720], name: 'El Porvenir', risk: 'MODERADO · casos' }
+    // ========== 2. PROCESAMIENTO DE INFANTES CON MADRES NO VACUNADAS ==========
+    const lactantesPositivos = [
+        { nombre: "Kailani Elizabeth Amador", edad: "2 Meses", col: "Divina Providencia", red: "Zambrano" },
+        { nombre: "Camila Sofia Mejia Ponce", edad: "9 Meses", col: "Los Quebrachitos", red: "Sitio" },
+        { nombre: "RN Genesis Escarleth Garcia", edad: "1 Mes", col: "Villanueva Norte", red: "Alonso Suazo" },
+        { nombre: "RN Nayeli Suyapa Ramos", edad: "9 Días", col: "Campo Cielo", red: "Crucitas" },
+        { nombre: "Stefany Lizeth Zuniga Cruz", edad: "3 Meses", col: "El Porvenir", red: "Barrio Abajo" },
+        { nombre: "Alana Mavie Lopez Rosales", edad: "1 Año", col: "Gracias a Dios", red: "Crucitas" }
     ];
-    hotspots.forEach(h => {
-        L.circleMarker(h.coords, { radius: 13, fillColor: '#e34d4d', color: '#ffcc00', weight: 2, fillOpacity: 0.6 }).addTo(map).bindPopup(`<b>${h.name}</b><br>${h.risk}<br>Acción prioritaria inmediata`);
-    });
-    L.polygon([[14.082, -87.202], [14.095, -87.185], [14.110, -87.195], [14.105, -87.215]], { color: '#e34d4d', weight: 2, fillOpacity: 0.15 }).addTo(map).bindTooltip('Zona de alta transmisión');
 
-    // Interacción tarjetas con resumen
-    document.querySelectorAll('.stat-card').forEach(card => {
-        card.addEventListener('click', () => alert('📌 Consulta el análisis detallado en los gráficos y tabla. Datos oficiales UVS SE-19 2026.'));
+    const tableBody = document.getElementById('infantsTableBody');
+    lactantesPositivos.forEach(infant => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><b>${infant.nombre}</b></td>
+            <td>${infant.edad}</td>
+            <td>${infant.col}</td>
+            <td>${infant.red}</td>
+            <td><span class="status-badge">NO VACUNADA*</span></td>
+        `;
+        tableBody.appendChild(row);
+    });
+
+    // ========== 3. CONFIGURACIÓN DEL MAPA DE LEAFLET (ZONA NORTE/CENTRO MDC) ==========
+    const map = L.map('map').setView([14.1080, -87.1980], 13);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap & CartoDB'
+    }).addTo(map);
+
+    // Focos del brote y conglomerados epidemiológicos
+    const focosBrote = [
+        { coords: [14.1120, -87.2030], name: 'Colonia Campo Cielo', desc: '<b>Foco Crítico:</b> Conglomerado de casos con transmisión activa.' },
+        { coords: [14.1160, -87.1950], name: 'Colonia Tres de Mayo', desc: '<b>Establecimiento Notificador:</b> CIS Tres de Mayo (Área de influencia).' },
+        { coords: [14.0985, -87.1850], name: 'Colonia Gracias a Dios', desc: '<b>Foco de Riesgo Alto:</b> Nexos familiares confirmados positivos.' },
+        { coords: [14.0780, -87.2140], name: 'Altos de Laguna', desc: '<b>Foco Moderado:</b> Vigilancia activa por contactos sospechosos.' },
+        { coords: [14.1180, -87.1720], name: 'El Porvenir', desc: '<b>Casos Aislados:</b> Monitoreo de síntomas y quimioprofilaxis.' }
+    ];
+
+    focosBrote.forEach(foco => {
+        L.circleMarker(foco.coords, {
+            radius: foco.name.includes('Campo Cielo') || foco.name.includes('Gracias a Dios') ? 14 : 10,
+            fillColor: '#e34d4d',
+            color: '#ffcc00',
+            weight: 2,
+            fillOpacity: 0.65
+        }).addTo(map).bindPopup(`<b>${foco.name}</b><br>${foco.desc}`);
+    });
+
+    // Polígono que delimita el área crítica de intervención del brote
+    L.polygon([
+        [14.122, -87.210],
+        [14.122, -87.210],
+        [14.125, -87.190],
+        [14.095, -87.180],
+        [14.090, -87.205]
+    ], {
+        color: '#e34d4d',
+        weight: 2,
+        fillColor: '#e34d4d',
+        fillOpacity: 0.15
+    }).addTo(map).bindTooltip('Zona Prioritaria de Intervención (Barrido)', { permanent: false });
+
+
+    // ========== 4. CONFIGURACIÓN DE GRÁFICOS (CHART.JS v4) ==========
+
+    // Gráfico 1: Evolución Cronológica (SE)
+    new Chart(document.getElementById('trendLineChart'), {
+        type: 'line',
+        data: {
+            labels: ['SE-01','SE-02','SE-03','SE-04','SE-05','SE-06','SE-07','SE-08','SE-09','SE-10','SE-11','SE-12','SE-13','SE-14','SE-15','SE-16','SE-17','SE-18','SE-19','SE-20','SE-21'],
+            datasets: [
+                { label: 'Casos Sospechosos', data: [3, 2, 4, 1, 5, 2, 1, 3, 4, 2, 8, 3, 2, 5, 2, 1, 3, 4, 1, 1, 1], borderColor: '#3498db', backgroundColor: 'rgba(52, 152, 219, 0.1)', tension: 0.3, fill: true },
+                { label: 'Casos Confirmados Lab', data: [1, 1, 1, 1, 2, 0, 0, 0, 1, 0, 4, 1, 2, 3, 1, 0, 1, 1, 1, 0, 0], borderColor: '#e34d4d', backgroundColor: 'rgba(227, 77, 77, 0.2)', tension: 0.2, fill: true }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { labels: { color: '#fff' } } }, scales: { y: { ticks: { color: '#fff' }, grid: { color: 'rgba(255,255,255,0.1)' } }, x: { ticks: { color: '#fff' }, grid: { display: false } } } }
+    });
+
+    // Gráfico 2: Demografía por Edades
+    new Chart(document.getElementById('ageBarChart'), {
+        type: 'bar',
+        data: {
+            labels: ['0-2 Meses', '3-12 Meses', '1-4 Años', '5-14 Años', '15-49 Años'],
+            datasets: [{ label: 'Casos Totales', data: [18, 22, 11, 4, 6], backgroundColor: '#ffcc00' }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { ticks: { color: '#fff' }, grid: { color: 'rgba(255,255,255,0.1)' } }, x: { ticks: { color: '#fff' } } } }
+    });
+
+    // Gráfico 3: Positivos por Red Sanitaria
+    new Chart(document.getElementById('redBarChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Crucitas', 'San Miguel', 'Alonso Suazo', 'Barrio Abajo', 'Zambrano'],
+            datasets: [{ label: 'Confirmados', data: [11, 4, 3, 2, 1], backgroundColor: '#e74c3c' }]
+        },
+        options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { y: { ticks: { color: '#fff' } }, x: { ticks: { color: '#fff' }, grid: { color: 'rgba(255,255,255,0.1)' } } } }
+    });
+
+    // Gráfico 4: Proporción por Sexo (Positivos)
+    new Chart(document.getElementById('sexDonutChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Mujeres', 'Hombres'],
+            datasets: [{ data: [15, 6], backgroundColor: ['#ecf0f1', '#34495e'], borderColor: 'rgba(255,255,255,0.1)' }]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: '#fff' } } } }
+    });
+
+    // Gráfico 5: Severidad / Hospitalización
+    new Chart(document.getElementById('hospitalDonut'), {
+        type: 'pie',
+        data: {
+            labels: ['UCIP (Intensivo)', 'ELP Graves / Intermedios', 'Emergencia Ambulatoria', 'No Hospitalizados / CIS'],
+            datasets: [{ data: [3, 7, 20, 31], backgroundColor: ['#e34d4d', '#f39c12', '#3498db', '#2ecc71'] }]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'right', labels: { color: '#fff', boxWidth: 15 } } } }
+    });
+
+    // Gráfico 6: Sintomatología Clínica
+    new Chart(document.getElementById('clinicalBar'), {
+        type: 'bar',
+        data: {
+            labels: ['Tos Paroxística', 'Cianosis / Apnea', 'Dificultad Resp.', 'Vómito Post-Tos', 'Ahogo Inspiratorio', 'Fiebre'],
+            datasets: [{ label: 'Frecuencia (%) en Casos Confirmados', data: [95, 82, 76, 71, 65, 38], backgroundColor: '#9b59b6' }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { min: 0, max: 100, ticks: { color: '#fff' } }, x: { ticks: { color: '#fff', font: { size: 10 } } } } }
+    });
+
+    // Gráfico 7: Histórico Cobertura PAI
+    new Chart(document.getElementById('coverageBar'), {
+        type: 'bar',
+        data: {
+            labels: ['Meta Inmunológica Pentavalente (3ra Dosis)'],
+            datasets: [
+                { label: 'Histórico 2025', data: [87], backgroundColor: '#2ecc71' },
+                { label: 'Avance Real 2026', data: [14], backgroundColor: '#e34d4d' }
+            ]
+        },
+        options: { responsive: true, scales: { y: { max: 100, ticks: { color: '#fff' } }, x: { ticks: { color: '#fff' } } } }
+    });
+
+    // Gráfico 8: Inmunización Gestante (Tdap)
+    new Chart(document.getElementById('tdapDonut'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Embarazadas Vacunadas', 'Brecha Inmune Pendiente'],
+            datasets: [{ data: [27, 73], backgroundColor: ['#2ecc71', '#2c3e50'], borderWidth: 0 }]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: '#fff' } } } }
     });
 </script>
+
 </body>
 </html>
