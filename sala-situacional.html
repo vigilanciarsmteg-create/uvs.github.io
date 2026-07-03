@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>UVS · Sala Situacional SE-25 · RSMDC · YouTube Shorts integrado</title>
+    <title>UVS · Sala Situacional SE-25 · RSMDC · Video local</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         :root {
             --primary: #0066cc;
             --primary-dark: #004b99;
@@ -221,7 +221,7 @@
             border: 1px solid var(--border-glow);
         }
 
-        /* === CONTENEDOR DE VIDEO (YouTube Shorts embebido) === */
+        /* === CONTENEDOR DE VIDEO (local MP4) === */
         .video-container {
             max-width: 560px;
             margin: 0 auto;
@@ -229,6 +229,7 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            position: relative;
         }
 
         .video-wrapper {
@@ -240,13 +241,15 @@
             justify-content: center;
         }
 
-        .video-wrapper iframe {
+        /* Video local con proporción 9:16 (similar a Shorts) */
+        .video-wrapper video {
             width: 100%;
             height: auto;
             aspect-ratio: 9 / 16;
             display: block;
             border: none;
             border-radius: 0;
+            background: #000;
         }
 
         .video-overlay {
@@ -269,7 +272,7 @@
             .video-container {
                 max-width: 100%;
             }
-            .video-wrapper iframe {
+            .video-wrapper video {
                 aspect-ratio: 9 / 16;
             }
         }
@@ -481,30 +484,28 @@
 <div class="main-layout">
     <div class="content-left">
         <div class="monitor-main">
-            <!-- CONTENEDOR DE VIDEO ACTUALIZADO: YouTube Shorts embebido con reproducción automática -->
+            <!-- CONTENEDOR DE VIDEO CON ARCHIVO LOCAL semanal25.mp4 -->
             <div class="video-container">
                 <div class="video-wrapper">
                     <div class="video-overlay">
                         🔴 TELEGRAMA SE-25 | RSMDC 2026<br>
                         <span style="font-size:0.5rem;">Alertas: Sarampión/Rubeola, Tosferina, Miasis, Diarreas</span>
                     </div>
-                    <!-- 
-                        Se reemplaza el antiguo tag <video> por el iframe de YouTube.
-                        ID del video: adQXqSa9D6k (Short link proporcionado).
-                        Parámetros clave:
-                        - autoplay=1: inicia automáticamente
-                        - mute=1: obligatorio para autoplay en navegadores modernos
-                        - playsinline=1: evita pantalla completa forzada en móviles
-                        - loop=1 & playlist=adQXqSa9D6k: reproducción cíclica
-                        - modestbranding=1 & rel=0: interfaz más limpia
-                        - controls=1: permite manejo manual del video
+                    <!--
+                        Se reemplaza el iframe de YouTube por un video local en formato MP4.
+                        Se añaden atributos para reproducción automática, silenciado, bucle y en línea.
+                        La ruta del archivo es "semanal25.mp4" (debe estar en el mismo directorio que este HTML).
                     -->
-                    <iframe 
-                        src="https://youtube.com/shorts/x98AnWlAV-A"
-                        title="YouTube Shorts - Telegrama Semanal SE-25 RSMDC"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen>
-                    </iframe>
+                    <video 
+                        src="semana25.mp4"
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        controls
+                        preload="auto">
+                        Tu navegador no soporta la reproducción de videos.
+                    </video>
                 </div>
             </div>
         </div>
@@ -579,7 +580,7 @@
     <div class="footer">
         <strong>REGIÓN SANITARIA METROPOLITANA · DISTRITO CENTRAL (RSMDC)</strong> | UNIDAD DE VIGILANCIA DE LA SALUD (UVS)<br>
         Telegrama Semanal SE-25: 21 junio - 27 junio 2026 · Datos preliminares sujetos a ajuste semanal · Fuente: Formulario UVS-RSMDC<br>
-        📺 Video informativo (YouTube Shorts) integrado con reproducción automática | Contenido alineado a la vigilancia epidemiológica.
+        📺 Video local (semanal25.mp4) con reproducción automática en bucle | Contenido alineado a la vigilancia epidemiológica.
     </div>
 </div>
 
@@ -620,7 +621,7 @@
         });
     });
 
-    console.log("Video Shorts incrustado con reproducción automática (muted). ID: adQXqSa9D6k - SE-25");
+    console.log("Video local cargado: semanal25.mp4 - SE-25");
 </script>
 </body>
 </html>
