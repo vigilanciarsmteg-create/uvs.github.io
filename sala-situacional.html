@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>UVS · Sala Situacional SE-20 · RSMDC · YouTube Shorts integrado</title>
+    <title>UVS · Sala Situacional SE-25 · RSMDC · YouTube Shorts integrado</title>
     <style>
         * {
             margin: 0;
@@ -238,18 +238,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Se ajusta al contenido iframe con aspect-ratio 9:16 (vertical / Shorts) */
         }
 
-        /* Estilo específico para el iframe de YouTube: mantiene proporción vertical 9:16 (formato Shorts) 
-           y se adapta perfectamente al ancho del contenedor */
         .video-wrapper iframe {
             width: 100%;
             height: auto;
-            aspect-ratio: 9 / 16;  /* Relación clásica de YouTube Shorts (vertical) */
+            aspect-ratio: 9 / 16;
             display: block;
             border: none;
-            border-radius: 0;       /* El contenedor padre ya tiene border-radius */
+            border-radius: 0;
         }
 
         .video-overlay {
@@ -264,11 +261,10 @@
             font-size: 0.6rem;
             font-family: monospace;
             z-index: 10;
-            pointer-events: none;  /* Permite interactuar con el iframe sin bloquear controles */
+            pointer-events: none;
             color: #f0f9ff;
         }
 
-        /* Ajuste adicional para que en pantallas muy pequeñas el video no se desborde */
         @media (max-width: 640px) {
             .video-container {
                 max-width: 100%;
@@ -433,7 +429,6 @@
             }
         }
 
-        /* Smart TV (pantallas grandes) */
         @media (min-width: 1920px) {
             body {
                 zoom: 1.1;
@@ -465,9 +460,9 @@
         <div class="dropdown">
             <button class="dropdown-btn">📄 Telegramas ▼</button>
             <div class="dropdown-content">
-                <a href="#">SE-20 (Mayo 2026)</a>
-                <a href="#">SE-17 (Abril-Mayo 2026)</a>
-                <a href="#">SE-15 (Abril 2026)</a>
+                <a href="#">SE-25 (Junio 2026)</a>
+                <a href="#">SE-24 (Junio 2026)</a>
+                <a href="#">SE-23 (Junio 2026)</a>
                 <a href="#">Acumulado 2026</a>
             </div>
         </div>
@@ -477,8 +472,8 @@
 </nav>
 
 <div class="top-info-bar">
-    <div class="info-item"><span class="info-label">Semana Epidemiológica:</span><span class="info-value" style="color:#00f2ff">SE-20</span></div>
-    <div class="info-item"><span class="info-label">Periodo:</span><span class="info-value">17 MAYO - 23 MAYO 2026</span></div>
+    <div class="info-item"><span class="info-label">Semana Epidemiológica:</span><span class="info-value" style="color:#00f2ff">SE-25</span></div>
+    <div class="info-item"><span class="info-label">Periodo:</span><span class="info-value">21 JUNIO - 27 JUNIO 2026</span></div>
     <div class="info-item"><span class="info-label">Cobertura:</span><span class="info-value" style="color:var(--accent)">99%</span></div>
     <div class="info-item"><span class="info-label">Eventos ENO:</span><span class="info-value">42</span></div>
 </div>
@@ -490,8 +485,8 @@
             <div class="video-container">
                 <div class="video-wrapper">
                     <div class="video-overlay">
-                        🔴 TELEGRAMA SE-20 | RSMDC 2026<br>
-                        <span style="font-size:0.5rem;">Alertas: Sarampión, Tosferina, Miasis, Diarreas</span>
+                        🔴 TELEGRAMA SE-25 | RSMDC 2026<br>
+                        <span style="font-size:0.5rem;">Alertas: Sarampión/Rubeola, Tosferina, Miasis, Diarreas</span>
                     </div>
                     <!-- 
                         Se reemplaza el antiguo tag <video> por el iframe de YouTube.
@@ -505,8 +500,8 @@
                         - controls=1: permite manejo manual del video
                     -->
                     <iframe 
-                        src="https://www.youtube.com/embed/adQXqSa9D6k?autoplay=1&mute=1&playsinline=1&loop=1&playlist=adQXqSa9D6k&modestbranding=1&rel=0&controls=1"
-                        title="YouTube Shorts - Telegrama Semanal SE-20 RSMDC"
+                        src="https://youtube.com/shorts/x98AnWlAV-A"
+                        title="YouTube Shorts - Telegrama Semanal SE-25 RSMDC"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen>
                     </iframe>
@@ -514,64 +509,64 @@
             </div>
         </div>
 
-        <!-- CHIPS DE ALERTA (actualizado según PDF SE-20) -->
+        <!-- CHIPS DE ALERTA (actualizado según PDF SE-25) -->
         <div class="alert-chips">
             <span class="chip-alert">⚠️ Sarampión/Rubeola (Alerta Mundial)</span>
             <span class="chip-alert">⚠️ Tosferina en vigilancia</span>
             <span class="chip-alert">🪰 Miasis gusano barrenador</span>
-            <span class="chip-alert">💧 Diarreas: Zona Alerta</span>
+            <span class="chip-alert">💧 Diarreas: Zona Seguridad</span>
         </div>
 
-        <!-- RESUMEN RÁPIDO CON DATOS SE-20 -->
+        <!-- RESUMEN RÁPIDO CON DATOS SE-25 -->
         <div class="responsive-table-info">
-            <strong>📊 Resumen SE-20 (Distrito Central) – 17 al 23 mayo 2026</strong>
+            <strong>📊 Resumen SE-25 (Distrito Central) – 21 al 27 junio 2026</strong>
             <div style="display: flex; flex-wrap:wrap; justify-content: space-between; gap:8px; margin-top:8px;">
-                <div><span style="color:var(--accent)">🦟 Dengue:</span> <strong>52</strong> (Zona Éxito)</div>
-                <div><span style="color:var(--accent)">💧 Diarreas:</span> <strong>1,037</strong> ↗18% (Alerta)</div>
-                <div><span style="color:var(--accent)">🫁 Neumonías:</span> <strong>75</strong> (Seguridad)</div>
-                <div><span style="color:var(--accent)">🐕 Mordeduras:</span> <strong>68</strong> en SE-20</div>
-                <div><span style="color:var(--accent)">👶 Mortalidad &lt;1a:</span> <strong>3</strong></div>
-                <div><span style="color:var(--accent)">🤰 Mortalidad materna:</span> <strong>1</strong></div>
+                <div><span style="color:var(--accent)">🦟 Dengue:</span> <strong>74</strong> (Zona Éxito)</div>
+                <div><span style="color:var(--accent)">💧 Diarreas:</span> <strong>907</strong> (Zona Seguridad)</div>
+                <div><span style="color:var(--accent)">🫁 Neumonías:</span> <strong>66</strong> (Seguridad)</div>
+                <div><span style="color:var(--accent)">🐕 Mordeduras:</span> <strong>53</strong> en SE-25</div>
+                <div><span style="color:var(--accent)">👶 Mortalidad &lt;1a:</span> <strong>0</strong></div>
+                <div><span style="color:var(--accent)">🤰 Mortalidad materna:</span> <strong>0</strong></div>
             </div>
         </div>
     </div>
 
-    <!-- SIDEBAR DERECHO - DATOS ACTUALIZADOS SE-20 -->
+    <!-- SIDEBAR DERECHO - DATOS ACTUALIZADOS SE-25 -->
     <div class="data-sidebar">
-        <div class="card card-critical">
-            <div class="alert-tag">🚨 ZONA DE ALERTA</div>
-            <div class="card-label" style="color:var(--danger);">DIARREAS AGUDAS</div>
-            <div class="card-value">1,037</div>
-            <div style="font-size:0.65rem;">Casos SE-20 | Acum: 18,828</div>
-            <div class="small-stat"><span>💊 Hospitalizados: <strong>445</strong></span><span>⬆ +18% vs 2025</span></div>
+        <div class="card">
+            <div class="card-label" style="color:var(--warning);">DIARREAS AGUDAS</div>
+            <div class="card-value">907</div>
+            <div style="font-size:0.65rem;">Casos SE-25 | Acum: 24,878</div>
+            <div class="small-stat"><span>💊 Hospitalizados: <strong>9,134</strong></span><span>⬆ +6.6% vs 2025</span></div>
         </div>
 
         <div class="card">
             <div class="card-label">🩺 VECTORIALES</div>
-            <div class="card-value" style="color:var(--success);">52</div>
-            <div>Dengue s/signos · SE-20</div>
-            <div class="small-stat"><span>Acum 2026: 1,624</span><span>Grave: 0</span></div>
+            <div class="card-value" style="color:var(--success);">74</div>
+            <div>Dengue s/signos · SE-25</div>
+            <div class="small-stat"><span>Acum 2026: 1,105</span><span>Grave acum: 2</span></div>
         </div>
 
         <div class="card">
             <div class="card-label">😷 RESPIRATORIAS</div>
-            <div class="card-value" style="color:var(--warning);">75</div>
-            <div>Neumonías SE-20</div>
-            <div class="small-stat"><span>Acum: 1,237</span><span>Zona seguridad</span></div>
+            <div class="card-value" style="color:var(--warning);">66</div>
+            <div>Neumonías SE-25</div>
+            <div class="small-stat"><span>Acum: 1,542</span><span>Zona seguridad</span></div>
         </div>
 
         <div class="card">
             <div class="card-label">⚠️ PREVENIBLES</div>
             <div class="card-value" style="font-size:1.2rem;">Sospecha Sarampión</div>
-            <div style="font-size:1.2rem; font-weight:bold;">5 casos</div>
-            <div class="small-stat"><span>Tosferina: en vigilancia</span><span>Miasis GBG: 3 casos</span></div>
+            <div style="font-size:1.2rem; font-weight:bold;">0 casos (semana)</div>
+            <div class="small-stat"><span>Acum 2026: 26</span><span>Tosferina semana: 2</span></div>
+            <div class="small-stat"><span>Miasis GBG acum: 35</span><span>Parotiditis semana: 3</span></div>
         </div>
 
         <div class="card">
-            <div class="card-label">🏥 HOSPITALARIAS</div>
-            <div class="card-value">8,099</div>
-            <div>Ingresos SE-20</div>
-            <div class="small-stat"><span>Diarrea: 7,262</span><span>Neumonía: 427</span></div>
+            <div class="card-label">🏥 HOSPITALARIAS (Acum)</div>
+            <div class="card-value" style="font-size:1.2rem;">Diarrea: 9,134</div>
+            <div style="font-size:0.9rem;">Neumonía: 651 · Varicela: 260</div>
+            <div class="small-stat"><span>Hepatitis: 6</span><span>Mordeduras: 155</span></div>
         </div>
 
         <div class="card">
@@ -583,7 +578,7 @@
 
     <div class="footer">
         <strong>REGIÓN SANITARIA METROPOLITANA · DISTRITO CENTRAL (RSMDC)</strong> | UNIDAD DE VIGILANCIA DE LA SALUD (UVS)<br>
-        Telegrama Semanal SE-20: 17 mayo - 23 mayo 2026 · Datos preliminares sujetos a ajuste semanal · Fuente: Formulario UVS-RSMDC<br>
+        Telegrama Semanal SE-25: 21 junio - 27 junio 2026 · Datos preliminares sujetos a ajuste semanal · Fuente: Formulario UVS-RSMDC<br>
         📺 Video informativo (YouTube Shorts) integrado con reproducción automática | Contenido alineado a la vigilancia epidemiológica.
     </div>
 </div>
@@ -593,7 +588,7 @@
     const navbar = document.querySelector('.navbar');
     const toggleBtn = document.getElementById('toggleNavBtn');
     if (navbar && toggleBtn) {
-        const stored = localStorage.getItem('navHidden_SE20_v2');
+        const stored = localStorage.getItem('navHidden_SE25_v2');
         if (stored === 'true') {
             navbar.classList.add('nav-hidden');
             toggleBtn.style.transform = 'rotate(180deg)';
@@ -601,7 +596,7 @@
         toggleBtn.addEventListener('click', function() {
             navbar.classList.toggle('nav-hidden');
             const hidden = navbar.classList.contains('nav-hidden');
-            localStorage.setItem('navHidden_SE20_v2', hidden);
+            localStorage.setItem('navHidden_SE25_v2', hidden);
             toggleBtn.style.transform = hidden ? 'rotate(180deg)' : 'rotate(0deg)';
         });
     }
@@ -611,7 +606,7 @@
     btns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            alert('📊 Módulo en desarrollo. Consultar informe oficial PDF SE-20 para datos completos.');
+            alert('📊 Módulo en desarrollo. Consultar informe oficial PDF SE-25 para datos completos.');
         });
     });
 
@@ -620,18 +615,12 @@
         link.addEventListener('click', (e) => {
             if(link.getAttribute('href') === '#') {
                 e.preventDefault();
-                alert('📁 Documentación disponible en el informe oficial de la Unidad de Vigilancia (Telegrama SE-20).');
+                alert('📁 Documentación disponible en el informe oficial de la Unidad de Vigilancia (Telegrama SE-25).');
             }
         });
     });
 
-    // (opcional) Forzar reproducción adicional por si el navegador requiere interacción mínima
-    // pero el iframe ya tiene autoplay=1&mute=1, generalmente funciona.
-    // Pequeño helper para ambientes muy restrictivos: No es necesario pero refuerza la experiencia.
-    // Se deja comentado porque en la práctica el embed ya maneja autoplay con muted.
-    // Nota: Debido a políticas de algunos navegadores, si el usuario nunca ha interactuado,
-    // el autoplay silenciado siempre funciona según especificaciones modernas.
-    console.log("Video Shorts incrustado con reproducción automática (muted). ID: adQXqSa9D6k");
+    console.log("Video Shorts incrustado con reproducción automática (muted). ID: adQXqSa9D6k - SE-25");
 </script>
 </body>
 </html>
