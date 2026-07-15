@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>UVS · Boletín Epidemiológico SE-25 2026 · RSMDC</title>
+    
+    <!-- Fuentes Profesionales -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Librería de Animaciones al Scroll (AOS) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Librería de Gráficos (Chart.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
         * {
             margin: 0;
@@ -17,31 +29,48 @@
             --primary-glow: #0099ff;
             --accent: #ffcc00;
             --accent-dark: #e6b800;
-            --bg-deep: linear-gradient(145deg, #0a1a2a 0%, #0c2a3b 100%);
-            --glass-white: rgba(255, 255, 255, 0.08);
-            --glass-card: rgba(255, 255, 255, 0.12);
-            --danger: #e34d4d;
-            --success: #2ecc71;
-            --warning: #f39c12;
-            --info: #3498db;
+            --bg-deep: #06121f;
+            --glass-white: rgba(255, 255, 255, 0.03);
+            --glass-card: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-hover: rgba(255, 204, 0, 0.3);
+            --danger: #ff4d4d;
+            --danger-bg: rgba(255, 77, 77, 0.15);
+            --success: #00e676;
+            --success-bg: rgba(0, 230, 118, 0.15);
+            --warning: #ffab00;
+            --warning-bg: rgba(255, 171, 0, 0.15);
+            --info: #29b6f6;
             --text-light: #f0f9ff;
-            --border-glow: rgba(0, 153, 255, 0.4);
+            --text-muted: rgba(240, 249, 255, 0.6);
         }
 
         body {
-            font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
-            background: var(--bg-deep);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-deep);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(0, 102, 204, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(255, 204, 0, 0.08) 0%, transparent 50%),
+                linear-gradient(180deg, rgba(6, 18, 31, 0.9) 0%, #06121f 100%);
+            background-attachment: fixed;
             color: var(--text-light);
-            line-height: 1.5;
+            line-height: 1.6;
             scroll-behavior: smooth;
             min-height: 100vh;
+            overflow-x: hidden;
         }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-deep); }
+        ::-webkit-scrollbar-thumb { background: var(--primary-dark); border-radius: 4px; border: 2px solid var(--bg-deep); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
         /* ============ NAVBAR ============ */
         .navbar {
-            background: rgba(10, 26, 42, 0.95);
-            backdrop-filter: blur(16px);
-            border-bottom: 3px solid var(--accent);
+            background: rgba(6, 18, 31, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
             padding: 0.8rem 2rem;
             position: sticky;
             top: 0;
@@ -51,7 +80,7 @@
             justify-content: space-between;
             align-items: center;
             gap: 1rem;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .navbar.nav-hidden .nav-links,
@@ -61,74 +90,78 @@
 
         .navbar.nav-hidden {
             justify-content: center;
+            padding: 0.6rem 2rem;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 1rem;
         }
 
         .toggle-nav-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid var(--accent);
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
             color: var(--accent);
-            font-size: 1.3rem;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
+            font-size: 1.2rem;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             user-select: none;
         }
 
         .toggle-nav-btn:hover {
             background: var(--accent);
-            color: #0a1f2e;
-            transform: rotate(180deg);
+            color: #06121f;
+            border-color: var(--accent);
+            transform: rotate(90deg);
         }
 
         .logo h1 {
-            font-size: 1.1rem;
-            background: linear-gradient(135deg, #fff, var(--accent));
+            font-size: 1.15rem;
+            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             font-weight: 800;
+            letter-spacing: -0.02em;
         }
 
         .logo p {
-            font-size: 0.65rem;
-            opacity: 0.8;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
 
         .nav-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.4rem;
             align-items: center;
         }
 
         .nav-links a {
-            color: white;
+            color: var(--text-muted);
             text-decoration: none;
             padding: 0.5rem 1rem;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            border-radius: 30px;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            letter-spacing: 0.02em;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
-            background: var(--accent);
-            color: #0a1f2e;
-            transform: translateY(-2px);
+            background: rgba(255, 204, 0, 0.1);
+            color: var(--accent);
         }
 
         .dropdown {
@@ -138,33 +171,44 @@
 
         .dropdown-btn {
             background: transparent;
-            color: white;
+            color: var(--text-muted);
             padding: 0.5rem 1rem;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             border: none;
             cursor: pointer;
-            border-radius: 30px;
+            border-radius: 8px;
             font-family: inherit;
-            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
         }
 
         .dropdown-btn:hover {
-            background: var(--accent);
-            color: #0a1f2e;
+            background: rgba(255, 204, 0, 0.1);
+            color: var(--accent);
         }
 
         .dropdown-content {
             display: none;
             position: absolute;
-            background: #0f2c3b;
-            min-width: 180px;
-            border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            z-index: 1;
-            top: 100%;
+            background: rgba(15, 30, 50, 0.95);
+            backdrop-filter: blur(20px);
+            min-width: 200px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            z-index: 100;
+            top: calc(100% + 0.5rem);
             left: 0;
-            border: 1px solid var(--border-glow);
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            animation: slideDown 0.2s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .dropdown:hover .dropdown-content {
@@ -173,207 +217,421 @@
 
         .dropdown-content a {
             display: block;
-            padding: 0.75rem 1.2rem;
-            color: white;
+            padding: 0.8rem 1.2rem;
+            color: var(--text-light);
             text-decoration: none;
             font-size: 0.85rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.2s;
         }
 
+        .dropdown-content a:last-child { border-bottom: none; }
+
         .dropdown-content a:hover {
-            background: var(--primary);
+            background: rgba(0, 102, 204, 0.2);
             color: var(--accent);
+            padding-left: 1.5rem;
         }
 
         /* ============ HERO ============ */
         .hero {
             text-align: center;
-            padding: 2rem 1rem;
-            background: radial-gradient(circle at 30% 20%, rgba(0, 102, 204, 0.2), transparent 70%);
+            padding: 3rem 1rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 102, 204, 0.15) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
         }
 
         .hero h1 {
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
             font-weight: 800;
-            background: linear-gradient(120deg, #fff, #88ddff, var(--accent));
+            background: linear-gradient(135deg, #ffffff 0%, #88ddff 50%, var(--accent) 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
         }
 
         .hero-badge {
-            background: rgba(0, 102, 204, 0.3);
+            background: rgba(0, 102, 204, 0.15);
             backdrop-filter: blur(10px);
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            border-radius: 40px;
-            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.5rem;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-glow);
+            border: 1px solid rgba(0, 153, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 153, 255, 0.1);
+        }
+
+        .hero p {
             margin-top: 1rem;
-            border: 1px solid var(--accent);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
         }
 
         /* ============ CONTENEDOR PRINCIPAL ============ */
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 1rem 2rem 3rem;
         }
 
         .dashboard-title {
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin: 2rem 0 1.5rem;
+            margin: 3rem 0 1.5rem;
         }
 
         .dashboard-title h2 {
-            color: var(--accent);
-            font-size: 1.4rem;
+            color: var(--text-light);
+            font-size: 1.25rem;
+            font-weight: 700;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dashboard-title h2::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 2px;
         }
 
         .dashboard-title hr {
             flex: 1;
             border: none;
-            border-top: 2px solid rgba(255, 255, 255, 0.2);
+            border-top: 1px solid var(--glass-border);
         }
 
         /* ============ TARJETAS DE ESTADÍSTICAS ============ */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
         .stat-card {
             background: var(--glass-card);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
+            backdrop-filter: blur(16px);
+            border-radius: 16px;
             padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             text-decoration: none;
             color: var(--text-light);
-            display: block;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .stat-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent);
-            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 204, 0, 0.15);
-            background: rgba(0, 102, 204, 0.2);
+            transform: translateY(-6px);
+            border-color: var(--glass-border-hover);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 204, 0, 0.1);
+            background: rgba(255, 255, 255, 0.08);
         }
+
+        .stat-card:hover::before { opacity: 1; }
 
         .card-header {
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
 
         .card-icon {
-            font-size: 2.2rem;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
+            font-size: 1.8rem;
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
+            border: 1px solid var(--glass-border);
+            flex-shrink: 0;
         }
 
         .card-header h3 {
-            font-size: 1.2rem;
-            color: var(--accent);
+            font-size: 1.05rem;
+            color: var(--text-light);
+            font-weight: 700;
+            line-height: 1.3;
         }
 
         .card-stats {
             display: flex;
             justify-content: space-between;
-            margin: 1rem 0;
+            margin: 0.5rem 0 1rem;
             flex-wrap: wrap;
-            gap: 0.8rem;
+            gap: 1rem;
+            flex: 1;
         }
 
         .stat-item {
             text-align: center;
             flex: 1;
+            min-width: 80px;
+            padding: 0.8rem 0.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
 
         .stat-number {
-            font-size: 1.8rem;
-            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.6rem;
+            font-weight: 700;
             display: block;
-            color: white;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.3rem;
         }
 
         .stat-label {
             font-size: 0.7rem;
-            opacity: 0.7;
+            color: var(--text-muted);
             text-transform: uppercase;
-        }
-
-        .trend-up {
-            color: var(--danger);
-        }
-        .trend-down {
-            color: var(--success);
-        }
-        .alert-status {
-            color: var(--warning);
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            line-height: 1.3;
         }
 
         .card-footer {
-            margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--glass-border);
             font-size: 0.75rem;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .trend-up, .trend-down, .alert-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 0.02em;
+        }
+
+        .trend-up { color: var(--danger); background: var(--danger-bg); border: 1px solid rgba(255, 77, 77, 0.2); }
+        .trend-down { color: var(--success); background: var(--success-bg); border: 1px solid rgba(0, 230, 118, 0.2); }
+        .alert-status { color: var(--warning); background: var(--warning-bg); border: 1px solid rgba(255, 171, 0, 0.2); }
+
+        /* ============ GRÁFICOS (CHART.JS) ============ */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background: var(--glass-card);
+            backdrop-filter: blur(16px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-card:hover {
+            border-color: var(--glass-border-hover);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .chart-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .chart-header h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+            flex: 1;
+            margin-bottom: 1rem;
+        }
+
+        .chart-footer {
+            padding-top: 1rem;
+            border-top: 1px solid var(--glass-border);
+            font-size: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            color: var(--text-muted);
         }
 
         /* ============ ACCESO RÁPIDO ============ */
         .quick-access {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
             margin: 2rem 0;
         }
 
         .quick-card {
-            background: rgba(0, 0, 0, 0.3);
+            background: var(--glass-card);
             border-radius: 16px;
-            padding: 1rem;
+            padding: 1.5rem 1rem;
             text-align: center;
             text-decoration: none;
-            color: white;
-            transition: all 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--glass-border);
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quick-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .quick-card:hover {
-            background: var(--primary);
-            transform: scale(1.02);
-            border-color: var(--accent);
+            transform: translateY(-4px);
+            border-color: var(--primary-glow);
+            box-shadow: 0 10px 30px rgba(0, 102, 204, 0.15);
         }
+
+        .quick-card:hover::after { opacity: 1; }
 
         .quick-card span {
-            font-size: 1.5rem;
-            display: block;
-            margin-bottom: 0.5rem;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            transition: transform 0.3s;
+            position: relative;
+            z-index: 1;
         }
 
-        /* ============ TABLA ============ */
+        .quick-card:hover span {
+            transform: scale(1.1);
+            background: rgba(0, 102, 204, 0.2);
+            border-color: var(--primary-glow);
+        }
+
+        .quick-card {
+            font-weight: 600;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============ TABLA / IFRAME ============ */
         .boletin-table-wrapper {
-            background: rgba(10, 26, 42, 0.6);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            overflow-x: auto;
-            margin-top: 2rem;
+            background: var(--glass-card);
+            backdrop-filter: blur(16px);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            margin-top: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .iframe-header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.8rem 1.2rem;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .iframe-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .iframe-dot.red { background: #ff5f56; }
+        .iframe-dot.yellow { background: #ffbd2e; }
+        .iframe-dot.green { background: #27c93f; }
+
+        .iframe-container {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        iframe {
+            border-radius: 8px;
+            background: #ffffff;
+            width: 100%;
         }
 
         /* ============ MODAL ============ */
@@ -383,34 +641,36 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(6px);
+            background: rgba(6, 18, 31, 0.85);
+            backdrop-filter: blur(8px);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 2000;
-            animation: fadeIn 0.2s ease;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .modal[style*="display: flex"] {
+            opacity: 1;
+            visibility: visible;
         }
 
         .modal-content {
-            background: linear-gradient(145deg, #0f2c3b, #0a1a2a);
-            border: 1px solid var(--accent);
+            background: linear-gradient(145deg, rgba(15, 30, 50, 0.95), rgba(6, 18, 31, 0.98));
+            border: 1px solid var(--glass-border-hover);
             border-radius: 20px;
             padding: 2rem;
             max-width: 520px;
             width: 90%;
-            box-shadow: 0 0 50px rgba(0, 153, 255, 0.35);
-            animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes slideUp {
-            from { transform: translateY(40px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        .modal[style*="display: flex"] .modal-content {
+            transform: translateY(0) scale(1);
         }
 
         .modal-header {
@@ -418,59 +678,73 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.2rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .modal-header h2 {
             color: var(--accent);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .modal-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-size: 1.5rem;
             cursor: pointer;
             transition: all 0.3s;
             line-height: 1;
-            width: 35px;
-            height: 35px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
+            border-radius: 10px;
         }
 
         .modal-close:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.2);
+            background: var(--danger-bg);
+            border-color: var(--danger);
             color: var(--danger);
+            transform: rotate(90deg);
         }
 
         #modal-body {
             line-height: 1.7;
-            color: #ddd;
+            color: var(--text-muted);
             font-size: 0.95rem;
         }
 
         /* ============ FOOTER ============ */
         footer {
             text-align: center;
-            padding: 2rem;
-            background: #05161f;
-            margin-top: 3rem;
-            border-top: 2px solid var(--accent);
-            font-size: 0.8rem;
+            padding: 2.5rem 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            margin-top: 4rem;
+            border-top: 1px solid var(--glass-border);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        footer p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         /* ============ RESPONSIVE ============ */
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: column;
-                padding: 0.8rem 1rem;
+                padding: 1rem;
+                align-items: stretch;
             }
             .logo-container {
                 width: 100%;
@@ -479,16 +753,25 @@
             .nav-links {
                 justify-content: center;
                 width: 100%;
+                gap: 0.3rem;
             }
-            .container {
-                padding: 1rem;
+            .nav-links a, .dropdown-btn {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.8rem;
             }
-            .stats-grid {
-                grid-template-columns: 1fr;
+            .container { padding: 1rem; }
+            .stats-grid, .chart-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.6rem; }
+            .modal-content { padding: 1.5rem; width: 95%; }
+            .card-stats { flex-direction: column; gap: 0.8rem; }
+            .stat-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.8rem 1rem;
+                text-align: left;
             }
-            .modal-content {
-                padding: 1.5rem;
-            }
+            .stat-number { margin-bottom: 0; font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -526,26 +809,26 @@
     </nav>
 
     <!-- ==================== HERO ==================== -->
-    <section class="hero">
+    <section class="hero" data-aos="fade-down" data-aos-duration="800">
         <h1>Boletín Epidemiológico SE-25 2026</h1>
         <div class="hero-badge">
-            📊 Datos oficiales · Semana Epidemiológica 25 · 21 AL 27 DE JUNIO DEL 2026 · Región Metropolitana
+            <span>📊</span> Datos oficiales · Semana Epidemiológica 25 · 21 AL 27 DE JUNIO DEL 2026 · Región Metropolitana
         </div>
-        <p style="margin-top: 1rem; opacity: 0.9;">Región Sanitaria Metropolitana del Distrito Central · MSc. Jackeline Burgos</p>
+        <p>Región Sanitaria Metropolitana del Distrito Central · MSc. Jackeline Burgos</p>
     </section>
 
     <!-- ==================== CONTENEDOR PRINCIPAL ==================== -->
     <div class="container">
 
         <!-- RESUMEN POR SALA SITUACIONAL -->
-        <div class="dashboard-title">
-            <h2>📈 RESUMEN POR SALA SITUACIONAL (Boletín SE-25 / 21-27 JUNIO 2026)</h2>
+        <div class="dashboard-title" data-aos="fade-right" data-aos-duration="600">
+            <h2>RESUMEN POR SALA SITUACIONAL (Boletín SE-25 / 21-27 JUNIO 2026)</h2>
             <hr>
         </div>
 
         <div class="stats-grid">
             <!-- Enfermedades Hídricas -->
-            <div class="stat-card">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="card-header">
                     <div class="card-icon">💧</div>
                     <h3>Enfermedades Hídricas</h3>
@@ -567,7 +850,7 @@
             </div>
 
             <!-- Arbovirosis -->
-            <div class="stat-card">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="card-header">
                     <div class="card-icon">🦟</div>
                     <h3>Arbovirosis</h3>
@@ -589,7 +872,7 @@
             </div>
 
             <!-- Mortalidad Infantil -->
-            <div class="stat-card">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
                 <div class="card-header">
                     <div class="card-icon">👶</div>
                     <h3>Mortalidad Infantil</h3>
@@ -611,7 +894,7 @@
             </div>
 
             <!-- Prevenibles por Vacunación -->
-            <div class="stat-card">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
                 <div class="card-header">
                     <div class="card-icon">💉</div>
                     <h3>Prevenibles por Vacunación</h3>
@@ -637,7 +920,7 @@
             </div>
 
             <!-- Zoonosis y Accidentes -->
-            <div class="stat-card">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="500">
                 <div class="card-header">
                     <div class="card-icon">🐕</div>
                     <h3>Zoonosis y Accidentes</h3>
@@ -663,7 +946,7 @@
             </div>
 
             <!-- Infecciones Respiratorias -->
-            <div class="stat-card">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="600">
                 <div class="card-header">
                     <div class="card-icon">🫁</div>
                     <h3>Infecciones Respiratorias</h3>
@@ -685,7 +968,7 @@
             </div>
 
             <!-- Síndromes Neurológicos -->
-            <div class="stat-card">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="700">
                 <div class="card-header">
                     <div class="card-icon">🧠</div>
                     <h3>Síndromes Neurológicos</h3>
@@ -707,7 +990,7 @@
             </div>
 
             <!-- Otras patologías -->
-            <div class="stat-card">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="800">
                 <div class="card-header">
                     <div class="card-icon">📋</div>
                     <h3>Otras patologías</h3>
@@ -729,92 +1012,106 @@
             </div>
         </div>
 
-        <!-- INDICADORES DE ALERTA Y TENDENCIAS -->
-        <div class="dashboard-title">
-            <h2>⚠️ INDICADORES DE ALERTA Y TENDENCIAS (Comparativo 2024-2025-2026) · Datos acumulados SE-25</h2>
+        <!-- INDICADORES DE ALERTA Y TENDENCIAS (CON GRÁFICOS) -->
+        <div class="dashboard-title" data-aos="fade-right" data-aos-duration="600">
+            <h2>INDICADORES DE ALERTA Y TENDENCIAS (Comparativo 2024-2025-2026) · Datos acumulados SE-25</h2>
             <hr>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="card-header">
-                    <div class="card-icon">📈</div>
+        <div class="chart-grid">
+            <!-- Gráfico Dengue -->
+            <div class="chart-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="chart-header">
+                    <span style="font-size: 1.5rem;">📈</span>
                     <h3>Dengue (Comparativo acumulado)</h3>
                 </div>
-                <div class="card-stats">
-                    <div class="stat-item"><span class="stat-number">1.105</span><span class="stat-label">2026</span></div>
-                    <div class="stat-item"><span class="stat-number">1.870</span><span class="stat-label">2025</span></div>
-                    <div class="stat-item"><span class="stat-number">9.185*</span><span class="stat-label">2024</span></div>
+                <div class="chart-container">
+                    <canvas id="chartDengue"></canvas>
                 </div>
-                <div class="card-footer"><span class="trend-down">▼ Disminución frente a años anteriores</span><span>Vigilancia activa en brotes</span></div>
+                <div class="chart-footer">
+                    <span class="trend-down">▼ Disminución frente a años anteriores</span>
+                    <span>Vigilancia activa en brotes</span>
+                </div>
             </div>
-            <div class="stat-card">
-                <div class="card-header">
-                    <div class="card-icon">📉</div>
+
+            <!-- Gráfico EDA -->
+            <div class="chart-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="chart-header">
+                    <span style="font-size: 1.5rem;">📉</span>
                     <h3>Diarrea sin sangre (EDA)</h3>
                 </div>
-                <div class="card-stats">
-                    <div class="stat-item"><span class="stat-number">24.878</span><span class="stat-label">2026</span></div>
-                    <div class="stat-item"><span class="stat-number">19.706</span><span class="stat-label">2025</span></div>
-                    <div class="stat-item"><span class="stat-number">26.143</span><span class="stat-label">2024</span></div>
+                <div class="chart-container">
+                    <canvas id="chartEDA"></canvas>
                 </div>
-                <div class="card-footer"><span>Incremento del 26.2% vs 2025</span><span>Vigilancia hídrica reforzada</span></div>
+                <div class="chart-footer">
+                    <span class="trend-up">▲ Incremento del 26.2% vs 2025</span>
+                    <span>Vigilancia hídrica reforzada</span>
+                </div>
             </div>
-            <div class="stat-card">
-                <div class="card-header">
-                    <div class="card-icon">👶</div>
+
+            <!-- Gráfico Mortalidad Infantil -->
+            <div class="chart-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="chart-header">
+                    <span style="font-size: 1.5rem;">👶</span>
                     <h3>Mortalidad Infantil (Acumulado)</h3>
                 </div>
-                <div class="card-stats">
-                    <div class="stat-item"><span class="stat-number">75</span><span class="stat-label">2026</span></div>
-                    <div class="stat-item"><span class="stat-number">70</span><span class="stat-label">2025</span></div>
-                    <div class="stat-item"><span class="stat-number">70</span><span class="stat-label">2024</span></div>
+                <div class="chart-container">
+                    <canvas id="chartMortalidad"></canvas>
                 </div>
-                <div class="card-footer"><span class="trend-up">▲ Ligero incremento vs históricos</span><span>Monitoreo continuo en red hospitalaria</span></div>
+                <div class="chart-footer">
+                    <span class="trend-up">▲ Ligero incremento vs históricos</span>
+                    <span>Monitoreo continuo en red hospitalaria</span>
+                </div>
             </div>
         </div>
 
         <!-- ACCESO RÁPIDO A INTERVENCIONES -->
-        <div class="dashboard-title">
-            <h2>🚀 ACCESO RÁPIDO A INTERVENCIONES (SE-25)</h2>
+        <div class="dashboard-title" data-aos="fade-right" data-aos-duration="600">
+            <h2>ACCESO RÁPIDO A INTERVENCIONES (SE-25)</h2>
             <hr>
         </div>
 
         <div class="quick-access">
-            <div class="quick-card" data-modal-content="📋 Protocolo de atención para Dengue y Dengue Grave actualizado. Incluye clasificación de gravedad, manejo de líquidos y criterios de hospitalización. Casos acumulados: 1.105 en 2026. Descargar documento completo en PDF.">
+            <div class="quick-card" data-aos="zoom-in" data-aos-delay="100" data-modal-content="📋 Protocolo de atención para Dengue y Dengue Grave actualizado. Incluye clasificación de gravedad, manejo de líquidos y criterios de hospitalización. Casos acumulados: 1.105 en 2026. Descargar documento completo en PDF.">
                 <span>🦟</span>
                 Protocolo Dengue 2026
             </div>
-            <div class="quick-card" data-modal-content="📊 Sala situacional interactiva en tiempo real. Datos SE-25: 907 casos de diarrea, 74 dengue, 66 neumonías, 0 defunción infantil. Acceda al panel completo con filtros por municipio y establecimiento de salud.">
+            <div class="quick-card" data-aos="zoom-in" data-aos-delay="200" data-modal-content="📊 Sala situacional interactiva en tiempo real. Datos SE-25: 907 casos de diarrea, 74 dengue, 66 neumonías, 0 defunción infantil. Acceda al panel completo con filtros por municipio y establecimiento de salud.">
                 <span>📡</span>
                 Sala Situacional en Vivo
             </div>
-            <div class="quick-card" data-modal-content="📄 Boletín Epidemiológico SE-25 completo en formato PDF (21-27 junio 2026). Incluye análisis detallado, gráficos de tendencia y recomendaciones. Disponible en el repositorio oficial de la RSMDC.">
+            <div class="quick-card" data-aos="zoom-in" data-aos-delay="300" data-modal-content="📄 Boletín Epidemiológico SE-25 completo en formato PDF (21-27 junio 2026). Incluye análisis detallado, gráficos de tendencia y recomendaciones. Disponible en el repositorio oficial de la RSMDC.">
                 <span>📥</span>
                 Descargar Boletín Oficial
             </div>
-            <div class="quick-card" data-modal-content="📧 Correo: vigilancia@rsmdc.hn · Teléfono: 2242-8900 · Disponible 24/7. Notificación inmediata de brotes y eventos de salud pública de notificación obligatoria (ENO).">
+            <div class="quick-card" data-aos="zoom-in" data-aos-delay="400" data-modal-content="📧 Correo: vigilancia@rsmdc.hn · Teléfono: 2242-8900 · Disponible 24/7. Notificación inmediata de brotes y eventos de salud pública de notificación obligatoria (ENO).">
                 <span>📧</span>
                 Notificar Evento ENO
             </div>
         </div>
 
         <!-- TABLA DETALLADA DE NOTIFICACIÓN -->
-        <div class="dashboard-title">
-            <h2>📋 TABLA DETALLADA DE NOTIFICACIÓN DE ALERTA (SE-25)</h2>
+        <div class="dashboard-title" data-aos="fade-right" data-aos-duration="600">
+            <h2>TABLA DETALLADA DE NOTIFICACIÓN DE ALERTA (SE-25)</h2>
             <hr>
         </div>
 
-        <!-- ===== IFRAME MÁS GRANDE Y RESPONSIVO ===== -->
-        <div class="boletin-table-wrapper" style="text-align:center; padding: 1rem;">
-            <iframe 
-                src="https://1drv.ms/x/c/00098489F3B5F313/IQS-Q1Qs0-s9S5OfPFxS2IR9Ad0uziHKBffRXWsw6mlVsrU" 
-                width="100%" 
-                height="800" 
-                frameborder="0" 
-                scrolling="auto"
-                style="max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,0.15); display:block; margin:0 auto;">
-            </iframe>
+        <!-- ===== IFRAME ESTILIZADO ===== -->
+        <div class="boletin-table-wrapper" data-aos="fade-up" data-aos-duration="800">
+            <div class="iframe-header">
+                <div class="iframe-dot red"></div>
+                <div class="iframe-dot yellow"></div>
+                <div class="iframe-dot green"></div>
+                <span style="margin-left: 0.5rem;">Vista previa de datos · Fuente externa segura</span>
+            </div>
+            <div class="iframe-container">
+                <iframe 
+                    src="https://1drv.ms/x/c/00098489F3B5F313/IQS-Q1Qs0-s9S5OfPFxS2IR9Ad0uziHKBffRXWsw6mlVsrU" 
+                    height="800" 
+                    frameborder="0" 
+                    scrolling="auto">
+                </iframe>
+            </div>
         </div>
 
         <!-- ==================== MODAL ==================== -->
@@ -830,13 +1127,24 @@
     </div>
 
     <!-- ==================== FOOTER ==================== -->
-    <footer>
-        <p>©Crafted by David Godoy</p>
+    <footer data-aos="fade-in" data-aos-duration="1000">
+        <p>© Crafted by David Godoy</p>
     </footer>
 
     <!-- ==================== SCRIPTS ==================== -->
+    <!-- AOS Library for Scroll Animations -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            
+            // ========== 0. INICIALIZAR ANIMACIONES AL SCROLL (AOS) ==========
+            AOS.init({
+                duration: 800,
+                easing: 'ease-out-cubic',
+                once: true,
+                offset: 80
+            });
 
             // ========== 1. NAVBAR TOGGLE FUNCIONAL ==========
             const toggleBtn = document.getElementById('toggleNavBtn');
@@ -845,7 +1153,6 @@
             if (toggleBtn && mainNavbar) {
                 toggleBtn.addEventListener('click', function() {
                     mainNavbar.classList.toggle('nav-hidden');
-
                     if (mainNavbar.classList.contains('nav-hidden')) {
                         toggleBtn.innerHTML = '☰';
                         toggleBtn.setAttribute('aria-label', 'Expandir menú de navegación');
@@ -883,22 +1190,14 @@
                 }
             }
 
-            if (closeModalBtn) {
-                closeModalBtn.addEventListener('click', closeModal);
-            }
-
+            if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
             if (modal) {
                 modal.addEventListener('click', function(event) {
-                    if (event.target === modal) {
-                        closeModal();
-                    }
+                    if (event.target === modal) closeModal();
                 });
             }
-
             document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape' && modal && modal.style.display === 'flex') {
-                    closeModal();
-                }
+                if (event.key === 'Escape' && modal && modal.style.display === 'flex') closeModal();
             });
 
             // ========== 3. RESALTAR FILA DE TABLA AL HACER CLIC ==========
@@ -911,8 +1210,165 @@
                 });
             });
 
+            // ========== 4. CONFIGURACIÓN DE GRÁFICOS (CHART.JS) ==========
+            // Configuración global para tema oscuro
+            Chart.defaults.color = 'rgba(240, 249, 255, 0.6)';
+            Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.05)';
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            
+            const years = ['2024', '2025', '2026'];
+
+            // Gráfico 1: Dengue
+            new Chart(document.getElementById('chartDengue'), {
+                type: 'bar',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Casos Acumulados',
+                        data: [9185, 1870, 1105],
+                        backgroundColor: [
+                            'rgba(255, 77, 77, 0.6)',   // 2024 (Alto - Rojo)
+                            'rgba(255, 171, 0, 0.6)',   // 2025 (Medio - Naranja)
+                            'rgba(0, 230, 118, 0.8)'    // 2026 (Bajo - Verde)
+                        ],
+                        borderColor: [
+                            'rgba(255, 77, 77, 1)',
+                            'rgba(255, 171, 0, 1)',
+                            'rgba(0, 230, 118, 1)'
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 6,
+                        barPercentage: 0.6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(6, 18, 31, 0.9)',
+                            titleColor: '#ffcc00',
+                            bodyColor: '#f0f9ff',
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                            borderWidth: 1,
+                            padding: 10,
+                            callbacks: {
+                                label: function(context) {
+                                    return ' Casos: ' + context.parsed.y.toLocaleString();
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.03)' },
+                            ticks: { font: { family: "'JetBrains Mono', monospace" } }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico 2: EDA (Diarrea)
+            new Chart(document.getElementById('chartEDA'), {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Casos Acumulados',
+                        data: [26143, 19706, 24878],
+                        borderColor: '#0099ff',
+                        backgroundColor: 'rgba(0, 153, 255, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#06121f',
+                        pointBorderColor: '#0099ff',
+                        pointBorderWidth: 2,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(6, 18, 31, 0.9)',
+                            titleColor: '#ffcc00',
+                            bodyColor: '#f0f9ff',
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.03)' },
+                            ticks: { font: { family: "'JetBrains Mono', monospace" } }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            // Gráfico 3: Mortalidad Infantil
+            new Chart(document.getElementById('chartMortalidad'), {
+                type: 'bar',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Defunciones',
+                        data: [70, 70, 75],
+                        backgroundColor: [
+                            'rgba(0, 230, 118, 0.5)',
+                            'rgba(0, 230, 118, 0.5)',
+                            'rgba(255, 77, 77, 0.7)' // 2026 resalta en rojo por el incremento
+                        ],
+                        borderColor: [
+                            'rgba(0, 230, 118, 1)',
+                            'rgba(0, 230, 118, 1)',
+                            'rgba(255, 77, 77, 1)'
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 6,
+                        barPercentage: 0.5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(6, 18, 31, 0.9)',
+                            titleColor: '#ffcc00',
+                            bodyColor: '#f0f9ff',
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.03)' },
+                            ticks: { 
+                                font: { family: "'JetBrains Mono', monospace" },
+                                stepSize: 25
+                            }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
             console.log('✅ Dashboard UVS · RSMDC cargado correctamente (SE-25)');
-            console.log('📊 Datos correspondientes a la Semana Epidemiológica 25 (21-27 junio 2026)');
+            console.log('📊 Gráficos interactivos y animaciones de scroll inicializadas.');
         });
     </script>
 
