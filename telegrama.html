@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="Telegrama Semanal Epidemiológico SE-41 2026 - Unidad de Vigilancia de la Salud, Región Sanitaria Metropolitana del Distrito Central">
+    <title>UVS · Telegrama Semanal SE-41 2026 · RSMDC</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* ============ VARIABLES Y ESTILOS BASE ============ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #2563eb; --primary-dark: #1e40af; --accent: #d4a017; --accent-dark: #ca8a04;
+            --bg-deep: #ffffff; --bg-surface: #f8fafc; --glass-card: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(0, 0, 0, 0.08); --danger: #dc2626; --danger-bg: rgba(220, 38, 38, 0.1);
+            --success: #16a34a; --success-bg: rgba(22, 163, 74, 0.1); --warning: #d97706; --warning-bg: rgba(217, 119, 6, 0.1);
+            --text-light: #1e293b; --text-muted: #64748b;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05); --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        html { -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-deep);
+            background-image: radial-gradient(circle at 15% 30%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
+                              radial-gradient(circle at 85% 70%, rgba(212, 160, 23, 0.05) 0%, transparent 50%);
+            background-attachment: fixed; color: var(--text-light); line-height: 1.6; scroll-behavior: smooth;
+            min-height: 100vh; overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-surface); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+
+        /* ============ NAVBAR ============ */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            backdrop-filter: blur(20px); border-bottom: 2px solid var(--accent);
+            padding: 0.8rem 1.5rem; position: sticky; top: 0; z-index: 1100;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        .logo-container { display: flex; align-items: center; gap: 0.8rem; }
+        .toggle-nav-btn {
+            background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white; font-size: 1.3rem; width: 44px; height: 44px; border-radius: 12px;
+            display: none; align-items: center; justify-content: center; cursor: pointer;
+        }
+        .logo h1 {
+            font-size: 1.1rem; background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%);
+            -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800;
+        }
+        .logo p { font-size: 0.65rem; color: rgba(255, 255, 255, 0.8); text-transform: uppercase; letter-spacing: 0.05em; }
+        .nav-links { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9); text-decoration: none; padding: 0.5rem 1rem;
+            font-size: 0.8rem; font-weight: 600; border-radius: 8px; transition: all 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active { color: white; background: rgba(255, 255, 255, 0.15); }
+
+        /* ============ HERO & ALERTAS ============ */
+        .hero { text-align: center; padding: 2.5rem 1rem 1.5rem; }
+        .hero h1 {
+            font-size: clamp(1.5rem, 5vw, 2.5rem); font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 0.8rem;
+        }
+        .hero-badge {
+            background: rgba(37, 99, 235, 0.08); backdrop-filter: blur(10px);
+            display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem;
+            border-radius: 100px; font-size: 0.8rem; font-weight: 600; color: var(--primary);
+            border: 1px solid rgba(37, 99, 235, 0.2); margin-bottom: 1rem;
+        }
+        .alert-banner {
+            background: linear-gradient(135deg, #fee2e2 0%, #fef2f2 100%);
+            border: 1px solid #f87171; border-left: 6px solid var(--danger);
+            border-radius: 12px; padding: 1.2rem 1.5rem; margin: 0 auto 2rem; max-width: 1400px;
+            display: flex; align-items: flex-start; gap: 1rem; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.15);
+        }
+        .alert-icon { font-size: 1.8rem; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        .alert-content h4 { color: var(--danger); font-weight: 800; font-size: 1.1rem; margin-bottom: 0.3rem; }
+        .alert-content p { color: var(--text-light); font-size: 0.9rem; font-weight: 500; }
+
+        /* ============ CONTENEDOR & TÍTULOS ============ */
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 1.5rem 3rem; }
+        .section-title { display: flex; align-items: center; gap: 1rem; margin: 2.5rem 0 1.5rem; }
+        .section-title h2 { color: var(--text-light); font-size: 1.2rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+        .section-title h2::before {
+            content: ''; display: block; width: 4px; height: 24px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--accent) 100%); border-radius: 2px;
+        }
+        .section-title hr { flex: 1; border: none; border-top: 1px solid var(--glass-border); }
+
+        /* ============ TARJETAS DE DATOS (KPIs) ============ */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; margin-bottom: 2rem;}
+        .stat-card {
+            background: var(--glass-card); backdrop-filter: blur(16px); border-radius: 16px;
+            padding: 1.3rem; border: 1px solid var(--glass-border); transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: var(--shadow-md);
+        }
+        .stat-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 15px 30px -10px rgba(212, 160, 23, 0.25); }
+        .card-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
+        .card-icon {
+            font-size: 1.6rem; width: 44px; height: 44px; background: rgba(212, 160, 23, 0.08);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border);
+        }
+        .card-header h3 { font-size: 1rem; font-weight: 700; }
+        .card-stats { display: flex; justify-content: space-between; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .stat-item {
+            text-align: center; flex: 1; min-width: 80px; padding: 0.7rem 0.4rem;
+            background: rgba(248, 250, 252, 0.8); border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .stat-number { font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; font-weight: 700; color: var(--primary-dark); display: block; }
+        .stat-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+        .card-footer {
+            border-top: 1px solid var(--glass-border); padding-top: 0.8rem;
+            font-size: 0.75rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+        }
+        .trend-up { color: var(--danger); background: var(--danger-bg); padding: 0.2rem 0.5rem; border-radius: 6px; font-weight: 700; }
+        .trend-down { color: var(--success); background: var(--success-bg); padding: 0.2rem 0.5rem; border-radius: 6px; font-weight: 700; }
+
+        /* ============ GRÁFICOS ============ */
+        .chart-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.2rem; margin-bottom: 2rem; }
+        .chart-card {
+            background: var(--glass-card); border-radius: 16px; padding: 1.3rem;
+            border: 1px solid var(--glass-border); box-shadow: var(--shadow-md);
+        }
+        .chart-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
+        .chart-header h3 { font-size: 0.95rem; font-weight: 700; }
+        .chart-container { position: relative; height: 250px; width: 100%; }
+
+        /* ============ TABLAS ============ */
+        .table-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .table-card { background: var(--glass-card); border-radius: 16px; border: 1px solid var(--glass-border); overflow: hidden; box-shadow: var(--shadow-md); }
+        .table-card-header {
+            background: rgba(248, 250, 252, 0.9); padding: 1rem 1.5rem; border-bottom: 1px solid var(--glass-border);
+            font-weight: 700; color: var(--primary-dark); display: flex; align-items: center; gap: 0.5rem;
+        }
+        .table-responsive { overflow-x: auto; max-height: 400px; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th {
+            background: rgba(248, 250, 252, 0.8); padding: 0.8rem 1.5rem; font-size: 0.75rem;
+            text-transform: uppercase; color: var(--text-muted); font-weight: 700; position: sticky; top: 0; z-index: 10;
+        }
+        td { padding: 0.8rem 1.5rem; border-bottom: 1px solid var(--glass-border); font-size: 0.85rem; }
+        tr:hover td { background: rgba(37, 99, 235, 0.03); }
+
+        /* ============ BLOQUES DE TEXTO ============ */
+        .info-block {
+            background: var(--glass-card); border-radius: 16px; padding: 1.5rem; border: 1px solid var(--glass-border);
+            margin-bottom: 1.5rem; border-left: 4px solid var(--primary); box-shadow: var(--shadow-sm);
+        }
+        .info-block h4 { color: var(--primary-dark); font-weight: 700; margin-bottom: 0.5rem; font-size: 1rem; }
+        .info-block p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem; text-align: justify; }
+
+        /* ============ MAPAS ============ */
+        .map-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .map-card {
+            background: var(--glass-card); border-radius: 16px; padding: 1rem;
+            border: 1px solid var(--glass-border); box-shadow: var(--shadow-md);
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+        .map-card img {
+            width: 100%; height: auto; border-radius: 12px; margin-bottom: 1rem;
+            box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.05);
+            background-color: #f8fafc;
+        }
+        .map-title { font-weight: 700; color: var(--primary-dark); font-size: 1rem; margin-bottom: 0.5rem; }
+        .map-caption { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* ============ FOOTER ============ */
+        footer {
+            text-align: center; padding: 2rem 1rem; background: rgba(248, 250, 252, 0.8);
+            border-top: 1px solid var(--glass-border); font-size: 0.8rem; color: var(--text-muted); margin-top: 3rem;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1024px) {
+            .toggle-nav-btn { display: flex; }
+            .nav-links {
+                position: absolute; top: 100%; left: 0; right: 0; flex-direction: column;
+                background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+                padding: 0; max-height: 0; opacity: 0; overflow: hidden; transition: all 0.4s ease;
+            }
+            .navbar.nav-open .nav-links { max-height: 85vh; opacity: 1; overflow-y: auto; padding: 0.5rem 0; }
+            .nav-links a { width: 100%; padding: 1rem 1.5rem; border-radius: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+            .stats-grid, .chart-grid, .table-grid, .map-grid { grid-template-columns: 1fr; }
+            .table-responsive { max-height: none; }
+            .alert-banner { flex-direction: column; text-align: center; }
+            .alert-icon { margin: 0 auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar" id="mainNavbar">
+        <div class="logo-container">
+            <div class="toggle-nav-btn" id="toggleNavBtn" aria-label="Abrir menú de navegación">
+                <span id="menuIcon">☰</span>
+            </div>
+            <div class="logo">
+                <h1>⚕️ UVS · RSMDC</h1>
+                <p>Unidad de Vigilancia de la Salud</p>
+            </div>
+        </div>
+        
+        <div class="nav-links" id="navLinks">
+            <a href="dashboard.html">📊 Dashboard</a>
+            <a href="telegrama.html" class="active">📄 Telegrama Semanal</a>
+            <a href="sala-situacional.html">📡 Sala Situacional</a>
+            <a href="biblioteca.html">📚 Biblioteca</a>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero" data-aos="fade-down">
+        <h1>Telegrama Semanal Epidemiológico</h1>
+        <div class="hero-badge">
+            <span>📊</span> Semana Epidemiológica 41 · 11 al 17 de Octubre de 2026
+        </div>
+        <p>Región Sanitaria Metropolitana del Distrito Central · Licda. Bessy Solano / Técnico UVS-RSM-DC</p>
+    </section>
+
+    <!-- ==================== ALERTA ENO ==================== -->
+    <div class="alert-banner" data-aos="fade-up" data-aos-delay="100">
+        <div class="alert-icon">🚨</div>
+        <div class="alert-content">
+            <h4>Eventos en Estado de Alerta (ENO)</h4>
+            <p>Se mantiene alerta por <strong>Sospecha de Sarampión/Rubeola</strong> (Emergencia mundial), <strong>Tosferina</strong>, <strong>Miasis por Gusano Barrenador</strong> y <strong>Diarrea</strong>. El resto de los eventos bajo vigilancia mantienen razones endémicas dentro de las cifras esperadas. Notificación del 99% de los establecimientos.</p>
+        </div>
+    </div>
+
+    <!-- ==================== CONTENEDOR PRINCIPAL ==================== -->
+    <div class="container">
+
+        <!-- SECCIÓN 1: RESUMEN DE EVENTOS -->
+        <div class="section-title" data-aos="fade-right">
+            <h2>RESUMEN DE EVENTOS DE NOTIFICACIÓN OBLIGATORIA (SE-41)</h2>
+            <hr>
+        </div>
+
+        <div class="stats-grid">
+            <!-- Arbovirosis -->
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="50">
+                <div class="card-header"><div class="card-icon">🦟</div><h3>Arbovirosis (Dengue)</h3></div>
+                <div class="card-stats">
+                    <div class="stat-item"><span class="stat-number">133</span><span class="stat-label">Casos SE-41</span></div>
+                    <div class="stat-item"><span class="stat-number">2,438</span><span class="stat-label">Acumulado 2026</span></div>
+                    <div class="stat-item"><span class="stat-number">9</span><span class="stat-label">Dengue Grave</span></div>
+                </div>
+                <div class="card-footer">
+                    <span class="trend-down">▼ 22.0% vs 2025</span>
+                    <span>Zika/Chik: 0 casos</span>
+                </div>
+            </div>
+
+            <!-- Hídricas -->
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-header"><div class="card-icon">💧</div><h3>Enfermedades Hídricas</h3></div>
+                <div class="card-stats">
+                    <div class="stat-item"><span class="stat-number">570</span><span class="stat-label">Diarreas SE-41</span></div>
+                    <div class="stat-item"><span class="stat-number">36,267</span><span class="stat-label">Acumulado Diarreas</span></div>
+                    <div class="stat-item"><span class="stat-number">4</span><span class="stat-label">Disenterías SE-41</span></div>
+                </div>
+                <div class="card-footer">
+                    <span class="trend-down">▼ 109 casos menos vs 2025</span>
+                    <span>Zona de éxito</span>
+                </div>
+            </div>
+
+            <!-- Respiratorias -->
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="150">
+                <div class="card-header"><div class="card-icon">🫁</div><h3>Infecciones Respiratorias</h3></div>
+                <div class="card-stats">
+                    <div class="stat-item"><span class="stat-number">45</span><span class="stat-label">Neumonías SE-41</span></div>
+                    <div class="stat-item"><span class="stat-number">2,407</span><span class="stat-label">Acumulado 2026</span></div>
+                    <div class="stat-item"><span class="stat-number">29</span><span class="stat-label">Varicela SE-41</span></div>
+                </div>
+                <div class="card-footer">
+                    <span class="trend-down">▼ Tendencia descendente</span>
+                    <span>Zona de éxito</span>
+                </div>
+            </div>
+
+            <!-- Mortalidad -->
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-header"><div class="card-icon">👶</div><h3>Mortalidad Materno-Infantil</h3></div>
+                <div class="card-stats">
+                    <div class="stat-item"><span class="stat-number">4</span><span class="stat-label">Infantil (SE-41)</span></div>
+                    <div class="stat-item"><span class="stat-number">120</span><span class="stat-label">Acum. Infantil</span></div>
+                    <div class="stat-item"><span class="stat-number">4</span><span class="stat-label">Materna Acum.</span></div>
+                </div>
+                <div class="card-footer">
+                    <span class="trend-up">▲ +9% vs 2025 (Infantil)</span>
+                    <span>RMM: 8.8 x 100k NV</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: MAPAS DE ARBOVIROSIS -->
+        <div class="section-title" data-aos="fade-right">
+            <h2>ANÁLISIS GEOESPACIAL: MAPAS DE ARBOVIROSIS</h2>
+            <hr>
+        </div>
+
+        <div class="map-grid">
+            <!-- Mapa 1 -->
+            <div class="map-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="map-title">Figura 1. Casos según Establecimientos de Salud</div>
+                <!-- AQUÍ SE CARGA TU IMAGEN LOCAL -->
+                <img src="figura1.png" alt="Mapa de Arbovirosis por Establecimientos de Salud, Semanas 37-38, 2026" onerror="this.src='https://placehold.co/600x400/f8fafc/64748b?text=No+se+encontro+figura1.png'">
+                <div class="map-caption">Zonas en rojo (8-16 casos) indican alta concentración en el centro del Distrito Central.</div>
+            </div>
+
+            <!-- Mapa 2 -->
+            <div class="map-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="map-title">Figura 2. Casos según Colonias</div>
+                <!-- SI TIENES LA SEGUNDA IMAGEN, ASEGÚRATE DE RENOMBRARLA A figura2.png -->
+                <img src="figura2.png" alt="Mapa de Arbovirosis por Colonias, Semanas 37-38, 2026" onerror="this.src='https://placehold.co/600x400/f8fafc/64748b?text=No+se+encontro+figura2.png'">
+                <div class="map-caption">Detalle por colonias, destacando conglomerados urbanos con mayor incidencia.</div>
+            </div>
+        </div>
+
+        <div class="info-block" data-aos="fade-up">
+            <h4>Análisis Geográfico de Arbovirosis</h4>
+            <p>Los mapas de las semanas 37-38 reflejan una mayor concentración de casos (rango de 8 a 16 casos) en las zonas urbanas del Distrito Central, específicamente en áreas como <strong>Ciudad Nueva, El Carrizal, La Cuesta, y zonas aledañas al Centro</strong>. Las zonas periféricas como Mateo, Nueva Armenia y San Buenaventura mantienen rangos de 1 a 3 casos.</p>
+            <p><em>Fuente: Boletín de notificación de alerta CIS/UAPS Clíper y hospitales. RSM-DC</em></p>
+        </div>
+
+        <!-- SECCIÓN 3: ARBOVIROSIS (GRÁFICOS) -->
+        <div class="section-title" data-aos="fade-right">
+            <h2>ANÁLISIS DE ARBOVIROSIS (Dengue, Zika, Chikungunya)</h2>
+            <hr>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-card" data-aos="fade-up">
+                <div class="chart-header"><span style="font-size: 1.5rem;">📈</span><h3>Casos de Dengue Acumulados (Comparativo)</h3></div>
+                <div class="chart-container"><canvas id="chartDengue"></canvas></div>
+            </div>
+            <div class="chart-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="chart-header"><span style="font-size: 1.5rem;">🦟</span><h3>Casos Totales de Arbovirosis SE 1-41</h3></div>
+                <div class="chart-container"><canvas id="chartTotalArbo"></canvas></div>
+            </div>
+        </div>
+
+        <div class="info-block" data-aos="fade-up">
+            <h4>Análisis de Arbovirosis</h4>
+            <p>Durante la SE 41 de 2026 se registraron <strong>133 casos de arbovirosis</strong>, mientras tanto Zika y Chikungunya se mantuvieron en cero. En lo que va del año se acumula un total de <strong>2,438 casos</strong>. En esta cifra se incluyen únicamente dos casos de Zika y dos casos de Chikungunya, los cuales se detectaron en la SE 15 y 37.</p>
+            <p>Se reportan 133 casos con y sin signos de alarma y cero casos de dengue grave, durante la semana epidemiológica 41 del año 2026, la línea es ascendente y se mantiene en zona de seguridad.</p>
+            <p>De la semana epidemiológica 1 a la 41 se contabiliza un total de <strong>(n=9) casos de dengue grave</strong> con cero fallecimientos, para el 2025 a la semana 41 (n=0) caso de dengue grave.</p>
+        </div>
+
+        <!-- SECCIÓN 4: ENFERMEDADES RESPIRATORIAS -->
+        <div class="section-title" data-aos="fade-right">
+            <h2>ENFERMEDADES DE TRANSMISIÓN RESPIRATORIA</h2>
+            <hr>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-card" data-aos="fade-up">
+                <div class="chart-header"><span style="font-size: 1.5rem;">🫁</span><h3>Neumonías Acumuladas (Comparativo)</h3></div>
+                <div class="chart-container"><canvas id="chartNeumonia"></canvas></div>
+            </div>
+            <div class="chart-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="chart-header"><span style="font-size: 1.5rem;">🦠</span><h3>Incidencia de Varicela (Comparativo)</h3></div>
+                <div class="chart-container"><canvas id="chartVaricela"></canvas></div>
+            </div>
+        </div>
+
+        <div class="info-block" data-aos="fade-up">
+            <h4>Análisis de Enfermedades Respiratorias</h4>
+            <p>En la SE 41 se notifica un total de <strong>45 casos de neumonía</strong>, acumulando un total de <strong>2,407</strong> en las primeras 41 semanas del año 2026 en la RSMDC. La línea es descendente y se ubica en <strong>zona de éxito</strong> según el corredor endémico histórico (2020-2026).</p>
+            <p>De la semana epidemiológica 1 a la 41 del año 2026 se contabilizan un total de <strong>830 casos acumulados de varicela</strong> y para el año 2025, en un total de 1,655, comparación al año con una disminución de 825 casos comprados a la misma semana del año anterior.</p>
+        </div>
+
+        <!-- SECCIÓN 5: ENFERMEDADES HÍDRICAS -->
+        <div class="section-title" data-aos="fade-right">
+            <h2>ENFERMEDADES DE TRANSMISIÓN HÍDRICA</h2>
+            <hr>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-card" data-aos="fade-up">
+                <div class="chart-header"><span style="font-size: 1.5rem;">💧</span><h3>Diarrea sin Sangre (Comparativo)</h3></div>
+                <div class="chart-container"><canvas id="chartDiarrea"></canvas></div>
+            </div>
+            <div class="chart-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="chart-header"><span style="font-size: 1.5rem;">🧪</span><h3>Casos Sospechosos de Hepatitis (Comparativo)</h3></div>
+                <div class="chart-container"><canvas id="chartHepatitis"></canvas></div>
+            </div>
+        </div>
+
+        <div class="info-block" data-aos="fade-up">
+            <h4>Análisis de Enfermedades Hídricas</h4>
+            <p>Durante la SE 41 del año 2026 se reporta un total de <strong>570 casos de diarrea</strong>, se observa una disminución en la última semana epidemiológica de 109 casos a la misma semana del año anterior, posicionándose en <strong>zona de éxito</strong>.</p>
+            <p>Durante la semana 41 se reportaron un total <strong>4 casos de disentería</strong> con una comparativa de 9 casos al año anterior, mostrando un descenso y colocándonos en zona de éxito.</p>
+            <p>A la semana epidemiológica 41 se reporta <strong>3 casos de hepatitis</strong> (todas sus clasificaciones) a expensas de los hospitales con un leve aumento en comparación a la misma semana epidemiológica del año anterior.</p>
+            <p>Durante la semana epidemiológica 41 de 2026 se reportó <strong>(n=3) caso de rotavirus</strong> tras ingreso hospitalario por diarrea o síndrome gastroenterico, con (n=0) casos registrados en el mismo periodo de 2025. El año 2026 alcanza un acumulado de 122 casos sospechosos atendidos, de los cuales solo 18 han sido confirmados como positivos.</p>
+        </div>
+
+        <!-- SECCIÓN 6: PREVENIBLES POR VACUNACIÓN -->
+        <div class="section-title" data-aos="fade-right">
+            <h2>ENFERMEDADES PREVENIBLES POR VACUNACIÓN</h2>
+            <hr>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-card" data-aos="fade-up">
+                <div class="chart-header"><span style="font-size: 1.5rem;">💉</span><h3>Sospecha de Sarampión/Rubeola</h3></div>
+                <div class="chart-container"><canvas id="chartSarampion"></canvas></div>
+            </div>
+            <div class="chart-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="chart-header"><span style="font-size: 1.5rem;">🤧</span><h3>Casos Sospechosos de Parotiditis</h3></div>
+                <div class="chart-container"><canvas id="chartParotiditis"></canvas></div>
+            </div>
+        </div>
+
+        <div class="info-block" data-aos="fade-up">
+            <h4>Análisis de Prevenibles por Vacunación</h4>
+            <p>Hasta la semana 1-41 del año 2026, se contabiliza un total de <strong>39 casos sospechosos de Sarampión</strong>, en comparación al año anterior que, para la misma semana, se contabilizaban un total de 30 casos. Cabe destacar que, a la fecha, <strong>ninguno de los casos reportados ha sido confirmado como positivo</strong>.</p>
+            <p>Hasta la semana epidemiológica 1-41 se notifica un total de <strong>43 casos sospechosos de parotiditis</strong> acumulados año 2026 y para el año anterior 2025 a la misma semana un total acumulados de 38 casos, observando un comportamiento similar al año anterior con muy pocas variaciones.</p>
+        </div>
+
+        <!-- SECCIÓN 7: MORTALIDAD -->
+        <div class="section-title" data-aos="fade-right">
+            <h2>MORTALIDAD MATERNA E INFANTIL</h2>
+            <hr>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-card" data-aos="fade-up">
+                <div class="chart-header"><span style="font-size: 1.5rem;">👶</span><h3>Mortalidad Infantil (Menores de 1 año)</h3></div>
+                <div class="chart-container"><canvas id="chartMortalidadInfantil"></canvas></div>
+            </div>
+            <div class="chart-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="chart-header"><span style="font-size: 1.5rem;">⚰️</span><h3>Mortalidad Materna</h3></div>
+                <div class="chart-container"><canvas id="chartMortalidadMaterna"></canvas></div>
+            </div>
+        </div>
+
+        <div class="info-block" data-aos="fade-up">
+            <h4>Análisis de Mortalidad</h4>
+            <p>A la SE # 41 del año 2026 se notifica <strong>(n=120) defunciones en menores de un año</strong> en comparación al año 2025 con (n=110) con un aumento del 9% para el año 2026.</p>
+            <p>En la S.E 1-52 del año 2025 se reportan 5 Muertes Maternas. En el año 2026 hasta SE 41 se reportan <strong>4 Muertes Maternas</strong>. La Razón de Mortalidad Materna para el año 2026 es de <strong>8.8 por cada 100,000 NV</strong>, y la Tasa de Mortalidad Materna es de 0.59 para este mismo año.</p>
+            <p>La comparación hasta la S.E. 41 muestra una tendencia descendente en las defunciones de menores de 5 años, pasando de 116 casos en 2023 a 81 en 2024, 78 en 2025 y en 2026. En el período analizado se observa una reducción de 40 defunciones, equivalente al 34%.</p>
+        </div>
+
+        <!-- SECCIÓN 8: ENFERMEDADES TROPICALES DESATENDIDAS -->
+        <div class="section-title" data-aos="fade-right">
+            <h2>ENFERMEDADES TROPICALES DESATENDIDAS</h2>
+            <hr>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-card" data-aos="fade-up">
+                <div class="chart-header"><span style="font-size: 1.5rem;">🪱</span><h3>Miasis por Gusano Barrenador (GBG)</h3></div>
+                <div class="chart-container"><canvas id="chartMiasis"></canvas></div>
+            </div>
+            <div class="chart-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="chart-header"><span style="font-size: 1.5rem;">🦠</span><h3>Casos de Chagas (Fase Crónica)</h3></div>
+                <div class="chart-container"><canvas id="chartChagas"></canvas></div>
+            </div>
+        </div>
+
+        <div class="info-block" data-aos="fade-up">
+            <h4>Análisis de Enfermedades Desatendidas</h4>
+            <p>Hasta la Semana Epidemiológica 41 año 2026, se han confirmado <strong>78 casos de miasis a causa de GBG</strong>. Hasta la Semana Epidemiológica 53 Año 2025, se confirmaron 51 casos de miasis por GBG y 11 casos de miasis por otras especies.</p>
+            <p>Hasta la SE 41 del año 2026, se han reportado <strong>52 casos para Chagas en fase crónica</strong> en el Distrito Central, para la misma SE del año 2025 se reportó un acumulado de 35 casos para la enfermedad de Chagas.</p>
+            <p>Hasta la Semana Epidemiológica No.41 Año 2026, se reportan <strong>(n=0) casos para Leptospirosis</strong> y <strong>(n=0) casos de Malaria</strong> (Plasmodium vivax y falciparum) en el Distrito Central. No se reportan defunciones.</p>
+        </div>
+
+        <!-- SECCIÓN 9: OTROS EVENTOS -->
+        <div class="section-title" data-aos="fade-right">
+            <h2>OTROS EVENTOS BAJO VIGILANCIA EPIDEMIOLÓGICA</h2>
+            <hr>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-card" data-aos="fade-up">
+                <div class="chart-header"><span style="font-size: 1.5rem;">🐕</span><h3>Mordeduras de Animales Transmisores de Rabia</h3></div>
+                <div class="chart-container"><canvas id="chartMordedurasRabia"></canvas></div>
+            </div>
+            <div class="chart-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="chart-header"><span style="font-size: 1.5rem;">👁️</span><h3>Incidencia de Conjuntivitis</h3></div>
+                <div class="chart-container"><canvas id="chartConjuntivitis"></canvas></div>
+            </div>
+        </div>
+
+        <div class="info-block" data-aos="fade-up">
+            <h4>Análisis de Otros Eventos</h4>
+            <p>Para la semana epidemiológica 41 se notifican un total de <strong>62 casos de mordeduras de animal trasmisor de rabia</strong> siendo la mayoría producida por caninos, acumulando en lo que va del año 2026 <strong>2,238 casos</strong>, para el año 2025 a la misma semana un acumulado de 2,448. Cero positividades de rabia en casos sospechosos en humanos y animales.</p>
+            <p>De la semana epidemiológica 1 a la 41 del año 2026 se notifican un total acumulado de <strong>14 mordeduras de serpiente</strong> con una leve disminución de 15 casos menos que el año anterior.</p>
+            <p>Para la semana epidemiológica 41 se notifican un total de <strong>70 casos nuevos de conjuntivitis</strong>, siendo un total acumulado de la semana 1 a 41 de <strong>5,443 casos para el año 2026</strong> y un total acumulado de 7,674 para el año 2025, teniendo una disminución del 29% (2,231 casos menos).</p>
+            <p>De la semana epidemiológica 1 a la 41 se acumula un total de <strong>19 intoxicaciones por plaguicidas</strong>, siendo estas notificadas por el segundo nivel de atención provenientes de áreas rurales del Distrito Central.</p>
+        </div>
+
+        <!-- SECCIÓN 10: VIGILANCIA ESPECIAL -->
+        <div class="section-title" data-aos="fade-right">
+            <h2>VIGILANCIA ESPECIAL (TUBERCULOSIS, VIH, SÍFILIS)</h2>
+            <hr>
+        </div>
+
+        <div class="table-grid">
+            <div class="table-card" data-aos="fade-up">
+                <div class="table-card-header">🫁 Tuberculosis de todas las formas (SE 1-37)</div>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>Forma</th><th>2025</th><th>2026</th></tr></thead>
+                        <tbody>
+                            <tr><td>Pulmonar</td><td>124</td><td>103</td></tr>
+                            <tr><td>Extrapulmonar</td><td>46</td><td>40</td></tr>
+                            <tr style="background: rgba(37,99,235,0.05); font-weight:700;"><td>Total</td><td>170</td><td>143</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info-block" style="margin: 0; border-radius: 0; border-left: none; border-top: 1px solid var(--glass-border);">
+                    <p>La comparación acumulada reporta 170 casos de tuberculosis en 2025 y 143 en 2026, lo que equivale a 27 casos menos y a una reducción relativa del 15.9%. La tuberculosis pulmonar continúa siendo la forma predominante.</p>
+                </div>
+            </div>
+
+            <div class="table-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="table-card-header">🤰 Casos de Sífilis Materna (Ene-Ago)</div>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>Año</th><th>Casos</th><th>Comparativa</th></tr></thead>
+                        <tbody>
+                            <tr><td>2025</td><td>22</td><td>38% del total</td></tr>
+                            <tr><td>2026</td><td>58</td><td>62% del total</td></tr>
+                            <tr style="background: rgba(37,99,235,0.05); font-weight:700;"><td>Total</td><td>80</td><td>Aumento de 24 casos</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info-block" style="margin: 0; border-radius: 0; border-left: none; border-top: 1px solid var(--glass-border);">
+                    <p>Se observa un incremento sostenido en los casos positivos de sífilis materna con 62% (aumentó 24 casos) para el año 2026. La tendencia lineal ascendente evidencia una mayor transmisión o detección de la infección en mujeres embarazadas, alcanzando su punto máximo en agosto con 9 casos.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-block" data-aos="fade-up">
+            <h4>Análisis de VIH (Enero - Agosto 2025-2026)</h4>
+            <p>Durante enero-agosto de 2026 se observa un incremento de casos del <strong>26%</strong> respecto al mismo período de 2025, pasando de 114 a 144 casos. El aumento fue especialmente marcado en mayo, con un incremento de 188.9% (de 9 a 26 casos), seguido de junio con 35.3% (17 a 23) y julio con 23.5% (17 a 21).</p>
+            <p>Según condición clínica al momento del diagnóstico, predominaron ampliamente los <strong>casos asintomáticos</strong> (97 casos en 2025 y 118 en 2026, incremento del 22%). Los casos clasificados como <strong>infección avanzada</strong> aumentaron de 14 en 2025 a 22 en 2026 (incremento del 57%), mientras que en 2026 se registraron 2 casos de SIDA.</p>
+        </div>
+
+        <!-- SECCIÓN 11: IMPACTO HOSPITALARIO Y MORTALIDAD GENERAL -->
+        <div class="section-title" data-aos="fade-right">
+            <h2>IMPACTO HOSPITALARIO Y MORTALIDAD GENERAL</h2>
+            <hr>
+        </div>
+
+        <div class="table-grid">
+            <div class="table-card" data-aos="fade-up">
+                <div class="table-card-header">🏥 Primeras 10 Causas de Hospitalización (2026)</div>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>Causa de Morbilidad</th><th>Casos</th></tr></thead>
+                        <tbody>
+                            <tr><td>Síndrome Gastroentérico</td><td>111</td></tr>
+                            <tr><td>Neumonía Adquirida en la Comunidad</td><td>70</td></tr>
+                            <tr><td>Diarrea</td><td>62</td></tr>
+                            <tr><td>Neumonía Adquirida en la Comunidad (2)</td><td>58</td></tr>
+                            <tr><td>Neumonía</td><td>52</td></tr>
+                            <tr><td>NAC</td><td>47</td></tr>
+                            <tr><td>Sospecha Dengue con Signos de Alarma</td><td>40</td></tr>
+                            <tr><td>Síndrome Gastroentérico (2)</td><td>37</td></tr>
+                            <tr><td>Neumonía Viral</td><td>34</td></tr>
+                            <tr><td>Diarrea Aguda</td><td>24</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="table-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="table-card-header">⚰️ Primeras 10 Causas de Mortalidad General (2026)</div>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>Diagnóstico</th><th>Casos</th></tr></thead>
+                        <tbody>
+                            <tr><td>Indeterminado</td><td>68</td></tr>
+                            <tr><td>Choque Séptico</td><td>44</td></tr>
+                            <tr><td>HTA</td><td>36</td></tr>
+                            <tr><td>Neumonía</td><td>35</td></tr>
+                            <tr><td>DMT2</td><td>27</td></tr>
+                            <tr><td>HPAF</td><td>25</td></tr>
+                            <tr><td>Hipertensión Arterial</td><td>20</td></tr>
+                            <tr><td>Choque Cardiogénico</td><td>20</td></tr>
+                            <tr><td>Politraumatismo</td><td>18</td></tr>
+                            <tr><td>Caída del mismo plano</td><td>17</td></tr>
+                            <tr><td>Diabetes Mellitus Tipo II</td><td>16</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 12: CORREDORES ENDÉMICOS -->
+        <div class="section-title" data-aos="fade-right">
+            <h2>ANÁLISIS DE CORREDORES ENDÉMICOS</h2>
+            <hr>
+        </div>
+
+        <div class="info-block" data-aos="fade-up">
+            <h4>📊 Corredor Endémico de Neumonía (SE 1-41, 2026)</h4>
+            <p>La semana 41 notifica 45 casos, acumulando 2,407. La línea de tendencia es <strong>descendente</strong> y se ubica en la <strong>Zona de Éxito</strong> del corredor endémico histórico (2020-2026), lo que indica un comportamiento por debajo de lo esperado.</p>
+        </div>
+
+        <div class="info-block" data-aos="fade-up">
+            <h4>📊 Corredor Endémico de Diarreas (SE 1-41, 2026)</h4>
+            <p>Se reportan 570 casos en la semana 41. Se observa una disminución de 109 casos en comparación con la misma semana del año anterior, posicionándose en la <strong>Zona de Éxito</strong>. El corredor muestra picos históricos en las primeras semanas del año, pero la tendencia actual es favorable.</p>
+        </div>
+
+        <div class="info-block" data-aos="fade-up">
+            <h4>🦟 Índice de Positividad en Ovitrampas</h4>
+            <p>De la semana 1 a la 41, el índice de positividad de ovitrampas mostró un aumento significativo entre las semanas <strong>25 y 29</strong>, alcanzando niveles de hasta 40. Este incremento se atribuye a la temporada de lluvias aisladas que cruza el Distrito Central, lo que aumenta la reproducción del vector.</p>
+        </div>
+
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer data-aos="fade-in">
+        <p>© 2026 UVS · RSMDC. Telegrama Semanal SE-41. Crafted by David Godoy</p>
+        <p style="font-size: 0.7rem; margin-top: 0.5rem; color: #94a3b8;">Datos preliminares sujetos a modificación según actualización de registros.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar Animaciones
+            AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 50 });
+
+            // Menú Responsive
+            const toggleBtn = document.getElementById('toggleNavBtn');
+            const menuIcon = document.getElementById('menuIcon');
+            const mainNavbar = document.getElementById('mainNavbar');
+            const navLinks = document.getElementById('navLinks');
+
+            if (toggleBtn && mainNavbar) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const isOpen = mainNavbar.classList.toggle('nav-open');
+                    menuIcon.textContent = isOpen ? '✕' : '☰';
+                });
+                const links = navLinks.querySelectorAll('a');
+                links.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 1024) {
+                            mainNavbar.classList.remove('nav-open');
+                            menuIcon.textContent = '☰';
+                        }
+                    });
+                });
+            }
+
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth <= 1024 && mainNavbar.classList.contains('nav-open')) {
+                    if (!mainNavbar.contains(event.target)) {
+                        mainNavbar.classList.remove('nav-open');
+                        menuIcon.textContent = '☰';
+                    }
+                }
+            });
+
+            // Configuración Global de Chart.js
+            Chart.defaults.color = '#64748b';
+            Chart.defaults.borderColor = 'rgba(0, 0, 0, 0.08)';
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            
+            const years = ['2024', '2025', '2026'];
+            const colorPrimary = 'rgba(37, 99, 235, 0.8)';
+            const colorDanger = 'rgba(220, 38, 38, 0.8)';
+            const colorSuccess = 'rgba(22, 163, 74, 0.8)';
+            const colorWarning = 'rgba(217, 119, 6, 0.8)';
+
+            // 1. Dengue
+            new Chart(document.getElementById('chartDengue'), {
+                type: 'bar',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Casos Acumulados',
+                        data: [35503, 3124, 2438],
+                        backgroundColor: [colorDanger, colorWarning, colorSuccess],
+                        borderRadius: 6, barPercentage: 0.6
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 2. Total Arbovirosis
+            new Chart(document.getElementById('chartTotalArbo'), {
+                type: 'line',
+                data: {
+                    labels: ['SE 10', 'SE 20', 'SE 30', 'SE 41'],
+                    datasets: [{
+                        label: 'Casos',
+                        data: [465, 615, 1088, 133],
+                        borderColor: colorWarning,
+                        backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                        fill: true, tension: 0.4, borderWidth: 3
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 3. Neumonía
+            new Chart(document.getElementById('chartNeumonia'), {
+                type: 'bar',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Casos Acumulados',
+                        data: [3252, 3605, 2407],
+                        backgroundColor: [colorSuccess, colorSuccess, colorPrimary],
+                        borderRadius: 6, barPercentage: 0.5
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 4. Varicela
+            new Chart(document.getElementById('chartVaricela'), {
+                type: 'bar',
+                data: {
+                    labels: ['2025', '2026'],
+                    datasets: [{
+                        label: 'Casos Acumulados',
+                        data: [1655, 830],
+                        backgroundColor: [colorPrimary, colorWarning],
+                        borderRadius: 6, barPercentage: 0.6
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 5. Diarrea
+            new Chart(document.getElementById('chartDiarrea'), {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Casos Acumulados',
+                        data: [44183, 33783, 36267],
+                        borderColor: colorPrimary,
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        fill: true, tension: 0.4, borderWidth: 3
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 6. Hepatitis
+            new Chart(document.getElementById('chartHepatitis'), {
+                type: 'bar',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Casos Acumulados',
+                        data: [107, 130, 130],
+                        backgroundColor: [colorSuccess, colorWarning, colorDanger],
+                        borderRadius: 6
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 7. Sarampión
+            new Chart(document.getElementById('chartSarampion'), {
+                type: 'bar',
+                data: {
+                    labels: ['2025', '2026'],
+                    datasets: [{
+                        label: 'Casos Sospechosos',
+                        data: [30, 39],
+                        backgroundColor: [colorPrimary, colorDanger],
+                        borderRadius: 6
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 8. Parotiditis
+            new Chart(document.getElementById('chartParotiditis'), {
+                type: 'bar',
+                data: {
+                    labels: ['2025', '2026'],
+                    datasets: [{
+                        label: 'Casos Sospechosos',
+                        data: [38, 43],
+                        backgroundColor: [colorPrimary, colorWarning],
+                        borderRadius: 6
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 9. Mortalidad Infantil
+            new Chart(document.getElementById('chartMortalidadInfantil'), {
+                type: 'bar',
+                data: {
+                    labels: ['2025', '2026'],
+                    datasets: [{
+                        label: 'Defunciones',
+                        data: [110, 120],
+                        backgroundColor: [colorSuccess, colorDanger],
+                        borderRadius: 6
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 10. Mortalidad Materna
+            new Chart(document.getElementById('chartMortalidadMaterna'), {
+                type: 'bar',
+                data: {
+                    labels: ['2025', '2026'],
+                    datasets: [{
+                        label: 'Defunciones',
+                        data: [5, 4],
+                        backgroundColor: [colorWarning, colorSuccess],
+                        borderRadius: 6
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 11. Miasis
+            new Chart(document.getElementById('chartMiasis'), {
+                type: 'bar',
+                data: {
+                    labels: ['2025', '2026'],
+                    datasets: [{
+                        label: 'Casos Confirmados',
+                        data: [51, 78],
+                        backgroundColor: [colorWarning, colorDanger],
+                        borderRadius: 6
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 12. Chagas
+            new Chart(document.getElementById('chartChagas'), {
+                type: 'bar',
+                data: {
+                    labels: ['2025', '2026'],
+                    datasets: [{
+                        label: 'Casos Crónicos',
+                        data: [35, 52],
+                        backgroundColor: [colorPrimary, colorWarning],
+                        borderRadius: 6
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 13. Mordeduras Rabia
+            new Chart(document.getElementById('chartMordedurasRabia'), {
+                type: 'line',
+                data: {
+                    labels: ['SE 10', 'SE 20', 'SE 30', 'SE 41'],
+                    datasets: [{
+                        label: 'Casos',
+                        data: [550, 580, 600, 62],
+                        borderColor: colorPrimary,
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        fill: true, tension: 0.3, borderWidth: 3
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 14. Conjuntivitis
+            new Chart(document.getElementById('chartConjuntivitis'), {
+                type: 'bar',
+                data: {
+                    labels: ['2025', '2026'],
+                    datasets: [{
+                        label: 'Casos Acumulados',
+                        data: [7674, 5443],
+                        backgroundColor: [colorDanger, colorSuccess],
+                        borderRadius: 6
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+        });
+    </script>
+</body>
+</html>
