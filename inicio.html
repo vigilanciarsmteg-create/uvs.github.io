@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="Boletín Epidemiológico SE-41 2026 - Unidad de Vigilancia de la Salud, Región Sanitaria Metropolitana del Distrito Central">
-    <title>UVS · Boletín Epidemiológico SE-41 2026 · RSMDC</title>
+    <meta name="description" content="Boletín Epidemiológico SE-42 2026 - Unidad de Vigilancia de la Salud, Región Sanitaria Metropolitana del Distrito Central">
+    <title>UVS · Boletín Epidemiológico SE-42 2026 · RSMDC</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -104,7 +104,7 @@
             min-width: 44px;
             min-height: 44px;
             border-radius: 12px;
-            display: none; /* Se muestra en móvil/tablet */
+            display: none;
             align-items: center;
             justify-content: center;
             cursor: pointer;
@@ -181,84 +181,6 @@
         .nav-links a.active::after {
             width: 60%;
         }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-btn {
-            background: transparent;
-            color: rgba(255, 255, 255, 0.9);
-            padding: 0.5rem 1rem;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            border-radius: 8px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .dropdown-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-        }
-
-        .dropdown-btn .arrow {
-            transition: transform 0.3s ease;
-            font-size: 0.7rem;
-        }
-
-        .dropdown.open .dropdown-btn .arrow {
-            transform: rotate(180deg);
-        }
-
-        .dropdown-content {
-            display: block;
-            position: absolute;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            min-width: 220px;
-            border-radius: 12px;
-            box-shadow: var(--shadow-xl);
-            z-index: 100;
-            top: calc(100% + 0.5rem);
-            left: 0;
-            border: 1px solid var(--glass-border);
-            overflow: hidden;
-            max-height: 0;
-            opacity: 0;
-            transition: max-height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
-        }
-
-        .dropdown.open .dropdown-content {
-            max-height: 500px;
-            opacity: 1;
-        }
-
-        .dropdown-content a {
-            display: block;
-            padding: 0.8rem 1.2rem;
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 0.85rem;
-            border-bottom: 1px solid var(--glass-border);
-            transition: all 0.2s;
-        }
-
-        .dropdown-content a:last-child { border-bottom: none; }
-
-        .dropdown-content a:hover {
-            background: rgba(37, 99, 235, 0.08);
-            color: var(--primary);
-            padding-left: 1.5rem;
-        }
-
-        .dropdown-content a::after { display: none; }
 
         /* ============ HERO ============ */
         .hero {
@@ -844,9 +766,7 @@
             font-weight: 500;
         }
 
-        /* ======================================== */
-        /* ============ MENÚ DESPLEGABLE RESPONSIVE ============ */
-        /* ======================================== */
+        /* ============ RESPONSIVE ============ */
         @media (max-width: 1024px) {
             .navbar {
                 padding: 0.8rem 1rem;
@@ -865,7 +785,6 @@
                 font-size: 0.6rem;
             }
 
-            /* Menú desplegable flotante */
             .nav-links {
                 position: absolute;
                 top: 100%;
@@ -892,8 +811,7 @@
                 padding: 0.5rem 0;
             }
 
-            .nav-links a,
-            .dropdown-btn {
+            .nav-links a {
                 width: 100%;
                 padding: 1rem 1.5rem;
                 font-size: 0.95rem;
@@ -915,44 +833,6 @@
             .nav-links a.active {
                 background: rgba(255, 255, 255, 0.1);
                 padding-left: 2rem;
-            }
-
-            /* Submenú desplegable anidado */
-            .dropdown {
-                width: 100%;
-            }
-
-            .dropdown-content {
-                position: static;
-                width: 100%;
-                background: rgba(0, 0, 0, 0.15);
-                backdrop-filter: none;
-                box-shadow: none;
-                border-radius: 0;
-                border: none;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-                max-height: 0;
-                opacity: 0;
-                overflow: hidden;
-                transition: max-height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
-            }
-
-            .dropdown.open .dropdown-content {
-                max-height: 500px;
-                opacity: 1;
-            }
-
-            .dropdown-content a {
-                padding: 0.9rem 1.5rem 0.9rem 3rem;
-                font-size: 0.9rem;
-                color: rgba(255, 255, 255, 0.85);
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            }
-            
-            .dropdown-content a:hover {
-                background: rgba(255, 255, 255, 0.1);
-                color: white;
-                padding-left: 3.5rem;
             }
 
             .hero {
@@ -986,13 +866,6 @@
             .quick-access { grid-template-columns: 1fr; }
             .logo h1 { font-size: 0.9rem; }
         }
-
-        @media (min-width: 1025px) {
-            .dropdown:hover .dropdown-content {
-                max-height: 500px;
-                opacity: 1;
-            }
-        }
     </style>
 </head>
 <body>
@@ -1013,16 +886,15 @@
             <a href="#" class="active">📊 Dashboard</a>
             <a href="sala-situacional.html">📡 Sala Situacional</a>
             <a href="telegrama.html" class="active">📊 BOLETIN SEMANAL</a>
-         
             <a href="biblioteca.html">📚 Biblioteca</a>
         </div>
     </nav>
 
     <!-- ==================== HERO ==================== -->
     <section class="hero" data-aos="fade-down" data-aos-duration="800">
-        <h1>Boletín Epidemiológico SE-41 2026</h1>
+        <h1>Boletín Epidemiológico SE-42 2026</h1>
         <div class="hero-badge">
-            <span>📊</span> Datos oficiales · Semana Epidemiológica 41 · 11 DE OCTUBRE AL 17 DE OCTUBRE DEL 2026 · Región Metropolitana
+            <span>📊</span> Datos oficiales · Semana Epidemiológica 42 · 18 DE OCTUBRE AL 24 DE OCTUBRE DEL 2026 · Región Metropolitana
         </div>
         <p>Región Sanitaria Metropolitana del Distrito Central · MSc. Jackeline Burgos</p>
     </section>
@@ -1032,7 +904,7 @@
 
         <!-- RESUMEN POR SALA SITUACIONAL -->
         <div class="dashboard-title" data-aos="fade-right" data-aos-duration="600">
-            <h2>RESUMEN POR SALA SITUACIONAL (Boletín SE-41 / 11 OCTUBRE - 17 OCTUBRE 2026)</h2>
+            <h2>RESUMEN POR SALA SITUACIONAL (Boletín SE-42 / 18 OCTUBRE - 24 OCTUBRE 2026)</h2>
             <hr>
         </div>
 
@@ -1045,7 +917,7 @@
                 </div>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <span class="stat-number">570</span>
+                        <span class="stat-number">600</span>
                         <span class="stat-label">Diarrea sin sangre (semana)</span>
                     </div>
                     <div class="stat-item">
@@ -1054,8 +926,8 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <span>⚠️ Acumulado 2026: 36.267 diarrea / 216 disentería</span>
-                    <span class="trend-up">▲ +7.4% vs 2025 acum.</span>
+                    <span>⚠️ Acumulado 2026: 36.867 diarrea / 220 disentería</span>
+                    <span class="trend-up">▲ +7.0% vs 2025 acum.</span>
                 </div>
             </div>
 
@@ -1067,17 +939,17 @@
                 </div>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <span class="stat-number">133</span>
-                        <span class="stat-label">Dengue SE-41</span>
+                        <span class="stat-number">136</span>
+                        <span class="stat-label">Dengue SE-42</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">0</span>
+                        <span class="stat-number">1</span>
                         <span class="stat-label">Dengue Hemorrágico</span>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <span class="alert-status">🚨 Alerta: acumulado 2026 = 2.438 casos dengue</span>
-                    <span>Dengue hemorrágico acum: 9</span>
+                    <span class="alert-status">🚨 Alerta: acumulado 2026 = 2.574 casos dengue</span>
+                    <span>Dengue hemorrágico acum: 10</span>
                 </div>
             </div>
 
@@ -1089,11 +961,11 @@
                 </div>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <span class="stat-number">4</span>
+                        <span class="stat-number">3</span>
                         <span class="stat-label">Mortalidad Infantil (semana)</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">2</span>
+                        <span class="stat-number">0</span>
                         <span class="stat-label">Mortalidad 1-4 años (semana)</span>
                     </div>
                     <div class="stat-item">
@@ -1102,8 +974,8 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <span>🏥 Acum. 2026: Infantil 120 · 1-4 años 13 · Materna 4</span>
-                    <span class="trend-up">▲ +9.1% infantil vs 2025</span>
+                    <span>🏥 Acum. 2026: Infantil 123 · 1-4 años 13 · Materna 4</span>
+                    <span class="trend-up">▲ +9.8% infantil vs 2025</span>
                 </div>
             </div>
 
@@ -1119,7 +991,7 @@
                         <span class="stat-label">Sospecha Sarampión</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">2</span>
+                        <span class="stat-number">3</span>
                         <span class="stat-label">Tosferina (semana)</span>
                     </div>
                     <div class="stat-item">
@@ -1128,8 +1000,8 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <span>🛡️ Sarampión acum. 2026: 39 casos sospechosos</span>
-                    <span>Tosferina acum: 110 · Parotiditis: 43</span>
+                    <span>🛡️ Sarampión acum. 2026: 40 casos sospechosos</span>
+                    <span>Tosferina acum: 113 · Parotiditis: 44</span>
                 </div>
             </div>
 
@@ -1141,11 +1013,11 @@
                 </div>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <span class="stat-number">62</span>
+                        <span class="stat-number">46</span>
                         <span class="stat-label">Mordeduras rabia (semana)</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">0</span>
+                        <span class="stat-number">2</span>
                         <span class="stat-label">Leptospirosis</span>
                     </div>
                     <div class="stat-item">
@@ -1154,8 +1026,8 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <span>🐾 Acumulado 2026 mordeduras: 2.238</span>
-                    <span>Leptospirosis acum: 8</span>
+                    <span>🐾 Acumulado 2026 mordeduras: 2.284</span>
+                    <span>Leptospirosis acum: 10</span>
                 </div>
             </div>
 
@@ -1167,17 +1039,17 @@
                 </div>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <span class="stat-number">45</span>
-                        <span class="stat-label">Neumonías SE-41</span>
+                        <span class="stat-number">40</span>
+                        <span class="stat-label">Neumonías SE-42</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">29</span>
+                        <span class="stat-number">32</span>
                         <span class="stat-label">Varicela (semana)</span>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <span>📉 Acumulado neumonías 2026: 2.407 casos</span>
-                    <span>Varicela acum: 813</span>
+                    <span>📉 Acumulado neumonías 2026: 2.447 casos</span>
+                    <span>Varicela acum: 845</span>
                 </div>
             </div>
 
@@ -1189,17 +1061,17 @@
                 </div>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <span class="stat-number">0</span>
+                        <span class="stat-number">1</span>
                         <span class="stat-label">Meningitis (semana)</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">0</span>
+                        <span class="stat-number">1</span>
                         <span class="stat-label">Guillain-Barré (>15 años)</span>
                     </div>
                 </div>
                 <div class="card-footer">
                     <span>⚠️ Parálisis flácida aguda: 6 acumulados 2026</span>
-                    <span>Guillain Barré acum: 13 (>15 años)</span>
+                    <span>Guillain Barré acum: 14 (>15 años)</span>
                 </div>
             </div>
 
@@ -1211,16 +1083,16 @@
                 </div>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <span class="stat-number">3</span>
+                        <span class="stat-number">4</span>
                         <span class="stat-label">Hepatitis (semana)</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">1</span>
+                        <span class="stat-number">0</span>
                         <span class="stat-label">Intox. Plaguicidas</span>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <span>Hepatitis acumulada 2026: 130 casos</span>
+                    <span>Hepatitis acumulada 2026: 134 casos</span>
                     <span>Intoxicaciones acum: 19</span>
                 </div>
             </div>
@@ -1228,7 +1100,7 @@
 
         <!-- INDICADORES DE ALERTA Y TENDENCIAS (CON GRÁFICOS) -->
         <div class="dashboard-title" data-aos="fade-right" data-aos-duration="600">
-            <h2>INDICADORES DE ALERTA Y TENDENCIAS (Comparativo 2024-2025-2026) · Datos acumulados SE-41</h2>
+            <h2>INDICADORES DE ALERTA Y TENDENCIAS (Comparativo 2024-2025-2026) · Datos acumulados SE-42</h2>
             <hr>
         </div>
 
@@ -1243,7 +1115,7 @@
                     <canvas id="chartDengue"></canvas>
                 </div>
                 <div class="chart-footer">
-                    <span class="trend-down">▼ Disminución del 22.0% vs 2025</span>
+                    <span class="trend-down">▼ Disminución del 19.0% vs 2025</span>
                     <span>Vigilancia activa en brotes</span>
                 </div>
             </div>
@@ -1258,7 +1130,7 @@
                     <canvas id="chartEDA"></canvas>
                 </div>
                 <div class="chart-footer">
-                    <span class="trend-up">▲ Incremento del 7.4% vs 2025</span>
+                    <span class="trend-up">▲ Incremento del 7.0% vs 2025</span>
                     <span>Vigilancia hídrica reforzada</span>
                 </div>
             </div>
@@ -1273,7 +1145,7 @@
                     <canvas id="chartMortalidad"></canvas>
                 </div>
                 <div class="chart-footer">
-                    <span class="trend-up">▲ Incremento del 9.1% vs 2025</span>
+                    <span class="trend-up">▲ Incremento del 9.8% vs 2025</span>
                     <span>Monitoreo continuo en red hospitalaria</span>
                 </div>
             </div>
@@ -1281,20 +1153,20 @@
 
         <!-- ACCESO RÁPIDO A INTERVENCIONES -->
         <div class="dashboard-title" data-aos="fade-right" data-aos-duration="600">
-            <h2>ACCESO RÁPIDO A INTERVENCIONES (SE-41)</h2>
+            <h2>ACCESO RÁPIDO A INTERVENCIONES (SE-42)</h2>
             <hr>
         </div>
 
         <div class="quick-access">
-            <div class="quick-card" data-aos="zoom-in" data-aos-delay="100" data-modal-content="📋 Protocolo de atención para Dengue y Dengue Grave actualizado. Incluye clasificación de gravedad, manejo de líquidos y criterios de hospitalización. Casos acumulados SE-41: 2.438 en 2026. Descargar documento completo en PDF.">
+            <div class="quick-card" data-aos="zoom-in" data-aos-delay="100" data-modal-content="📋 Protocolo de atención para Dengue y Dengue Grave actualizado. Incluye clasificación de gravedad, manejo de líquidos y criterios de hospitalización. Casos acumulados SE-42: 2.574 en 2026. Descargar documento completo en PDF.">
                 <span>🦟</span>
                 Protocolo Dengue 2026
             </div>
-            <div class="quick-card" data-aos="zoom-in" data-aos-delay="200" data-modal-content="📊 Sala situacional interactiva en tiempo real. Datos SE-41: 570 casos de diarrea, 133 dengue, 45 neumonías, 4 defunciones infantiles y 2 en niños de 1-4 años. Acceda al panel completo con filtros por municipio y establecimiento de salud.">
+            <div class="quick-card" data-aos="zoom-in" data-aos-delay="200" data-modal-content="📊 Sala situacional interactiva en tiempo real. Datos SE-42: 600 casos de diarrea, 136 dengue, 40 neumonías, 3 defunciones infantiles y 0 en niños de 1-4 años. Acceda al panel completo con filtros por municipio y establecimiento de salud.">
                 <span>📡</span>
                 Sala Situacional en Vivo
             </div>
-            <div class="quick-card" data-aos="zoom-in" data-aos-delay="300" data-modal-content="📥 Boletín Epidemiológico SE-41 completo en formato PDF (11 - 17 octubre 2026). Incluye análisis detallado, gráficos de tendencia y recomendaciones. Disponible en el repositorio oficial de la RSMDC.">
+            <div class="quick-card" data-aos="zoom-in" data-aos-delay="300" data-modal-content="📥 Boletín Epidemiológico SE-42 completo en formato PDF (18 - 24 octubre 2026). Incluye análisis detallado, gráficos de tendencia y recomendaciones. Disponible en el repositorio oficial de la RSMDC.">
                 <span>📥</span>
                 Descargar Boletín Oficial
             </div>
@@ -1306,7 +1178,7 @@
 
         <!-- TABLA DETALLADA DE NOTIFICACIÓN -->
         <div class="dashboard-title" data-aos="fade-right" data-aos-duration="600">
-            <h2>TABLA DETALLADA DE NOTIFICACIÓN DE ALERTA (SE-41)</h2>
+            <h2>TABLA DETALLADA DE NOTIFICACIÓN DE ALERTA (SE-42)</h2>
             <hr>
         </div>
 
@@ -1316,16 +1188,16 @@
                 <div class="iframe-dot red"></div>
                 <div class="iframe-dot yellow"></div>
                 <div class="iframe-dot green"></div>
-                <span style="margin-left: 0.5rem;">Vista previa de datos SE-41 · Fuente externa segura (OneDrive)</span>
+                <span style="margin-left: 0.5rem;">Vista previa de datos SE-42 · Fuente externa segura (OneDrive)</span>
             </div>
             <div class="iframe-container">
-                <!-- ⚠️ Reemplaza este src por el enlace de OneDrive correspondiente a la SE-41 -->
+                <!-- ⚠️ Reemplaza este src por el enlace de OneDrive correspondiente a la SE-42 -->
                 <iframe 
                     src="https://1drv.ms/x/c/00098489F3B5F313/IQS-Q1Qs0-s9S5OfPFxS2IR9Ad0uziHKBffRXWsw6mlVsrU" 
                     height="800" 
                     frameborder="0" 
                     scrolling="auto"
-                    title="Tabla detallada de notificación de alerta SE-41"
+                    title="Tabla detallada de notificación de alerta SE-42"
                     loading="lazy">
                 </iframe>
             </div>
@@ -1376,7 +1248,6 @@
                     toggleBtn.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
                 });
 
-                // Cerrar menú al hacer clic en un enlace
                 const links = navLinks.querySelectorAll('a');
                 links.forEach(link => {
                     link.addEventListener('click', () => {
@@ -1389,7 +1260,6 @@
                 });
             }
 
-            // Cerrar menú al hacer clic fuera de él
             document.addEventListener('click', function(event) {
                 if (window.innerWidth <= 1024 && mainNavbar.classList.contains('nav-open')) {
                     if (!mainNavbar.contains(event.target)) {
@@ -1400,34 +1270,11 @@
                 }
             });
 
-            // ========== 2. DROPDOWN DE BOLETINES ==========
-            const dropdownBtn = document.getElementById('dropdownBtn');
-            const dropdown = document.getElementById('dropdownBoletines');
-            
-            if (dropdownBtn && dropdown) {
-                dropdownBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    if (window.innerWidth <= 1024) {
-                        const isOpen = dropdown.classList.toggle('open');
-                        dropdownBtn.setAttribute('aria-expanded', isOpen);
-                    }
-                });
-
-                document.addEventListener('click', function(event) {
-                    if (!dropdown.contains(event.target)) {
-                        dropdown.classList.remove('open');
-                        dropdownBtn.setAttribute('aria-expanded', 'false');
-                    }
-                });
-            }
-
-            // Ajustar menú al redimensionar ventana
             window.addEventListener('resize', () => {
                 if (window.innerWidth > 1024) {
                     mainNavbar.classList.remove('nav-open');
                     menuIcon.textContent = '☰';
                     toggleBtn.setAttribute('aria-expanded', 'false');
-                    dropdown.classList.remove('open');
                 }
             });
 
@@ -1468,7 +1315,7 @@
                 if (event.key === 'Escape' && modal && modal.style.display === 'flex') closeModal();
             });
 
-            // ========== 4. GRÁFICOS (CHART.JS) - DATOS ACTUALIZADOS SE-41 ==========
+            // ========== 4. GRÁFICOS (CHART.JS) - DATOS ACTUALIZADOS SE-42 ==========
             Chart.defaults.color = '#64748b';
             Chart.defaults.borderColor = 'rgba(0, 0, 0, 0.08)';
             Chart.defaults.font.family = "'Inter', sans-serif";
@@ -1476,14 +1323,14 @@
             const years = ['2024', '2025', '2026'];
             const isMobile = window.innerWidth <= 768;
 
-            // Gráfico 1: Dengue - Datos SE-41 (actualizados: 2024=35503, 2025=3124, 2026=2438)
+            // Gráfico 1: Dengue - Datos SE-42 (2024=36106, 2025=3177, 2026=2574)
             new Chart(document.getElementById('chartDengue'), {
                 type: 'bar',
                 data: {
                     labels: years,
                     datasets: [{
                         label: 'Casos Acumulados',
-                        data: [35503, 3124, 2438],
+                        data: [36106, 3177, 2574],
                         backgroundColor: [
                             'rgba(220, 38, 38, 0.7)',
                             'rgba(217, 119, 6, 0.7)',
@@ -1537,14 +1384,14 @@
                 }
             });
 
-            // Gráfico 2: EDA - Datos SE-41
+            // Gráfico 2: EDA - Datos SE-42 (2024=44897, 2025=34472, 2026=36867)
             new Chart(document.getElementById('chartEDA'), {
                 type: 'line',
                 data: {
                     labels: years,
                     datasets: [{
                         label: 'Casos Acumulados',
-                        data: [44183, 33783, 36267],
+                        data: [44897, 34472, 36867],
                         borderColor: '#2563eb',
                         backgroundColor: 'rgba(37, 99, 235, 0.1)',
                         borderWidth: 3,
@@ -1589,14 +1436,14 @@
                 }
             });
 
-            // Gráfico 3: Mortalidad Infantil - Datos SE-41
+            // Gráfico 3: Mortalidad Infantil - Datos SE-42 (2024=114, 2025=112, 2026=123)
             new Chart(document.getElementById('chartMortalidad'), {
                 type: 'bar',
                 data: {
                     labels: years,
                     datasets: [{
                         label: 'Defunciones',
-                        data: [106, 110, 120],
+                        data: [114, 112, 123],
                         backgroundColor: [
                             'rgba(22, 163, 74, 0.6)',
                             'rgba(22, 163, 74, 0.6)',
@@ -1645,8 +1492,8 @@
                 }
             });
 
-            console.log('✅ Dashboard UVS · RSMDC actualizado a SE-41 2026');
-            console.log('📅 Semana: 11 al 17 de octubre 2026');
+            console.log('✅ Dashboard UVS · RSMDC actualizado a SE-42 2026');
+            console.log('📅 Semana: 18 al 24 de octubre 2026');
             console.log('📱 Modo menú desplegable activo en pantallas ≤ 1024px');
         });
     </script>
