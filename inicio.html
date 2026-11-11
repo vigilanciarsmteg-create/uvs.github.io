@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="Boletín Epidemiológico SE-43 2026 - Unidad de Vigilancia de la Salud, Región Sanitaria Metropolitana del Distrito Central">
-    <title>UVS · Boletín Epidemiológico SE-43 2026 · RSMDC</title>
+    <meta name="description" content="Boletín Epidemiológico SE-44 2026 - Unidad de Vigilancia de la Salud, Región Sanitaria Metropolitana del Distrito Central">
+    <title>UVS · Boletín Epidemiológico SE-44 2026 · RSMDC</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -239,6 +239,25 @@
             line-height: 1.4;
         }
 
+        .hero-alert {
+            margin-top: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--danger);
+            background: var(--danger-bg);
+            border: 1px solid rgba(220, 38, 38, 0.25);
+            max-width: 100%;
+            text-align: center;
+            line-height: 1.4;
+            flex-wrap: wrap;
+        }
+
         .hero p {
             margin-top: 1rem;
             color: var(--text-muted);
@@ -452,7 +471,7 @@
             z-index: 1;
         }
 
-        .trend-up, .trend-down, .alert-status {
+        .trend-up, .trend-down, .trend-flat, .alert-status {
             display: inline-flex;
             align-items: center;
             gap: 0.3rem;
@@ -466,6 +485,7 @@
 
         .trend-up { color: var(--danger); background: var(--danger-bg); border: 1px solid rgba(220, 38, 38, 0.2); }
         .trend-down { color: var(--success); background: var(--success-bg); border: 1px solid rgba(22, 163, 74, 0.2); }
+        .trend-flat { color: var(--info); background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.2); }
         .alert-status { color: var(--warning); background: var(--warning-bg); border: 1px solid rgba(217, 119, 6, 0.2); }
 
         /* ============ GRÁFICOS ============ */
@@ -850,6 +870,11 @@
                 gap: 0.3rem;
             }
 
+            .hero-alert {
+                font-size: 0.68rem;
+                padding: 0.5rem 1rem;
+            }
+
             .stats-grid, .chart-grid {
                 grid-template-columns: 1fr;
                 gap: 1rem;
@@ -892,11 +917,16 @@
 
     <!-- ==================== HERO ==================== -->
     <section class="hero" data-aos="fade-down" data-aos-duration="800">
-        <h1>Boletín Epidemiológico SE-43 2026</h1>
+        <h1>Boletín Epidemiológico SE-44 2026</h1>
         <div class="hero-badge">
-            <span>📊</span> Datos oficiales · Semana Epidemiológica 43 · 25 DE OCTUBRE AL 31 DE OCTUBRE DEL 2026 · Región Metropolitana
+            <span>📊</span> Datos oficiales · Semana Epidemiológica 44 · 01 DE NOVIEMBRE AL 07 DE NOVIEMBRE DEL 2026 · Región Metropolitana
+        </div>
+        <br>
+        <div class="hero-alert">
+            <span>🚨</span> Eventos en alerta: Sarampión/Rubeola (emergencia mundial) · Tosferina · Miasis por gusano barrenador · Diarrea (zona de alerta)
         </div>
         <p>Región Sanitaria Metropolitana del Distrito Central · MSc. Jackeline Burgos</p>
+        <p style="font-size: 0.75rem;">✅ Notificación recibida del 99% de establecimientos · 42 eventos bajo vigilancia · Datos preliminares sujetos a actualización semanal</p>
     </section>
 
     <!-- ==================== CONTENEDOR PRINCIPAL ==================== -->
@@ -904,7 +934,7 @@
 
         <!-- RESUMEN POR SALA SITUACIONAL -->
         <div class="dashboard-title" data-aos="fade-right" data-aos-duration="600">
-            <h2>RESUMEN POR SALA SITUACIONAL (Boletín SE-43 / 25 OCTUBRE - 31 OCTUBRE 2026)</h2>
+            <h2>RESUMEN POR SALA SITUACIONAL (Boletín SE-44 / 01 NOVIEMBRE - 07 NOVIEMBRE 2026)</h2>
             <hr>
         </div>
 
@@ -917,17 +947,18 @@
                 </div>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <span class="stat-number">728</span>
+                        <span class="stat-number">772</span>
                         <span class="stat-label">Diarrea sin sangre (semana)</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">8</span>
-                        <span class="stat-label">Disentería</span>
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Disentería (semana)</span>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <span>⚠️ Acumulado 2026: 38.039 diarrea / 226 disentería</span>
-                    <span class="trend-up">▲ +8.0% vs 2025 acum.</span>
+                    <span>⚠️ Acumulado 2026: 38,811 diarrea / 231 disentería</span>
+                    <span class="trend-up">▲ +7.9% diarrea vs 2025 acum.</span>
+                    <span class="alert-status">🚨 Zona de alerta</span>
                 </div>
             </div>
 
@@ -939,21 +970,21 @@
                 </div>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <span class="stat-number">138</span>
-                        <span class="stat-label">Dengue SE-43</span>
+                        <span class="stat-number">130</span>
+                        <span class="stat-label">Dengue SE-44</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">3</span>
-                        <span class="stat-label">Dengue Hemorrágico</span>
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Dengue Hemorrágico (semana)</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">6</span>
-                        <span class="stat-label">Chikungunya sospechoso</span>
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Chikungunya (semana)</span>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <span class="alert-status">🚨 Dengue acum. 2026 = 2.712 · DH acum. = 13</span>
-                    <span>Chikungunya: 6 sem · 8 acum. 2026</span>
+                    <span>Acum. 2026: Dengue 2,842 · DH 13 · Chik. 8 · Zika 2</span>
+                    <span class="trend-flat">➡️ DH: 13 = 13 vs 2025 · zona de seguridad</span>
                 </div>
             </div>
 
@@ -965,7 +996,7 @@
                 </div>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <span class="stat-number">5</span>
+                        <span class="stat-number">3</span>
                         <span class="stat-label">Mortalidad Infantil (semana)</span>
                     </div>
                     <div class="stat-item">
@@ -973,13 +1004,13 @@
                         <span class="stat-label">Mortalidad 1-4 años (semana)</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">0</span>
+                        <span class="stat-number">1</span>
                         <span class="stat-label">Mortalidad Materna (semana)</span>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <span>🏥 Acum. 2026: Infantil 128 · 1-4 años 13 · Materna 4</span>
-                    <span class="trend-up">▲ +10.3% infantil vs 2025</span>
+                    <span>🏥 Acum. 2026: Infantil 131 · 1-4 años 13 · Materna 5</span>
+                    <span class="trend-up">▲ +9.2% infantil vs 2025</span>
                 </div>
             </div>
 
@@ -991,21 +1022,21 @@
                 </div>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <span class="stat-number">1</span>
-                        <span class="stat-label">Sospecha Sarampión</span>
+                        <span class="stat-number">2</span>
+                        <span class="stat-label">Sospecha Sarampión/Rubeola (semana)</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">1</span>
+                        <span class="stat-number">0</span>
                         <span class="stat-label">Tosferina (semana)</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">1</span>
-                        <span class="stat-label">Parotiditis</span>
+                        <span class="stat-label">Parotiditis (semana)</span>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <span>🛡️ Sarampión acum. 2026: 341 casos sospechosos</span>
-                    <span>Tosferina acum: 115 · Parotiditis: 45</span>
+                    <span>🛡️ Acum. 2026: SR 43 (0 confirmados) · Tosferina 115 · Parotiditis 46</span>
+                    <span class="alert-status">🚨 SR y Tosferina en alerta</span>
                 </div>
             </div>
 
@@ -1017,21 +1048,22 @@
                 </div>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <span class="stat-number">51</span>
+                        <span class="stat-number">69</span>
                         <span class="stat-label">Mordeduras rabia (semana)</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">1</span>
-                        <span class="stat-label">Leptospirosis</span>
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Leptospirosis (semana)</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">0</span>
-                        <span class="stat-label">Mordedura Serpiente</span>
+                        <span class="stat-label">Mordedura Serpiente (semana)</span>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <span>🐾 Acumulado 2026 mordeduras: 2.378</span>
-                    <span>Leptospirosis acum: 11</span>
+                    <span>🐾 Mordeduras acum: 2,447 (2025: 2,645)</span>
+                    <span class="trend-down">▼ −7.5% vs 2025 · 0 rabia positiva</span>
+                    <span>Lepto acum: 11 · Serpiente acum: 14</span>
                 </div>
             </div>
 
@@ -1043,17 +1075,17 @@
                 </div>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <span class="stat-number">64</span>
-                        <span class="stat-label">Neumonías SE-43</span>
+                        <span class="stat-number">59</span>
+                        <span class="stat-label">Neumonías SE-44</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">23</span>
+                        <span class="stat-number">43</span>
                         <span class="stat-label">Varicela (semana)</span>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <span>📉 Acumulado neumonías 2026: 2.531 casos</span>
-                    <span>Varicela acum: 897</span>
+                    <span>📉 Neumonías acum: 2,590 (−33% vs 2025) · Varicela acum: 940</span>
+                    <span class="trend-down">▼ Varicela −46.4% vs 2025</span>
                 </div>
             </div>
 
@@ -1069,13 +1101,13 @@
                         <span class="stat-label">Meningitis (semana)</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">0</span>
-                        <span class="stat-label">Guillain-Barré (>15 años)</span>
+                        <span class="stat-number">1</span>
+                        <span class="stat-label">Guillain-Barré &gt;15 años (semana)</span>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <span>⚠️ Parálisis flácida aguda: 7 acumulados 2026</span>
-                    <span>Guillain Barré acum: 14 (>15 años)</span>
+                    <span>⚠️ PFA: 7 acum · Meningitis: 24 acum 2026</span>
+                    <span>GB acum: 15 (2025: 23)</span>
                 </div>
             </div>
 
@@ -1087,16 +1119,17 @@
                 </div>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <span class="stat-number">3</span>
+                        <span class="stat-number">2</span>
                         <span class="stat-label">Hepatitis (semana)</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">1</span>
-                        <span class="stat-label">Intox. Plaguicidas</span>
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Intox. Plaguicidas (semana)</span>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <span>Hepatitis acumulada 2026: 137 casos</span>
+                    <span>Hepatitis acum. 2026: 139 casos</span>
+                    <span class="trend-up">▲ +18.8% vs 2025 (117)</span>
                     <span>Intoxicaciones acum: 20</span>
                 </div>
             </div>
@@ -1104,7 +1137,7 @@
 
         <!-- INDICADORES DE ALERTA Y TENDENCIAS (CON GRÁFICOS) -->
         <div class="dashboard-title" data-aos="fade-right" data-aos-duration="600">
-            <h2>INDICADORES DE ALERTA Y TENDENCIAS (Comparativo 2024-2025-2026) · Datos acumulados SE-43</h2>
+            <h2>INDICADORES DE ALERTA Y TENDENCIAS (Comparativo 2024-2025-2026) · Datos acumulados SE-44</h2>
             <hr>
         </div>
 
@@ -1119,8 +1152,8 @@
                     <canvas id="chartDengue"></canvas>
                 </div>
                 <div class="chart-footer">
-                    <span class="trend-down">▼ Disminución del 16.7% vs 2025</span>
-                    <span>SE-43: 138 casos · Vigilancia activa</span>
+                    <span class="trend-down">▼ Disminución del 15.2% vs 2025</span>
+                    <span>SE-44: 130 casos · Zona de seguridad</span>
                 </div>
             </div>
 
@@ -1134,8 +1167,8 @@
                     <canvas id="chartEDA"></canvas>
                 </div>
                 <div class="chart-footer">
-                    <span class="trend-up">▲ Incremento del 8.0% vs 2025</span>
-                    <span>Vigilancia hídrica reforzada</span>
+                    <span class="trend-up">▲ Incremento del 7.9% vs 2025</span>
+                    <span class="alert-status">🚨 SE-44: 772 casos · zona de alerta</span>
                 </div>
             </div>
 
@@ -1149,7 +1182,7 @@
                     <canvas id="chartMortalidad"></canvas>
                 </div>
                 <div class="chart-footer">
-                    <span class="trend-up">▲ Incremento del 10.3% vs 2025</span>
+                    <span class="trend-up">▲ Incremento del 9.2% vs 2025</span>
                     <span>Monitoreo continuo en red hospitalaria</span>
                 </div>
             </div>
@@ -1157,24 +1190,24 @@
 
         <!-- ACCESO RÁPIDO A INTERVENCIONES -->
         <div class="dashboard-title" data-aos="fade-right" data-aos-duration="600">
-            <h2>ACCESO RÁPIDO A INTERVENCIONES (SE-43)</h2>
+            <h2>ACCESO RÁPIDO A INTERVENCIONES (SE-44)</h2>
             <hr>
         </div>
 
         <div class="quick-access">
-            <div class="quick-card" data-aos="zoom-in" data-aos-delay="100" data-modal-content="📋 Protocolo de atención para Dengue y Dengue Grave actualizado. Incluye clasificación de gravedad, manejo de líquidos y criterios de hospitalización. Casos SE-43: 138 dengue y 3 dengue hemorrágico; acumulado 2026: 2.712 dengue y 13 DH. Chikungunya sospechoso: 6 en la semana 43 y 8 acumulados en 2026. Descargar documento completo en PDF.">
+            <div class="quick-card" data-aos="zoom-in" data-aos-delay="100" data-modal-content="📋 Protocolo de atención para Dengue y Dengue Grave actualizado. Incluye clasificación de gravedad, manejo de líquidos y criterios de hospitalización. Casos SE-44: 130 dengue con y sin signos de alarma y 0 dengue hemorrágico; acumulado 2026: 2,842 dengue y 13 DH (mismo total que 2025). Chikungunya: 0 en la semana y 8 acumulados; Zika: 2 acumulados. Corredor endémico en zona de seguridad. Descargar documento completo en PDF.">
                 <span>🦟</span>
                 Protocolo Dengue 2026
             </div>
-            <div class="quick-card" data-aos="zoom-in" data-aos-delay="200" data-modal-content="📊 Sala situacional interactiva en tiempo real. Datos SE-43: 728 casos de diarrea, 138 dengue, 6 sospechosos de chikungunya, 64 neumonías, 5 defunciones infantiles y 0 en niños de 1-4 años. Acceda al panel completo con filtros por municipio y establecimiento de salud.">
+            <div class="quick-card" data-aos="zoom-in" data-aos-delay="200" data-modal-content="📊 Sala situacional interactiva en tiempo real. Datos SE-44: 772 casos de diarrea (zona de alerta), 130 dengue, 59 neumonías, 43 varicela, 5 disenterías, 3 defunciones infantiles, 0 en niños de 1-4 años y 1 muerte materna. Esta semana notificó el 99% de los establecimientos. Acceda al panel completo con filtros por municipio y establecimiento de salud.">
                 <span>📡</span>
                 Sala Situacional en Vivo
             </div>
-            <div class="quick-card" data-aos="zoom-in" data-aos-delay="300" data-modal-content="📥 Boletín Epidemiológico SE-43 completo en formato PDF (25 - 31 octubre 2026). Incluye análisis detallado, gráficos de tendencia y recomendaciones. Disponible en el repositorio oficial de la RSMDC.">
+            <div class="quick-card" data-aos="zoom-in" data-aos-delay="300" data-modal-content="📥 Boletín Epidemiológico SE-44 completo en formato PDF (01 - 07 noviembre 2026). Incluye análisis detallado, gráficos de tendencia y recomendaciones. Eventos en alerta: sarampión/rubeola, tosferina, miasis por gusano barrenador y diarrea. Disponible en el repositorio oficial de la RSMDC.">
                 <span>📥</span>
                 Descargar Boletín Oficial
             </div>
-            <div class="quick-card" data-aos="zoom-in" data-aos-delay="400" data-modal-content="📧 Correo: vigilancia@rsmdc.hn · Teléfono: 2242-8900 · Disponible 24/7. Notificación inmediata de brotes y eventos de salud pública de notificación obligatoria (ENO).">
+            <div class="quick-card" data-aos="zoom-in" data-aos-delay="400" data-modal-content="📧 Correo: vigilancia@rsmdc.hn · Teléfono: 2242-8900 · Disponible 24/7. Notificación inmediata de brotes y eventos de salud pública de notificación obligatoria (ENO). Prioridad actual: sospecha de sarampión/rubeola, tosferina, miasis por gusano barrenador y diarrea.">
                 <span>📧</span>
                 Notificar Evento ENO
             </div>
@@ -1182,7 +1215,7 @@
 
         <!-- TABLA DETALLADA DE NOTIFICACIÓN -->
         <div class="dashboard-title" data-aos="fade-right" data-aos-duration="600">
-            <h2>TABLA DETALLADA DE NOTIFICACIÓN DE ALERTA (SE-43)</h2>
+            <h2>TABLA DETALLADA DE NOTIFICACIÓN DE ALERTA (SE-44)</h2>
             <hr>
         </div>
 
@@ -1192,16 +1225,16 @@
                 <div class="iframe-dot red"></div>
                 <div class="iframe-dot yellow"></div>
                 <div class="iframe-dot green"></div>
-                <span style="margin-left: 0.5rem;">Vista previa de datos SE-43 · Fuente externa segura (OneDrive)</span>
+                <span style="margin-left: 0.5rem;">Vista previa de datos SE-44 · Fuente externa segura (OneDrive)</span>
             </div>
             <div class="iframe-container">
-                <!-- ⚠️ Reemplaza este src por el enlace de OneDrive correspondiente a la SE-43 -->
+                <!-- ⚠️ Reemplaza este src por el enlace de OneDrive correspondiente a la SE-44 -->
                 <iframe 
                     src="https://1drv.ms/x/c/00098489F3B5F313/IQS-Q1Qs0-s9S5OfPFxS2IR9Ad0uziHKBffRXWsw6mlVsrU" 
                     height="800" 
                     frameborder="0" 
                     scrolling="auto"
-                    title="Tabla detallada de notificación de alerta SE-43"
+                    title="Tabla detallada de notificación de alerta SE-44"
                     loading="lazy">
                 </iframe>
             </div>
@@ -1319,7 +1352,7 @@
                 if (event.key === 'Escape' && modal && modal.style.display === 'flex') closeModal();
             });
 
-            // ========== 4. GRÁFICOS (CHART.JS) - DATOS ACTUALIZADOS SE-43 ==========
+            // ========== 4. GRÁFICOS (CHART.JS) - DATOS ACTUALIZADOS SE-44 ==========
             Chart.defaults.color = '#64748b';
             Chart.defaults.borderColor = 'rgba(0, 0, 0, 0.08)';
             Chart.defaults.font.family = "'Inter', sans-serif";
@@ -1327,14 +1360,14 @@
             const years = ['2024', '2025', '2026'];
             const isMobile = window.innerWidth <= 768;
 
-            // Gráfico 1: Dengue - Datos acumulados SE-43 (2024=36562, 2025=3255, 2026=2712)
+            // Gráfico 1: Dengue - Datos acumulados SE-44 (2024=37002, 2025=3350, 2026=2842)
             new Chart(document.getElementById('chartDengue'), {
                 type: 'bar',
                 data: {
                     labels: years,
                     datasets: [{
                         label: 'Casos Acumulados',
-                        data: [36562, 3255, 2712],
+                        data: [37002, 3350, 2842],
                         backgroundColor: [
                             'rgba(220, 38, 38, 0.7)',
                             'rgba(217, 119, 6, 0.7)',
@@ -1388,14 +1421,14 @@
                 }
             });
 
-            // Gráfico 2: EDA - Datos acumulados SE-43 (2024=45608, 2025=35220, 2026=38039)
+            // Gráfico 2: EDA - Datos acumulados SE-44 (2024=46344, 2025=35969, 2026=38811)
             new Chart(document.getElementById('chartEDA'), {
                 type: 'line',
                 data: {
                     labels: years,
                     datasets: [{
                         label: 'Casos Acumulados',
-                        data: [45608, 35220, 38039],
+                        data: [46344, 35969, 38811],
                         borderColor: '#2563eb',
                         backgroundColor: 'rgba(37, 99, 235, 0.1)',
                         borderWidth: 3,
@@ -1440,14 +1473,14 @@
                 }
             });
 
-            // Gráfico 3: Mortalidad Infantil - Datos acumulados SE-43 (2024=118, 2025=116, 2026=128)
+            // Gráfico 3: Mortalidad Infantil - Datos acumulados SE-44 (2024=121, 2025=120, 2026=131)
             new Chart(document.getElementById('chartMortalidad'), {
                 type: 'bar',
                 data: {
                     labels: years,
                     datasets: [{
                         label: 'Defunciones',
-                        data: [118, 116, 128],
+                        data: [121, 120, 131],
                         backgroundColor: [
                             'rgba(22, 163, 74, 0.6)',
                             'rgba(22, 163, 74, 0.6)',
@@ -1496,10 +1529,11 @@
                 }
             });
 
-            console.log('✅ Dashboard UVS · RSMDC actualizado a SE-43 2026');
-            console.log('📅 Semana: 25 al 31 de octubre 2026');
-            console.log('🦟 Dengue SE-43: 138 casos · Acumulado 2026: 2.712');
-            console.log('🦟 Chikungunya sospechoso: 6 en la semana · 8 acumulados 2026');
+            console.log('✅ Dashboard UVS · RSMDC actualizado a SE-44 2026');
+            console.log('📅 Semana: 01 al 07 de noviembre 2026');
+            console.log('🦟 Dengue SE-44: 130 casos · Acumulado 2026: 2,842 · DH: 0 sem / 13 acum');
+            console.log('💧 Diarrea SE-44: 772 casos (zona de alerta) · Acumulado: 38,811');
+            console.log('🚨 En alerta: Sarampión/Rubeola · Tosferina · Miasis GBG · Diarrea');
             console.log('📱 Modo menú desplegable activo en pantallas ≤ 1024px');
         });
     </script>
